@@ -97,3 +97,9 @@ Fisica, interazione con il mouse, audio, illuminazione dinamica, SMAA.
 - **Contratto del file:** i nodi `shard_XX` e `seam_AA_BB` possono avere 2 o 3 cifre. Il file costruito ha attributi `_SHARD` (id del frammento) e `_PAIR` (coppia a*1024+b) e indici condivisi; niente più attributi di movimento per vertice.
 - **Movimento:** i parametri per frammento (centro, dispersione, asse, angolo, inizio, fine) si generano a runtime da un seme (`shardData.ts`) e vanno agli shader in una texture RGBA float N×3. Le giunture ricavano da qui il proprio intervallo: partono 0.06 prima che arrivi il frammento più lento e durano 0.22 (max 0.95).
 - **Peso:** modello < 1 MB (attuale ≈ 1.0 MB) con griglia 80×60; se un modello reale è più pesante, comprimere con Meshopt.
+
+## Aggiornamento del 2026-09-30 (prestazioni e più frammenti)
+
+- **Frammenti:** 140 (120 sul corpo, 10 per ansa) con griglia 104×78; tetto a 200. Il file costruito è compresso con Meshopt (modalità «high»: posizioni quantizzate, normali con filtro ottaedrico, attributi `_SHARD` e `_PAIR` esatti) e pesa ~350 KB contro 1,7 MB non compresso. Le posizioni caricate sono in uno spazio locale normalizzato con la scala nel nodo: lo shader lavora nello stesso spazio, quindi è coerente.
+- **Prestazioni:** ~49.000 triangoli in 2 draw call. Il controllo automatico ignora i frame del ciclo a 30 fps (prima li scambiava per lentezza e abbassava la qualità). `hasWebGL` richiede WebGL 2 e la creazione del renderer è protetta da `try/catch` (ripiego statico). `?perf=1` mostra fps, tempo di frame, draw call, triangoli e DPR.
+

@@ -4,16 +4,16 @@
 import { Document, NodeIO } from '@gltf-transform/core';
 import { mkdirSync } from 'node:fs';
 
-const NA = 80; // segmenti angolari del corpo
-const NP = 60; // campioni del profilo
+const NA = 104; // segmenti angolari del corpo
+const NP = 78; // campioni del profilo
 const H = 2.4; // altezza del vaso
 const T = 0.05; // spessore della parete
 const HANDLE_R = 0.05; // raggio del tubo delle anse
 const HANDLE_PATH = 40;
 const HANDLE_RING = 10;
-const BODY_SEEDS = 64;
-const HANDLE_SEEDS = 8;
-const MAX_SHARDS = 120;
+const BODY_SEEDS = 120;
+const HANDLE_SEEDS = 10;
+const MAX_SHARDS = 200;
 const SEAM_LIFT = 0.004;
 const SEED = 20260930;
 

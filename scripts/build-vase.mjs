@@ -1,6 +1,9 @@
 // Unisce i nodi shard_XX e seam_AA_BB del modello sorgente in due sole mesh (due draw call).
 // I parametri di movimento non stanno nel file: si generano a runtime da un seme (shardData.ts).
 import { Document, NodeIO } from '@gltf-transform/core';
+import { EXTMeshoptCompression, KHRMeshQuantization } from '@gltf-transform/extensions';
+import { meshopt } from '@gltf-transform/functions';
+import { MeshoptEncoder } from 'meshoptimizer';
 
 const SRC = 'models-src/vase.raw.glb';
 const OUT = 'public/models/vase.glb';
@@ -73,5 +76,12 @@ scene.addChild(doc.createNode('seams').setMesh(doc.createMesh('seams').addPrimit
 
 doc.getRoot().setExtras({ shardCount: shardNodes.length, ...(src.getRoot().getExtras() ?? {}) });
 
-await new NodeIO().write(OUT, doc);
+// Compressione Meshopt in modalità "high": quantizza posizioni e coordinate texture e codifica
+// le normali con il filtro ottaedrico; gli attributi personalizzati (_SHARD, _PAIR) restano esatti.
+await MeshoptEncoder.ready;
+await doc.transform(meshopt({ encoder: MeshoptEncoder, level: 'high' }));
+await new NodeIO()
+  .registerExtensions([EXTMeshoptCompression, KHRMeshQuantization])
+  .registerDependencies({ 'meshopt.encoder': MeshoptEncoder })
+  .write(OUT, doc);
 console.log(`wrote ${OUT}: ${shardNodes.length} shards, ${seamNodes.length} seams, ${S.pos.length / 3} + ${G.pos.length / 3} vertices`);

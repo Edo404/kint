@@ -1,4 +1,6 @@
 import { NodeIO } from '@gltf-transform/core';
+import { EXTMeshoptCompression, KHRMeshQuantization } from '@gltf-transform/extensions';
+import { MeshoptDecoder } from 'meshoptimizer';
 import { existsSync, statSync } from 'node:fs';
 
 const RAW = 'models-src/vase.raw.glb';
@@ -6,14 +8,17 @@ const BUILT = 'public/models/vase.glb';
 const MAX_BYTES = 1024 * 1024; // obiettivo 1 MB (limite duro 1.5 MB)
 const errors = [];
 
+await MeshoptDecoder.ready;
+const builtIO = () => new NodeIO().registerExtensions([EXTMeshoptCompression, KHRMeshQuantization]).registerDependencies({ 'meshopt.decoder': MeshoptDecoder });
+
 if (existsSync(RAW)) {
   const doc = await new NodeIO().read(RAW);
   const nodes = doc.getRoot().listNodes().map((n) => n.getName());
-  const shards = nodes.filter((n) => n.startsWith('shard_')).sort();
+  const shards = nodes.filter((n) => n.startsWith('shard_')).sort((a, b) => Number(a.slice(6)) - Number(b.slice(6)));
   shards.forEach((n, i) => {
-    if (n !== `shard_${String(i).padStart(2, '0')}`) errors.push(`indice frammento non sequenziale: ${n}`);
+    if (!/^shard_\d{2,3}$/.test(n) || Number(n.slice(6)) !== i) errors.push(`indice frammento non sequenziale: ${n}`);
   });
-  if (shards.length < 24 || shards.length > 120) errors.push(`frammenti: ${shards.length}, attesi 24-120`);
+  if (shards.length < 24 || shards.length > 200) errors.push(`frammenti: ${shards.length}, attesi 24-200`);
   const known = new Set(shards.map((n) => Number(n.slice(6))));
   for (const n of nodes.filter((x) => x.startsWith('seam_'))) {
     const m = n.match(/^seam_(\d{2,3})_(\d{2,3})$/);
@@ -44,7 +49,7 @@ if (!existsSync(BUILT)) {
 } else {
   const size = statSync(BUILT).size;
   if (size > MAX_BYTES) errors.push(`${BUILT} pesa ${size} B, oltre ${MAX_BYTES} B`);
-  const doc = await new NodeIO().read(BUILT);
+  const doc = await builtIO().read(BUILT);
   const byName = new Map(doc.getRoot().listNodes().map((n) => [n.getName(), n]));
   const need = {
     shards: ['POSITION', 'NORMAL', '_SHARD'],
