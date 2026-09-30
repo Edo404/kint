@@ -4,13 +4,14 @@ Sito aziendale di Kint (web agency, Lugano) in IT/EN/FR/DE, con un vaso 3D in ki
 
 ## Stato
 
-Fase di design completata, implementazione da avviare. Il repo contiene ancora lo scaffold Vite dei primi 4 task, che verrà sostituito da Astro (vedi "Migrazione").
+Design completato. Piano 1 (scaffold Astro + vaso 3D) scritto e in esecuzione; Piano 2 (sito, contenuti, lingue, SEO) da scrivere dopo il vaso. Il repo contiene ancora lo scaffold Vite dei primi 4 task finché il Task 1 del Piano 1 non lo sostituisce.
 
 Documenti (leggerli prima di lavorare):
 - `docs/brief/kint-site-brief.md` contenuti, requisiti SEO/AI, multilingua. Fonte unica dei testi.
 - `docs/superpowers/specs/2026-09-30-kint-stack-and-split-design.md` stack, budget, migrazione, ordine di lavoro.
 - `docs/superpowers/specs/2026-09-30-kint-site-design.md` sotto-progetto A (sito).
 - `docs/superpowers/specs/2026-09-30-kint-vase-experience-design.md` sotto-progetto B (vaso 3D).
+- `docs/superpowers/plans/2026-09-30-kint-astro-vase.md` Piano 1: scaffold Astro e vaso (9 task).
 - Il primo spec e il primo piano (`...-3d-scroll-site...`) sono superati: solo storico.
 
 ## Stack (deciso)
