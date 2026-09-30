@@ -37,7 +37,8 @@ Pagina sotto 300 KB gzip (modulo 3D e modello esclusi), modello sotto 1.5 MB, LC
 - Progetto Astro statico: `astro.config.mjs`, `src/pages/index.astro` (per ora provvisoria), `tsconfig.json`, `vitest.config.ts`.
 - `src/gl/support.ts` (`hasWebGL`, `setMode`), `src/gl/renderScheduler.ts` (rendering on-demand, con ciclo a fps limitati), `src/gl/governor.ts` (`PerfGovernor`, DPR massimo 1.5), `src/gl/settings.ts` (`readSettings`, `capPixelRatio`, override `?p=` e `?USE_HD=1`): `src/gl/vase/math.ts` (progresso di scroll, easing, opacità, layout del vaso): logica pura con test in `tests/`.
 - `scripts/make-placeholder-vase.mjs` genera `public/models/vase.raw.glb` (vaso placeholder, 32 frammenti) secondo il contratto dello spec B.
-- Comandi: `npm run dev`, `npm run build` (tsc + astro build), `npm test`. Gli script del vaso (`vase:*`) e `npm run check` arrivano con il Piano 1.
+- `scripts/build-vase.mjs` (grezzo → `public/models/vase.glb` con attributi di movimento per frammento) e `scripts/check-vase.mjs` (contratto e peso). `vase.glb` è versionato.
+- Comandi: `npm run dev`, `npm run build` (tsc + astro build), `npm test`. Script del vaso: `npm run vase:placeholder`, `vase:build`, `vase:check`. `npm run check` arriva col Task 9.
 
 ## Manutenzione di questo file
 
