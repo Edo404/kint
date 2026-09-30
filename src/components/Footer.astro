@@ -1,0 +1,15 @@
+---
+import type { Content, SiteData } from '../lib/content.types';
+import { pathFor, type Lang } from '../lib/i18n';
+interface Props { c: Content; lang: Lang; site: SiteData; showPortfolio?: boolean }
+const { c, lang, site, showPortfolio = false } = Astro.props;
+---
+<footer class="site-footer">
+  <p>{c.footer.copyright}</p>
+  <ul>
+    <li><a href={pathFor(lang, 'privacy')}>{c.footer.privacy}</a></li>
+    {showPortfolio && <li><a href={pathFor(lang, 'portfolio')}>{c.nav.portfolio}</a></li>}
+    <li>{c.footer.hosting}</li>
+    <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+  </ul>
+</footer>

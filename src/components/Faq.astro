@@ -1,0 +1,14 @@
+---
+import type { Content } from '../lib/content.types';
+interface Props { c: Content }
+const { c } = Astro.props;
+---
+<div class="faq" aria-labelledby="faq-title">
+  <h3 id="faq-title">{c.contact.faq.title}</h3>
+  {c.contact.faq.items.map((f) => (
+    <details>
+      <summary>{f.q}</summary>
+      <p>{f.a}</p>
+    </details>
+  ))}
+</div>
