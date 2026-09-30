@@ -1,0 +1,14 @@
+name = "kint"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-09-01"
+
+[vars]
+CONTACT_TO = "info@kint.ch"
+CONTACT_FROM = "noreply@kint.ch"
+ALLOWED_ORIGINS = "https://kint.ch"
+
+# Serve Cloudflare Email Routing attivo su kint.ch, con info@kint.ch come destinazione verificata.
+# Verificare i nomi del binding nella documentazione Cloudflare prima del deploy: cambiano.
+[[send_email]]
+name = "SEND_EMAIL"
+destination_address = "info@kint.ch"
