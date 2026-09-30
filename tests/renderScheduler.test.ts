@@ -80,4 +80,41 @@ describe('RenderScheduler', () => {
     f.flush(16);
     expect(draws).toBe(0);
   });
+
+  it('con il ciclo a 30 fps disegna circa ogni 33 ms', () => {
+    const f = fakeRaf();
+    let draws = 0;
+    const s = new RenderScheduler(() => draws++, f.raf, f.caf);
+    s.startLoop(30);
+    for (let t = 0; t <= 100; t += 16) f.flush(t);
+    // disegna a 0, 33+ e 66+ ms: 3 o 4 volte, non 7
+    expect(draws).toBeGreaterThanOrEqual(3);
+    expect(draws).toBeLessThanOrEqual(4);
+  });
+
+  it('una request durante il ciclo disegna al frame successivo', () => {
+    const f = fakeRaf();
+    let draws = 0;
+    const s = new RenderScheduler(() => draws++, f.raf, f.caf);
+    s.startLoop(30);
+    f.flush(0);
+    const before = draws;
+    s.request();
+    f.flush(16);
+    expect(draws).toBe(before + 1);
+  });
+
+  it('stopLoop ferma il ciclo senza altri frame', () => {
+    const f = fakeRaf();
+    let draws = 0;
+    const s = new RenderScheduler(() => draws++, f.raf, f.caf);
+    s.startLoop(30);
+    f.flush(0);
+    s.stopLoop();
+    f.flush(40);
+    const after = draws;
+    f.flush(80);
+    expect(draws).toBe(after);
+    expect(f.pending()).toBe(0);
+  });
 });
