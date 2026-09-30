@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { RenderScheduler } from '../src/three/renderScheduler';
+import { RenderScheduler } from '../src/gl/renderScheduler';
 
 function fakeRaf() {
   let queue: Array<(t: number) => void> = [];

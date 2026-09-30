@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { PerfGovernor, buildPixelRatioLevels } from '../src/perf/governor';
+import { PerfGovernor, buildPixelRatioLevels } from '../src/gl/governor';
 
 describe('buildPixelRatioLevels', () => {
-  it('limita a 2 su schermi densi', () => {
-    expect(buildPixelRatioLevels(3, false)).toEqual([2, 1.5, 1.25, 1]);
+  it('limita a 1.5 su schermi densi', () => {
+    expect(buildPixelRatioLevels(3, false)).toEqual([1.5, 1.25, 1]);
   });
-  it('limita a 1.5 su dispositivi deboli', () => {
-    expect(buildPixelRatioLevels(3, true)).toEqual([1.5, 1.25, 1]);
+  it('limita a 1.25 su dispositivi deboli', () => {
+    expect(buildPixelRatioLevels(3, true)).toEqual([1.25, 1]);
   });
   it("a dpr 1 c'è un solo livello", () => {
     expect(buildPixelRatioLevels(1, false)).toEqual([1]);

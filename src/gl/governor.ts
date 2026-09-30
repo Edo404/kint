@@ -1,6 +1,6 @@
 export function buildPixelRatioLevels(dpr: number, weak: boolean): number[] {
-  const first = Math.min(dpr, weak ? 1.5 : 2);
-  return [first, 1.5, 1.25, 1].filter((v, i) => i === 0 || v < first);
+  const first = Math.min(dpr, weak ? 1.25 : 1.5);
+  return [first, 1.25, 1].filter((v, i) => i === 0 || v < first);
 }
 
 export interface GovernorOptions {

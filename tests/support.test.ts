@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { hasWebGL, setMode } from '../src/support/webgl';
+import { hasWebGL, setMode } from '../src/gl/support';
 
 const docWith = (ctx: (type: string) => unknown) => ({
   createElement: () => ({ getContext: ctx }),
