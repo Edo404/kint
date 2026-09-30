@@ -78,12 +78,11 @@ function makeMatcap({ base, light, dark, bounce, bands, sheen }: MatcapOptions):
   return tex;
 }
 
-const DITHER = /* glsl */ `
+// Opacità senza trasparenza: il colore sfuma verso lo sfondo della pagina (nero #0a0a0a,
+// in spazio lineare). Niente retinatura a punti e niente problemi di ordinamento tra i frammenti.
+const FADE = /* glsl */ `
 uniform float uOpacity;
-// Rumore a gradiente interleaved: retinatura meno geometrica di una matrice di Bayer.
-float bayer4(vec2 p) {
-  return fract(52.9829189 * fract(dot(p, vec2(0.06711056, 0.00583715))));
-}
+const vec3 FADE_BG = vec3(0.003);
 `;
 
 const NOISE = /* glsl */ `
@@ -120,7 +119,7 @@ const f = (n: number) => n.toFixed(4);
 // riga 2 = asse.xyz + fine. Vedi shardData.ts.
 function shardMaterial(u: VaseUniforms, matcap: CanvasTexture): MeshMatcapMaterial {
   const m = new MeshMatcapMaterial({ matcap, side: DoubleSide });
-  m.customProgramCacheKey = () => 'vase-shards-v3';
+  m.customProgramCacheKey = () => 'vase-shards-v4';
   m.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, u);
     shader.vertexShader = shader.vertexShader
@@ -164,7 +163,7 @@ vLocal = position;`,
       .replace(
         '#include <common>',
         `#include <common>
-${DITHER}
+${FADE}
 ${NOISE}
 uniform float uQuality;
 varying float vKind;
@@ -173,8 +172,7 @@ varying vec3 vLocal;`,
       )
       .replace(
         '#include <clipping_planes_fragment>',
-        `#include <clipping_planes_fragment>
-if (uOpacity < bayer4(gl_FragCoord.xy)) discard;`,
+        `#include <clipping_planes_fragment>`,
       )
       // Grana della superficie: piccola perturbazione della normale usata per il matcap.
       .replace(
@@ -208,6 +206,7 @@ if (vKind > 1.5) {
   clay *= vec3(0.62, 0.52, 0.48); // interno più scuro
 }
 outgoingLight *= clay;
+outgoingLight = mix(FADE_BG, outgoingLight, uOpacity);
 #include <opaque_fragment>`,
       );
   };
@@ -218,7 +217,7 @@ outgoingLight *= clay;
 // i due frammenti che uniscono sono vicini alla posizione finale.
 function seamMaterial(u: VaseUniforms, matcap: CanvasTexture): MeshMatcapMaterial {
   const m = new MeshMatcapMaterial({ matcap, side: DoubleSide });
-  m.customProgramCacheKey = () => 'vase-seams-v3';
+  m.customProgramCacheKey = () => 'vase-seams-v4';
   m.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, u);
     shader.vertexShader = shader.vertexShader
@@ -249,7 +248,7 @@ vPairH = fract(aPair * 0.6180339);`,
       .replace(
         '#include <common>',
         `#include <common>
-${DITHER}
+${FADE}
 ${NOISE}
 uniform float uP;
 uniform float uQuality;
@@ -262,8 +261,7 @@ varying vec2 vSeam;`,
         '#include <clipping_planes_fragment>',
         `#include <clipping_planes_fragment>
 float grow = clamp((uP - vSeam.x) / max(vSeam.y - vSeam.x, 0.0001), 0.0, 1.0);
-if (grow <= 0.0 || vU > grow) discard;
-if (uOpacity < bayer4(gl_FragCoord.xy)) discard;`,
+if (grow <= 0.0 || vU > grow) discard;`,
       )
       // Oro vivo: variazione lungo la giuntura, bordi più scuri, centro più luminoso, qualche scintilla.
       .replace(
@@ -277,6 +275,7 @@ if (uQuality > 0.5) {
   shade += 0.5 * pow(hash13(vec3(floor(vU * 90.0), vPairH * 100.0, 3.0)), 14.0);
 }
 outgoingLight *= vec3(1.0, 0.97, 0.88) * shade;
+outgoingLight = mix(FADE_BG, outgoingLight, uOpacity);
 #include <opaque_fragment>`,
       );
   };
