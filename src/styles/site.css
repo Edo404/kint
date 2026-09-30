@@ -2,39 +2,38 @@
 .skip-link:focus { left: 0; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
-.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .75rem 5vw; background: rgb(10 10 10 / .82); backdrop-filter: blur(8px); transition: opacity .4s; }
+.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; padding: .75rem 5vw; background: rgb(10 10 10 / .82); backdrop-filter: blur(8px); transition: opacity .4s; }
 .site-nav[data-reveal='hidden']:not(:focus-within) { opacity: 0; pointer-events: none; }
 .site-nav ul { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
 .site-nav a { color: var(--white); text-decoration: none; }
 .site-nav a:hover, .site-nav a[aria-current='true'] { color: var(--gold); }
-.brand { letter-spacing: .2em; text-transform: uppercase; }
+.brand { letter-spacing: .2em; text-transform: uppercase; justify-self: start; }
+.lang-switch { justify-self: end; }
 
 .opening { flex-direction: column; justify-content: center; gap: 2rem; }
 .logo { width: min(80vw, 34rem); height: auto; color: var(--gold); }
 .scroll-hint { color: var(--white); text-decoration: none; font-size: 1.5rem; opacity: .7; }
 
-.wrap { width: 100%; }
-@media (min-width: 900px) and (orientation: landscape) {
-  .wrap { width: min(58vw, 60rem); }
-}
+.wrap { width: min(100%, 70rem); margin-inline: auto; text-align: center; }
 
 section h2 { font-size: clamp(1.75rem, 4vw, 2.75rem); margin: 0 0 1rem; }
 .subtitle { font-size: 1.25rem; color: var(--gold); }
-.intro { max-width: 40rem; }
-section { padding-block: 6rem; align-items: flex-start; }
+.intro { max-width: 40rem; margin-inline: auto; }
+section { padding-block: 6rem; align-items: flex-start; justify-content: center; }
 #kint { min-height: 100svh; align-items: center; }
 
 .btn { display: inline-block; padding: .7rem 1.4rem; border: 1px solid var(--gold); color: var(--white); text-decoration: none; }
 .btn-gold { background: var(--gold); color: var(--black); }
 .btn:hover { filter: brightness(1.15); }
-.cta-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-block: 1.5rem; }
+.cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-block: 1.5rem; }
 
-.kintsugi { margin-block: 3rem; padding-left: 1.25rem; border-left: 2px solid var(--gold); max-width: 40rem; }
+.kintsugi { margin: 3rem auto; padding-block: 1.5rem; border-block: 1px solid var(--gold); max-width: 40rem; }
 .values { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.25rem; list-style: none; padding: 0; margin: 0; }
 .values h3, .card h3 { margin: 0 0 .5rem; font-size: 1.15rem; color: var(--gold); }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1.25rem; margin-block: 2rem; }
-.card { padding: 1.25rem; background: rgb(255 255 255 / .05); border: 1px solid rgb(245 243 238 / .12); backdrop-filter: blur(6px); }
+.grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; margin-block: 2rem; }
+.grid > .card { flex: 0 1 21rem; }
+.card { text-align: left; padding: 1.25rem; background: rgb(255 255 255 / .05); border: 1px solid rgb(245 243 238 / .12); backdrop-filter: blur(6px); }
 .card dl { margin: 0; }
 .card dt, .label { margin-top: .75rem; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); }
 .card dd { margin: .15rem 0 0; }
@@ -52,15 +51,16 @@ section { padding-block: 6rem; align-items: flex-start; }
 .always ul, .packages ul { list-style: none; padding: 0; display: grid; gap: .5rem; }
 .always ul { grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
 .always li::before { content: '◆ '; color: var(--gold); }
+.packages ul { max-width: 40rem; margin-inline: auto; text-align: left; }
 .packages li { padding: .75rem 1rem; border-left: 2px solid var(--gold); background: rgb(255 255 255 / .04); }
 .note { opacity: .8; }
 
 .call, .details { margin-block: 1.5rem; }
-.details dl { display: grid; grid-template-columns: max-content 1fr; gap: .25rem 1rem; }
+.details dl { display: grid; grid-template-columns: max-content max-content; justify-content: center; gap: .25rem 1rem; text-align: left; }
 .details dt { color: var(--gold); }
 .details a, .faq a { color: var(--white); }
 
-.contact-form { display: grid; gap: 1rem; max-width: 36rem; margin-block: 2rem; }
+.contact-form { display: grid; gap: 1rem; max-width: 36rem; margin: 2rem auto; text-align: left; }
 .contact-form label { display: grid; gap: .3rem; }
 .contact-form input:not([type='checkbox']), .contact-form select, .contact-form textarea {
   padding: .6rem .75rem; background: rgb(255 255 255 / .06); border: 1px solid rgb(245 243 238 / .3); color: var(--white); font: inherit;
@@ -69,14 +69,15 @@ section { padding-block: 6rem; align-items: flex-start; }
 .hp { position: absolute; left: -9999px; }
 .form-status { margin: 0; padding: .6rem .8rem; border-left: 2px solid var(--gold); }
 
+.faq { max-width: 44rem; margin-inline: auto; text-align: left; }
 .faq details { border-top: 1px solid rgb(245 243 238 / .15); padding-block: .75rem; }
 .faq summary { cursor: pointer; }
 .faq p { margin: .5rem 0 0; max-width: 40rem; }
 
 #closing { min-height: 100svh; flex-direction: column; justify-content: flex-end; align-items: center; gap: 1rem; padding-bottom: 2rem; }
 #closing .logo { width: min(40vw, 12rem); }
-.site-footer { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding: 2rem 5vw; border-top: 1px solid rgb(245 243 238 / .15); background: var(--black); }
-.site-footer ul { display: flex; flex-wrap: wrap; gap: 1.25rem; list-style: none; padding: 0; margin: 0; }
+.site-footer { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem; padding: 2rem 5vw; border-top: 1px solid rgb(245 243 238 / .15); background: var(--black); }
+.site-footer ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; list-style: none; padding: 0; margin: 0; }
 .site-footer a { color: var(--white); }
 
 .page section { min-height: 100svh; }

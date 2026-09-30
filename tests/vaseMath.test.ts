@@ -81,20 +81,20 @@ describe('opacityAt', () => {
 });
 
 describe('anchorFor', () => {
-  it('desktop: vaso a destra, poi al centro in chiusura', () => {
-    const a = anchorFor(1440, 900, 0.3);
-    expect(a.x).toBeCloseTo(0.5);
-    expect(a.scale).toBe(1);
-    expect(a.opacityMul).toBe(1);
-    expect(anchorFor(1440, 900, 1).x).toBeCloseTo(0);
+  it('il vaso è sempre al centro, su desktop e su mobile', () => {
+    for (const p of [0, 0.3, 0.7, 1]) {
+      expect(anchorFor(1440, 900, p).x).toBe(0);
+      expect(anchorFor(390, 844, p).x).toBe(0);
+    }
   });
-  it('mobile: sempre al centro, opacità ridotta fino alla chiusura', () => {
-    const mid = anchorFor(390, 844, 0.5);
-    expect(mid.x).toBe(0);
-    expect(mid.opacityMul).toBeCloseTo(0.5);
+  it('dietro i contenuti è attenuato al 60% e in chiusura torna pieno', () => {
+    expect(anchorFor(1440, 900, 0.3).opacityMul).toBeCloseTo(0.6);
+    expect(anchorFor(1440, 900, 1).opacityMul).toBeCloseTo(1);
+    expect(anchorFor(390, 844, 0.5).opacityMul).toBeCloseTo(0.6);
     expect(anchorFor(390, 844, 1).opacityMul).toBeCloseTo(1);
   });
-  it('un tablet in verticale è trattato come mobile', () => {
-    expect(anchorFor(820, 1180, 0.5).x).toBe(0);
+  it("su schermi stretti il vaso è un po' più piccolo", () => {
+    expect(anchorFor(1440, 900, 0.5).scale).toBe(1);
+    expect(anchorFor(390, 844, 0.5).scale).toBeCloseTo(0.85);
   });
 });

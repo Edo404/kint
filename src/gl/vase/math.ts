@@ -34,8 +34,7 @@ export interface Anchor {
 
 export function anchorFor(width: number, height: number, p: number): Anchor {
   const closing = smoothstep(0.92, 1, p);
-  if (width >= 900 && width > height) {
-    return { x: 0.5 * (1 - closing), scale: 1, opacityMul: 1 };
-  }
-  return { x: 0, scale: 0.85, opacityMul: 0.5 + 0.5 * closing };
+  const narrow = !(width >= 900 && width > height);
+  // Il vaso resta al centro come sfondo: attenuato dietro i contenuti, pieno nella chiusura.
+  return { x: 0, scale: narrow ? 0.85 : 1, opacityMul: 0.6 + 0.4 * closing };
 }
