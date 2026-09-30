@@ -17,6 +17,7 @@ export interface Settings {
   weak: boolean;
   debugP: number | null;
   forceHd: boolean;
+  debugPerf: boolean;
 }
 
 export function readSettings(env: Env): Settings {
@@ -33,6 +34,7 @@ export function readSettings(env: Env): Settings {
     weak: env.cores <= 4 || isMobile,
     debugP: Number.isFinite(p) && p >= 0 && p <= 1 ? p : null,
     forceHd: params.get('USE_HD') === '1',
+    debugPerf: params.get('perf') === '1',
   };
 }
 

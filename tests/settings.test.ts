@@ -21,6 +21,7 @@ describe('readSettings', () => {
       weak: false,
       debugP: null,
       forceHd: false,
+      debugPerf: false,
     });
   });
 
@@ -44,6 +45,11 @@ describe('readSettings', () => {
     const s = readSettings({ ...base, search: '?p=0.5&USE_HD=1' });
     expect(s.debugP).toBe(0.5);
     expect(s.forceHd).toBe(true);
+  });
+
+  it('?perf=1 attiva il riquadro delle prestazioni', () => {
+    expect(readSettings({ ...base, search: '?perf=1' }).debugPerf).toBe(true);
+    expect(readSettings({ ...base, search: '?perf=0' }).debugPerf).toBe(false);
   });
 
   it('ignora un p non valido o fuori intervallo', () => {

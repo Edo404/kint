@@ -7,7 +7,8 @@ export function hasWebGL(
 ): boolean {
   try {
     const canvas = doc.createElement('canvas') as CanvasLike;
-    return !!(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+    // Three.js richiede WebGL 2: con il solo WebGL 1 si passa al ripiego statico.
+    return !!canvas.getContext('webgl2');
   } catch {
     return false;
   }

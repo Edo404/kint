@@ -117,4 +117,17 @@ describe('RenderScheduler', () => {
     expect(draws).toBe(after);
     expect(f.pending()).toBe(0);
   });
+
+  it('looping indica se il ciclo a fps è attivo', () => {
+    const f = fakeRaf();
+    const s = new RenderScheduler(() => {}, f.raf, f.caf);
+    expect(s.looping).toBe(false);
+    s.startLoop(30);
+    expect(s.looping).toBe(true);
+    s.stopLoop();
+    expect(s.looping).toBe(false);
+    s.startLoop(30);
+    s.stop();
+    expect(s.looping).toBe(false);
+  });
 });

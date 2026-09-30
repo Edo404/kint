@@ -1,5 +1,6 @@
 import { MathUtils, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
 import { PerfGovernor, buildPixelRatioLevels } from '../governor';
+import { PerfMeter, createPerfOverlay } from '../perf';
 import { RenderScheduler } from '../renderScheduler';
 import { MAX_PIXELS, browserEnv, capPixelRatio, readSettings } from '../settings';
 import { loadVase } from './loadVase';
@@ -21,12 +22,19 @@ export async function mountVase(
   const levels = buildPixelRatioLevels(window.devicePixelRatio, settings.weak);
   const maxPixels = settings.forceHd ? Infinity : MAX_PIXELS;
 
-  const renderer = new WebGLRenderer({
-    canvas,
-    antialias: true,
-    alpha: true,
-    powerPreference: 'high-performance',
-  });
+  let renderer: WebGLRenderer;
+  try {
+    renderer = new WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance',
+    });
+  } catch (err) {
+    console.error(err);
+    onFail();
+    return { destroy() {} };
+  }
   const scene = new Scene();
   const camera = new PerspectiveCamera(35, 1, 0.1, 100);
   camera.position.z = 6;
@@ -65,9 +73,13 @@ export async function mountVase(
   vase.rotation.x = 0.1;
   scene.add(vase);
 
+  const showPerf = settings.debugPerf ? createPerfOverlay() : null;
+  const meter = new PerfMeter();
+
   const scheduler = new RenderScheduler(
     (dt) => {
-      governor.tick(dt);
+      // Nel ciclo a 30 fps il dt è voluto: non è un segnale di lentezza.
+      if (!scheduler.looping) governor.tick(dt);
       const w = window.innerWidth;
       const h = window.innerHeight;
       const p =
@@ -83,6 +95,19 @@ export async function mountVase(
       vase.position.y = a.y;
       vase.scale.setScalar(a.scale);
       renderer.render(scene, camera);
+      if (showPerf) {
+        meter.push(dt);
+        showPerf({
+          fps: meter.fps,
+          frameMs: meter.frameMs,
+          calls: renderer.info.render.calls,
+          triangles: renderer.info.render.triangles,
+          pixelRatio: renderer.getPixelRatio(),
+          width: w,
+          height: h,
+          looping: scheduler.looping,
+        });
+      }
     },
     (cb) => requestAnimationFrame(cb),
     (id) => cancelAnimationFrame(id),

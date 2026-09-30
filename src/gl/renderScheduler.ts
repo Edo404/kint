@@ -16,6 +16,10 @@ export class RenderScheduler {
     private readonly isHidden: () => boolean = () => false,
   ) {}
 
+  get looping(): boolean {
+    return this.loopInterval !== null;
+  }
+
   request(): void {
     this.dirty = true;
     this.schedule();

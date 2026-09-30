@@ -9,8 +9,8 @@ describe('hasWebGL', () => {
   it('è true se webgl2 è disponibile', () => {
     expect(hasWebGL(docWith((t) => (t === 'webgl2' ? {} : null)))).toBe(true);
   });
-  it('è true se solo webgl è disponibile', () => {
-    expect(hasWebGL(docWith((t) => (t === 'webgl' ? {} : null)))).toBe(true);
+  it('è false se è disponibile solo WebGL 1 (Three.js richiede WebGL 2)', () => {
+    expect(hasWebGL(docWith((t) => (t === 'webgl' ? {} : null)))).toBe(false);
   });
   it('è false se nessun contesto è disponibile', () => {
     expect(hasWebGL(docWith(() => null))).toBe(false);
