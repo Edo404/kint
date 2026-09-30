@@ -35,7 +35,7 @@ Pagina sotto 300 KB gzip (modulo 3D e modello esclusi), modello sotto 1.5 MB, LC
 ## File e comandi (stato reale)
 
 - Progetto Astro statico: `astro.config.mjs`, `src/pages/index.astro` (per ora provvisoria), `tsconfig.json`, `vitest.config.ts`.
-- `src/gl/support.ts` (`hasWebGL`, `setMode`), `src/gl/renderScheduler.ts` (rendering on-demand), `src/gl/governor.ts` (`PerfGovernor`, DPR massimo 1.5), `src/gl/settings.ts` (`readSettings`, `capPixelRatio`, override `?p=` e `?USE_HD=1`): logica pura con test in `tests/`.
+- `src/gl/support.ts` (`hasWebGL`, `setMode`), `src/gl/renderScheduler.ts` (rendering on-demand), `src/gl/governor.ts` (`PerfGovernor`, DPR massimo 1.5), `src/gl/settings.ts` (`readSettings`, `capPixelRatio`, override `?p=` e `?USE_HD=1`): `src/gl/vase/math.ts` (progresso di scroll, easing, opacità, layout del vaso): logica pura con test in `tests/`.
 - Comandi: `npm run dev`, `npm run build` (tsc + astro build), `npm test`. Gli script del vaso (`vase:*`) e `npm run check` arrivano con il Piano 1.
 
 ## Manutenzione di questo file
