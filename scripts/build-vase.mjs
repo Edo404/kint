@@ -1,6 +1,6 @@
 import { Document, NodeIO } from '@gltf-transform/core';
 
-const SRC = 'public/models/vase.raw.glb';
+const SRC = 'models-src/vase.raw.glb';
 const OUT = 'public/models/vase.glb';
 
 function mulberry32(seed) {

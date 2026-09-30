@@ -124,7 +124,7 @@ export default defineConfig({
 node_modules
 dist
 .astro
-public/models/*.raw.glb
+models-src (versionata)
 .DS_Store
 ```
 
@@ -713,10 +713,10 @@ git commit -m "feat: fps-capped loop mode for the render scheduler"
 
 **Files:**
 - Create: `scripts/make-placeholder-vase.mjs`
-- Produces (non versionato): `public/models/vase.raw.glb`
+- Produces (non versionato): `models-src/vase.raw.glb`
 
 **Interfaces:**
-- Produces: `public/models/vase.raw.glb` con 32 nodi mesh `shard_00`…`shard_31` (indice = `j * 8 + i`, 8 spicchi per 4 fasce) e i nodi `seam_AA_BB` tra i frammenti adiacenti. Ogni frammento è un solido chiuso (spessore 0.06) in posizione assemblata; ogni giuntura è un nastro con `TEXCOORD_0` (`u` da 0 a 1 lungo il percorso).
+- Produces: `models-src/vase.raw.glb` con 32 nodi mesh `shard_00`…`shard_31` (indice = `j * 8 + i`, 8 spicchi per 4 fasce) e i nodi `seam_AA_BB` tra i frammenti adiacenti. Ogni frammento è un solido chiuso (spessore 0.06) in posizione assemblata; ogni giuntura è un nastro con `TEXCOORD_0` (`u` da 0 a 1 lungo il percorso).
 
 - [ ] **Step 1: Scrivere lo script**
 
@@ -884,14 +884,14 @@ for (let j = 0; j < NH; j++) {
 }
 
 mkdirSync('public/models', { recursive: true });
-await new NodeIO().write('public/models/vase.raw.glb', doc);
-console.log(`wrote public/models/vase.raw.glb (${NA * NH} shards)`);
+await new NodeIO().write('models-src/vase.raw.glb', doc);
+console.log(`wrote models-src/vase.raw.glb (${NA * NH} shards)`);
 ```
 
 - [ ] **Step 2: Generare il vaso grezzo**
 
 Run: `node scripts/make-placeholder-vase.mjs`
-Expected: stampa `wrote public/models/vase.raw.glb (32 shards)`; `ls -l public/models` mostra il file (decine di KB).
+Expected: stampa `wrote models-src/vase.raw.glb (32 shards)`; `ls -l public/models` mostra il file (decine di KB).
 
 - [ ] **Step 3: Committare**
 
@@ -909,7 +909,7 @@ git commit -m "feat: procedural placeholder vase following the GLB contract"
 - Produces (versionato): `public/models/vase.glb`
 
 **Interfaces:**
-- Consumes: `public/models/vase.raw.glb` (contratto del Task 5).
+- Consumes: `models-src/vase.raw.glb` (contratto del Task 5).
 - Produces: `public/models/vase.glb` con due soli nodi mesh:
   - `shards`: `POSITION`, `NORMAL`, `_CENTER` (vec3), `_SCATTER_POS` (vec3), `_SCATTER_AXIS` (vec3), `_SCATTER_ANGLE` (float), `_START` (float), `_END` (float).
   - `seams`: `POSITION`, `NORMAL`, `TEXCOORD_0` (`u` lungo il percorso), `_SEAM_START` (float), `_SEAM_END` (float).
@@ -920,7 +920,7 @@ git commit -m "feat: procedural placeholder vase following the GLB contract"
 ```js
 import { Document, NodeIO } from '@gltf-transform/core';
 
-const SRC = 'public/models/vase.raw.glb';
+const SRC = 'models-src/vase.raw.glb';
 const OUT = 'public/models/vase.glb';
 
 function mulberry32(seed) {
@@ -1046,7 +1046,7 @@ console.log(`wrote ${OUT}: ${shardNodes.length} shards, ${seamNodes.length} seam
 import { NodeIO } from '@gltf-transform/core';
 import { existsSync, statSync } from 'node:fs';
 
-const RAW = 'public/models/vase.raw.glb';
+const RAW = 'models-src/vase.raw.glb';
 const BUILT = 'public/models/vase.glb';
 const MAX_BYTES = 1.5 * 1024 * 1024;
 const errors = [];

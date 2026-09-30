@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 640" role="img" aria-label="Vaso in terracotta riparato con l'oro">
+  <path d="M150 40h100l-8 70c70 50 110 130 110 220 0 110-60 230-152 230S48 440 48 330c0-90 40-170 110-220z" fill="#b5623a"/>
+  <g fill="none" stroke="#c9a24b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M158 110l30 90-40 70 55 80-30 90"/>
+    <path d="M242 110l-25 80 50 60-45 90 40 100"/>
+    <path d="M70 300l90 10 60-30 100 20"/>
+  </g>
+</svg>

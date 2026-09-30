@@ -4,7 +4,7 @@ Sito aziendale di Kint (web agency, Lugano) in IT/EN/FR/DE, con un vaso 3D in ki
 
 ## Stato
 
-Design completato. Piano 1 (scaffold Astro + vaso 3D) scritto e in esecuzione; Piano 2 (sito, contenuti, lingue, SEO) da scrivere dopo il vaso. Task 1 del Piano 1 completato: scaffold migrato ad Astro.
+Piano 1 (scaffold Astro + vaso 3D con modello placeholder) completato. Prossimo: Piano 2 (sito: contenuti YAML, 5 blocchi, 4 lingue, SEO/JSON-LD, form) da scrivere. Da fare anche: modello reale del vaso in Blender, logo SVG, verifica su telefono reale e con `prefers-reduced-motion`.
 
 Documenti (leggerli prima di lavorare):
 - `docs/brief/kint-site-brief.md` contenuti, requisiti SEO/AI, multilingua. Fonte unica dei testi.
@@ -34,11 +34,12 @@ Pagina sotto 300 KB gzip (modulo 3D e modello esclusi), modello sotto 1.5 MB, LC
 
 ## File e comandi (stato reale)
 
-- Progetto Astro statico: `astro.config.mjs`, `src/pages/index.astro` (per ora provvisoria), `tsconfig.json`, `vitest.config.ts`.
-- `src/gl/support.ts` (`hasWebGL`, `setMode`), `src/gl/renderScheduler.ts` (rendering on-demand, con ciclo a fps limitati), `src/gl/governor.ts` (`PerfGovernor`, DPR massimo 1.5), `src/gl/settings.ts` (`readSettings`, `capPixelRatio`, override `?p=` e `?USE_HD=1`): `src/gl/vase/math.ts` (progresso di scroll, easing, opacità, layout del vaso): logica pura con test in `tests/`.
-- `scripts/make-placeholder-vase.mjs` genera `public/models/vase.raw.glb` (vaso placeholder, 32 frammenti) secondo il contratto dello spec B.
-- `scripts/build-vase.mjs` (grezzo → `public/models/vase.glb` con attributi di movimento per frammento) e `scripts/check-vase.mjs` (contratto e peso). `vase.glb` è versionato.
-- Comandi: `npm run dev`, `npm run build` (tsc + astro build), `npm test`. Script del vaso: `npm run vase:placeholder`, `vase:build`, `vase:check`. `npm run check` arriva col Task 9.
+- Progetto Astro statico. `src/pages/index.astro` è una **pagina di prova** con sezioni segnaposto (contenuti veri nel Piano 2). Stili in `src/styles/` (`tokens.css` con la palette, `global.css`).
+- `src/gl/`: `support.ts` (WebGL e modalità fallback), `renderScheduler.ts` (on-demand + ciclo a fps), `governor.ts` (DPR massimo 1.5), `settings.ts` (override `?p=0..1` per fissare il progresso, `?USE_HD=1`), `boot.ts` (ingresso client, carica il 3D come chunk separato a riposo).
+- `src/gl/vase/`: `math.ts` (progresso, easing, opacità, layout), `material.ts` (matcap procedurali + shader), `loadVase.ts`, `vaseScene.ts` (scena, scroll, ciclo di vita).
+- Modello: sorgente `models-src/vase.raw.glb` (contratto nello spec B: nodi `shard_XX` e `seam_AA_BB`); `scripts/build-vase.mjs` produce `public/models/vase.glb`; `scripts/check-vase.mjs` verifica contratto e peso. Il vaso attuale è un **placeholder** generato da `scripts/make-placeholder-vase.mjs`.
+- Comandi: `npm run dev`, `build`, `test`, `check` (test + contratto + build + budget), `vase:placeholder`, `vase:build`, `vase:check`.
+- Da sapere: i matcap sono generati a runtime (nessuna texture); il GLB non è compresso con Meshopt (il loader lo supporta); la trasparenza è un dithering a soglia (a opacità intermedie si vede la trama).
 
 ## Manutenzione di questo file
 

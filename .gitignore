@@ -1,5 +1,4 @@
 node_modules
 dist
 .astro
-public/models/*.raw.glb
 .DS_Store

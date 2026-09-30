@@ -1,12 +1,31 @@
 ---
+import '../styles/global.css';
 ---
-<html lang="it">
+<html lang="it" data-mode="webgl">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Kint</title>
   </head>
   <body>
-    <h1>Kint</h1>
+    <canvas id="canvas" aria-hidden="true"></canvas>
+
+    <main>
+      <section id="opening">
+        <div class="logo-slot" role="img" aria-label="Kint — partner digitale delle piccole imprese">KINT</div>
+      </section>
+      <section id="kint"><div class="copy"><h1>Il partner digitale delle piccole imprese.</h1><p>Siti belli per le persone. Leggibili dalle AI.</p></div></section>
+      <section id="settori"><div class="copy"><h2>Settori</h2><p>Segnaposto: il contenuto arriva con il Piano 2.</p></div></section>
+      <section id="servizi"><div class="copy"><h2>Servizi</h2><p>Segnaposto.</p></div></section>
+      <section id="contatti"><div class="copy"><h2>Contatti</h2><p>Segnaposto.</p></div></section>
+      <section id="closing">
+        <img class="vase-fallback" src="/vase-fallback.svg" alt="" width="400" height="640" />
+      </section>
+    </main>
+
+    <script>
+      import { boot } from '../gl/boot';
+      boot();
+    </script>
   </body>
 </html>

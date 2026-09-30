@@ -159,6 +159,6 @@ for (let j = 0; j < NH; j++) {
   }
 }
 
-mkdirSync('public/models', { recursive: true });
-await new NodeIO().write('public/models/vase.raw.glb', doc);
-console.log(`wrote public/models/vase.raw.glb (${NA * NH} shards)`);
+mkdirSync('models-src', { recursive: true });
+await new NodeIO().write('models-src/vase.raw.glb', doc);
+console.log(`wrote models-src/vase.raw.glb (${NA * NH} shards)`);

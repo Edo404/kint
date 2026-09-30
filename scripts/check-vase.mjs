@@ -1,7 +1,7 @@
 import { NodeIO } from '@gltf-transform/core';
 import { existsSync, statSync } from 'node:fs';
 
-const RAW = 'public/models/vase.raw.glb';
+const RAW = 'models-src/vase.raw.glb';
 const BUILT = 'public/models/vase.glb';
 const MAX_BYTES = 1.5 * 1024 * 1024;
 const errors = [];
