@@ -1,47 +1,78 @@
 ---
+import SectionTitle from './SectionTitle.astro';
+import Seam from './Seam.astro';
+import { iconFor, ui } from '../lib/icons';
 import type { Content } from '../lib/content.types';
 interface Props { c: Content }
 const { c } = Astro.props;
 const s = c.services;
+// Ogni crepa ha un tracciato diverso, scelto dall'indice del servizio.
+const CRACKS = [
+  'M2 12 L22 7 L34 15 L52 5 L66 13 L86 8 L98 14',
+  'M2 8 L18 14 L36 6 L48 12 L70 5 L84 13 L98 9',
+  'M2 14 L20 9 L30 14 L50 6 L62 12 L80 7 L98 12',
+];
 ---
-<section id="servizi" aria-labelledby="servizi-title">
+<section id="servizi" class="block" aria-labelledby="servizi-title">
+  <Seam at="62%" />
   <div class="wrap">
-    <h2 id="servizi-title">{s.title}</h2>
-    <p class="intro">{s.intro}</p>
+    <SectionTitle id="servizi-title" text={s.title} intro={s.intro} />
 
-    <article id="servizi-featured" class="card featured" aria-labelledby="servizi-featured-title">
+    <article id="servizi-featured" class="panel featured" data-inview aria-labelledby="servizi-featured-title">
+      <span class="panel-rule" aria-hidden="true"></span>
+      <div class="panel-glow" aria-hidden="true"></div>
       <p class="label">{c.ui.featured}</p>
       <h3 id="servizi-featured-title">{s.featured.title}</h3>
       <p>{s.featured.text}</p>
     </article>
 
-    <div class="grid">
-      {s.items.map((item) => (
-        <article id={`servizi-${item.id}`} class="card service" data-service={item.id}>
+    <div class="service-grid">
+      {s.items.map((item, i) => (
+        <article
+          id={`servizi-${item.id}`}
+          class="card service"
+          data-service={item.id}
+          data-spotlight
+          data-inview
+          style={`--i:${i % 3}`}
+        >
+          <div class="card-glow" aria-hidden="true"></div>
+          <span class="icon-tile" aria-hidden="true" set:html={iconFor(item.id)} />
           <h3>{item.title}</h3>
-          <p>{item.description}</p>
-          <p class="pair">
-            <span class="crack"><strong>{c.ui.crack}</strong> {item.crack}</span>
-            <span class="gold"><strong>{c.ui.gold}</strong> {item.gold}</span>
-          </p>
+          <p class="desc">{item.description}</p>
+          <div class="repair">
+            <p class="crack"><span class="label">{c.ui.crack}</span>{item.crack}</p>
+            <svg class="crack-line" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+              <path d={CRACKS[i % CRACKS.length]} pathLength="1" />
+            </svg>
+            <p class="gold"><span class="label">{c.ui.gold}</span>{item.gold}</p>
+          </div>
         </article>
       ))}
     </div>
+  </div>
 
-    <div class="always">
+  <div class="band" data-inview>
+    <Seam at="22%" />
+    <div class="wrap">
       <h3>{s.always_included.title}</h3>
-      <ul>
-        {s.always_included.items.map((i) => <li>{i}</li>)}
+      <ul class="band-list">
+        {s.always_included.items.map((x) => <li><span class="tick" aria-hidden="true" set:html={ui.check} />{x}</li>)}
       </ul>
     </div>
+  </div>
 
-    <div class="packages">
+  <div class="wrap">
+    <div class="packages" data-inview>
       <h3>{s.packages.title}</h3>
-      <ul>
+      <ol class="package-row">
         {s.packages.items.map((p) => (
-          <li><strong>{p.name}</strong> {p.text}</li>
+          <li>
+            <p class="package-name">{p.name}</p>
+            <p>{p.text}</p>
+          </li>
         ))}
-      </ul>
+      </ol>
       <p class="note">{s.packages.note}</p>
     </div>
   </div>

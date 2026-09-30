@@ -1,6 +1,10 @@
 ---
+import '@fontsource-variable/manrope/wght.css';
+import '@fontsource/instrument-serif/latin-400-italic.css';
+import '@fontsource/jetbrains-mono/latin-400.css';
 import '../styles/global.css';
 import '../styles/site.css';
+import '../styles/sections.css';
 import { absoluteUrl, alternatesFor, pathFor, type Lang } from '../lib/i18n';
 import { buildEnv, noindex } from '../lib/flags';
 import { loadAll } from '../lib/content';
@@ -25,6 +29,7 @@ const robots = noindex(buildEnv()) ? 'noindex, nofollow' : 'index, follow, max-i
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />

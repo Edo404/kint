@@ -42,9 +42,13 @@ const jsonld = buildJsonLd({ content: c, site, lang });
     import { initNavReveal } from '../../scripts/nav-reveal';
     import { initFormStatus } from '../../scripts/form-status';
     import { initSectorHighlight } from '../../scripts/sector-highlight';
+    import { initReveal } from '../../scripts/reveal';
+    import { initSpotlight } from '../../scripts/spotlight';
     boot();
     initNavReveal();
     initFormStatus();
     initSectorHighlight();
+    initReveal();
+    initSpotlight();
   </script>
 </Base>

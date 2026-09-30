@@ -78,11 +78,11 @@ function makeMatcap({ base, light, dark, bounce, bands, sheen }: MatcapOptions):
   return tex;
 }
 
-// Opacità senza trasparenza: il colore sfuma verso lo sfondo della pagina (nero #0a0a0a,
+// Opacità senza trasparenza: il colore sfuma verso lo sfondo della pagina (--bg #0b0a09,
 // in spazio lineare). Niente retinatura a punti e niente problemi di ordinamento tra i frammenti.
 const FADE = /* glsl */ `
 uniform float uOpacity;
-const vec3 FADE_BG = vec3(0.003);
+const vec3 FADE_BG = vec3(0.0034, 0.0030, 0.0027);
 `;
 
 const NOISE = /* glsl */ `

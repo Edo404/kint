@@ -1,5 +1,8 @@
 ---
 import Faq from './Faq.astro';
+import Seam from './Seam.astro';
+import { splitEmphasis } from '../lib/emphasis';
+import { ui } from '../lib/icons';
 import type { Content, SiteData } from '../lib/content.types';
 import { pathFor, type Lang } from '../lib/i18n';
 interface Props { c: Content; lang: Lang; site: SiteData }
@@ -8,51 +11,66 @@ const f = c.contact.form;
 const d = c.contact.details;
 // Senza link di prenotazione, la CTA porta al modulo.
 const callHref = site.call_url ?? '#contatti-form';
+const t = splitEmphasis(c.contact.title);
 ---
-<section id="contatti" aria-labelledby="contatti-title">
+<section id="contatti" class="block" aria-labelledby="contatti-title">
+  <Seam at="48%" />
   <div class="wrap">
-    <h2 id="contatti-title">{c.contact.title}</h2>
-    <p class="intro">{c.contact.intro}</p>
+    <div class="panel cta-panel" data-inview>
+      <span class="panel-rule" aria-hidden="true"></span>
+      <div class="panel-glow" aria-hidden="true"></div>
+      <h2 id="contatti-title">{t.lead}<span class="gold-text">{t.word}</span>{t.tail}</h2>
+      <p class="intro">{c.contact.intro}</p>
+      <div class="call">
+        <h3 id="call-title">{c.contact.call.title}</h3>
+        <p>{c.contact.call.text}</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-gold" href={callHref}><span class="btn-icon" aria-hidden="true" set:html={ui.calendarCheck} />{c.contact.call.cta_label}</a>
+        <a class="btn btn-ghost" href={`mailto:${d.email}`}><span class="btn-icon" aria-hidden="true" set:html={ui.envelope} />{d.email}</a>
+      </div>
+    </div>
 
-    <article class="card call" aria-labelledby="call-title">
-      <h3 id="call-title">{c.contact.call.title}</h3>
-      <p>{c.contact.call.text}</p>
-      <a class="btn btn-gold" href={callHref}>{c.contact.call.cta_label}</a>
-    </article>
+    <div class="contact-grid">
+      <form id="contatti-form" class="card contact-form" method="post" action="/api/contact" data-inview style="--i:0">
+        <input type="hidden" name="lang" value={lang} />
+        <p class="hp" aria-hidden="true">
+          <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <div class="field-row">
+          <label class="field">{f.name}<input name="name" type="text" autocomplete="name" required /></label>
+          <label class="field">{f.email}<input name="email" type="email" autocomplete="email" required /></label>
+        </div>
+        <div class="field-row">
+          <label class="field">{f.phone}<input name="phone" type="tel" autocomplete="tel" /></label>
+          <label class="field">{f.company}<input name="company" type="text" autocomplete="organization" /></label>
+        </div>
+        <label class="field">{f.sector}
+          <select name="sector">
+            {c.sectors.items.map((s) => <option value={s.id}>{s.name}</option>)}
+            <option value="other">{f.sector_other}</option>
+          </select>
+        </label>
+        <label class="field">{f.message}<textarea name="message" rows="5" required></textarea></label>
+        <label class="check"><input type="checkbox" name="privacy" required /> <a href={pathFor(lang, 'privacy')}>{f.privacy_label}</a></label>
+        <button class="btn btn-gold" type="submit">{f.submit}</button>
+        <p class="form-status" role="status" data-form-sent hidden>{f.sent}</p>
+        <p class="form-status" role="alert" data-form-error hidden>{f.error}</p>
+      </form>
 
-    <address class="details">
-      <dl>
-        <dt>{d.labels.email}</dt>
-        <dd><a href={`mailto:${d.email}`}>{d.email}</a></dd>
-        <dt>{d.labels.address}</dt>
-        <dd>{d.address}</dd>
-        {d.phone && (<><dt>{d.labels.phone}</dt><dd><a href={`tel:${d.phone.replace(/\s/g, '')}`}>{d.phone}</a></dd></>)}
-        {d.hours && (<><dt>{d.labels.hours}</dt><dd>{d.hours}</dd></>)}
-      </dl>
-    </address>
-
-    <form id="contatti-form" class="contact-form" method="post" action="/api/contact">
-      <input type="hidden" name="lang" value={lang} />
-      <p class="hp" aria-hidden="true">
-        <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
-      </p>
-      <label>{f.name} <input name="name" type="text" autocomplete="name" required /></label>
-      <label>{f.email} <input name="email" type="email" autocomplete="email" required /></label>
-      <label>{f.phone} <input name="phone" type="tel" autocomplete="tel" /></label>
-      <label>{f.company} <input name="company" type="text" autocomplete="organization" /></label>
-      <label>{f.sector}
-        <select name="sector">
-          {c.sectors.items.map((s) => <option value={s.id}>{s.name}</option>)}
-          <option value="other">{f.sector_other}</option>
-        </select>
-      </label>
-      <label>{f.message} <textarea name="message" rows="5" required></textarea></label>
-      <label class="check"><input type="checkbox" name="privacy" required /> <a href={pathFor(lang, 'privacy')}>{f.privacy_label}</a></label>
-      <button class="btn btn-gold" type="submit">{f.submit}</button>
-      <p class="form-status" role="status" data-form-sent hidden>{f.sent}</p>
-      <p class="form-status" role="alert" data-form-error hidden>{f.error}</p>
-    </form>
-
-    <Faq c={c} />
+      <aside class="contact-aside" data-inview style="--i:1">
+        <address class="details">
+          <dl>
+            <dt>{d.labels.email}</dt>
+            <dd><a href={`mailto:${d.email}`}>{d.email}</a></dd>
+            <dt>{d.labels.address}</dt>
+            <dd>{d.address}</dd>
+            {d.phone && (<><dt>{d.labels.phone}</dt><dd><a href={`tel:${d.phone.replace(/\s/g, '')}`}>{d.phone}</a></dd></>)}
+            {d.hours && (<><dt>{d.labels.hours}</dt><dd>{d.hours}</dd></>)}
+          </dl>
+        </address>
+        <Faq c={c} />
+      </aside>
+    </div>
   </div>
 </section>

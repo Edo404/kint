@@ -25,7 +25,7 @@ Astro statico su Cloudflare Pages, contenuti YAML per lingua, Three.js (versione
 - Three.js solo con import nominali. Rendering on-demand; unica eccezione la deriva dei frammenti nell'apertura (30 fps, solo se visibile).
 - DPR massimo 1.5 e tetto 2560×1440 pixel. Nessuna luce né ombra in tempo reale.
 - Zoom consentito, contrasto AA, `prefers-reduced-motion` rispettato.
-- Palette: oro, nero, bianco (valori indicativi nello spec del sito). Logo SVG in arrivo: spazio riservato.
+- Stile ripreso dal sito di riferimento https://kint-edoardo.edoardo-gamurrini.workers.dev: token in `src/styles/tokens.css` (nero caldo #0b0a09, superfici #141210/#1c1916, testo #f3efe7, oro #c29436/#e5be62), font self-hosted via @fontsource (Manrope; Instrument Serif corsivo solo per la parola in oro dei titoli; JetBrains Mono per le etichette). Forme: schede 1.25rem, pannelli 2rem, campi 0.75rem, pulsanti a pillola. Layout centrato. Logo SVG in arrivo: spazio riservato.
 - Non inventare dati: i `[TODO]` del brief si omettono in produzione e si elencano nel report.
 - Portfolio: costruito ma non pubblicato (`PORTFOLIO_PUBLISHED=false`).
 

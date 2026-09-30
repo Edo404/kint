@@ -1,4 +1,5 @@
 ---
+import { ui } from '../lib/icons';
 import type { Content } from '../lib/content.types';
 interface Props { c: Content }
 const { c } = Astro.props;
@@ -7,7 +8,7 @@ const { c } = Astro.props;
   <h3 id="faq-title">{c.contact.faq.title}</h3>
   {c.contact.faq.items.map((f) => (
     <details>
-      <summary>{f.q}</summary>
+      <summary>{f.q}<span class="faq-icon" aria-hidden="true" set:html={ui.plus} /></summary>
       <p>{f.a}</p>
     </details>
   ))}

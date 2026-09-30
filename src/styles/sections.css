@@ -1,0 +1,249 @@
+/* Settori, Servizi e Contatti: linguaggio del sito di riferimento di Kint.
+   Superfici scure calde, bordi sottili, oro per le cuciture; animazioni legate allo scroll. */
+
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- sezioni ---------- */
+.block { position: relative; display: block; padding-block: clamp(5rem, 10vw, 8rem); padding-inline: 1.5rem; }
+.block .wrap { width: min(100%, 76rem); }
+
+.section-head { max-width: 46rem; margin: 0 auto clamp(2.5rem, 5vw, 4rem); }
+.section-head h2 { font-size: clamp(2rem, 4.6vw, 3.25rem); font-weight: 700; line-height: 1.12; letter-spacing: -0.025em; margin: 0 0 1.1rem; text-wrap: balance; }
+.section-head .intro { color: var(--muted); font-size: 1.05rem; max-width: 36rem; }
+
+/* Parola in oro con sottolineatura che si cuce da sinistra quando il titolo entra in vista. */
+.stitch { position: relative; display: inline-block; font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--gold-2); letter-spacing: -0.01em; padding-inline: 0.04em; }
+.stitch::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0.02em; height: 2px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold-2), var(--gold));
+  transform: scaleX(1); transform-origin: left center;
+  transition: transform 0.9s var(--ease-out) 0.35s;
+}
+.js .section-head:not(.is-in) .stitch::after { transform: scaleX(0); }
+
+.label, .card .label { display: block; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 1.25rem 0 0.4rem; }
+
+/* ---------- comparsa allo scroll ---------- */
+.js [data-inview] {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+.js [data-inview].is-in { opacity: 1; transform: none; }
+
+/* ---------- cucitura d'oro in testa alle sezioni ---------- */
+.seam { position: absolute; top: 0; left: 0; right: 0; height: 3px; pointer-events: none; }
+.js .seam[data-inview] { opacity: 1; transform: none; }
+.seam-run { position: absolute; top: 0.75px; height: 1.5px; }
+.seam-l { left: 0; width: var(--seam-x); transform-origin: right center; background: linear-gradient(90deg, transparent, var(--gold) 70%, var(--gold-2)); }
+.seam-r { left: var(--seam-x); right: 0; transform-origin: left center; background: linear-gradient(90deg, var(--gold-2), var(--gold) 30%, transparent); }
+.seam-mark {
+  position: absolute; top: 0; left: var(--seam-x); width: 18px; height: 3px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold-2), var(--gold));
+  box-shadow: 0 0 12px -2px var(--glow); transform: translateX(-50%);
+}
+.js .seam .seam-run { transform: scaleX(0); transition: transform 1.3s var(--ease-out) 0.12s; }
+.js .seam .seam-mark { opacity: 0; transform: translateX(-50%) scaleX(0.6); transition: opacity 0.26s var(--ease-out), transform 0.26s var(--ease-out); }
+.js .seam.is-in .seam-run { transform: scaleX(1); }
+.js .seam.is-in .seam-mark { opacity: 1; transform: translateX(-50%) scaleX(1); }
+
+/* ---------- schede ---------- */
+.card {
+  position: relative; overflow: hidden; text-align: left;
+  padding: clamp(1.5rem, 2.4vw, 2rem);
+  background: color-mix(in oklab, var(--surface) 94%, transparent);
+  border: 1px solid var(--line); border-radius: var(--radius-card);
+  transition: border-color 0.3s, transform 0.3s var(--ease-out), background-color 0.3s;
+}
+.card:hover { border-color: var(--line-strong); }
+.card h3 { margin: 1.5rem 0 0.35rem; font-size: clamp(1.15rem, 1.6vw, 1.4rem); font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; color: var(--ink); }
+.card p { margin: 0; }
+@media (hover: none) { .card:active { transform: scale(0.985); } }
+
+/* Riflesso che segue il puntatore (coordinate da spotlight.ts). */
+.card-glow {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s;
+  background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--gold) 16%, transparent), transparent 42%);
+}
+@media (hover: hover) and (pointer: fine) { .card:hover .card-glow { opacity: 1; } }
+
+.icon-tile {
+  display: grid; place-items: center; width: 2.75rem; height: 2.75rem;
+  border: 1px solid var(--line); border-radius: 0.9rem; background: var(--surface-2); color: var(--ink);
+  transition: border-color 0.3s, color 0.3s;
+}
+.icon-tile svg { width: 1.4rem; height: 1.4rem; fill: currentColor; }
+.card:hover .icon-tile, .card[data-active] .icon-tile, .card[data-highlight] .icon-tile { border-color: var(--gold); color: var(--gold-2); }
+
+.ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+.ticks li, .band-list li { display: flex; gap: 0.6rem; align-items: flex-start; }
+.tick { flex: none; display: grid; place-items: center; width: 1.1rem; height: 1.1rem; margin-top: 0.2em; color: var(--gold-2); }
+.tick svg { width: 100%; height: 100%; fill: currentColor; }
+
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chips a {
+  display: inline-block; padding: 0.3rem 0.75rem; border: 1px solid var(--line-strong); border-radius: 999px;
+  color: var(--ink); text-decoration: none; font-size: 0.8rem; transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+}
+.chips a:hover { border-color: var(--gold); color: var(--gold-2); }
+
+/* ---------- settori: griglia a ritmo variabile ---------- */
+.bento { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.sector { cursor: pointer; display: flex; flex-direction: column; gap: 0.25rem; }
+.sector .for-whom { color: var(--muted); font-size: 0.92rem; }
+.sector .problem { margin-top: 0.5rem; font-size: 0.98rem; color: color-mix(in oklab, var(--ink) 88%, transparent); }
+.sector .what { font-size: 0.95rem; }
+.sector .ticks { font-size: 0.92rem; }
+.sector[data-active] { border-color: var(--gold); }
+@media (min-width: 768px) {
+  .bento { grid-template-columns: repeat(2, 1fr); }
+  .sector.is-first { grid-column: span 2; }
+}
+@media (min-width: 1024px) {
+  .bento { grid-template-columns: repeat(3, 1fr); }
+  .sector.is-wide { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; column-gap: 2.5rem; }
+  .sector.is-wide .sector-side { padding-top: 0.25rem; }
+  .sector.is-wide .sector-side > .label:first-child { margin-top: 0; }
+  .sector.is-wide .problem { font-size: 1.05rem; }
+}
+
+.closing-link { margin-top: 2.5rem; }
+.closing-link a { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--gold-2); font-weight: 600; text-decoration: none; }
+.closing-link .arrow { display: inline-grid; width: 1.1rem; height: 1.1rem; transition: transform 0.25s var(--ease-out); }
+.closing-link .arrow svg { width: 100%; height: 100%; fill: currentColor; }
+.closing-link a:hover .arrow { transform: translateX(4px); }
+
+/* ---------- pannelli (servizio in evidenza, invito ai contatti) ---------- */
+.panel {
+  position: relative; overflow: hidden; text-align: center;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+  background: color-mix(in oklab, var(--surface) 95%, transparent);
+  border: 1px solid var(--line); border-radius: var(--radius-panel);
+}
+.panel > * { position: relative; }
+.panel-glow { position: absolute; left: 50%; top: 50%; width: 26rem; height: 26rem; transform: translate(-50%, -50%); border-radius: 50%; background: color-mix(in oklab, var(--gold) 12%, transparent); filter: blur(110px); pointer-events: none; }
+.panel-rule { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); transform-origin: center; }
+.js .panel:not(.is-in) .panel-rule { transform: scaleX(0); }
+.panel .panel-rule { transition: transform 1.2s var(--ease-out) 0.3s; }
+
+.featured { margin-bottom: 1.25rem; }
+.featured .label { margin-top: 0; }
+.featured h3 { margin: 0.5rem auto 1rem; font-size: clamp(1.6rem, 3.2vw, 2.4rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+.featured p:last-child { max-width: 44rem; margin-inline: auto; color: var(--muted); font-size: 1.02rem; }
+
+/* ---------- servizi: crepa che diventa oro ---------- */
+.service-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 768px) { .service-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .service-grid { grid-template-columns: repeat(3, 1fr); } }
+.service { display: flex; flex-direction: column; }
+.service .desc { color: var(--muted); font-size: 0.92rem; }
+.repair { margin-top: auto; padding-top: 1.5rem; }
+.repair .label { display: inline; margin: 0 0.5rem 0 0; }
+.repair .crack { color: var(--muted); font-size: 0.9rem; }
+.repair .crack .label { color: var(--muted); }
+.repair .gold { font-size: 0.95rem; color: var(--ink); }
+.crack-line { display: block; width: 100%; height: 14px; margin: 0.6rem 0; overflow: visible; }
+.crack-line path {
+  fill: none; stroke: var(--gold-2); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 1; stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 4px var(--glow));
+  transition: stroke-dashoffset 1.4s var(--ease-out) 0.3s;
+}
+.js .service:not(.is-in) .crack-line path { stroke-dashoffset: 1; }
+.service[data-highlight] { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 0 32px -6px var(--glow); }
+
+/* Fascia "sempre inclusi": striscia a tutta larghezza cucita in oro. */
+.band { position: relative; margin-block: clamp(3rem, 6vw, 5rem); margin-inline: -1.5rem; padding: clamp(2rem, 4vw, 3rem) 1.5rem; background: color-mix(in oklab, var(--surface-2) 95%, transparent); }
+.band h3 { margin: 0 0 1.25rem; font-size: 1.1rem; font-weight: 700; }
+.band-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 2.5rem; }
+
+/* Pacchetti: tre colonne divise da fili d'oro, senza schede. */
+.packages h3 { margin: 0 0 2rem; font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 700; letter-spacing: -0.02em; }
+.package-row { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; }
+.package-row li { padding: 1.5rem 1.25rem; border-top: 1px solid color-mix(in oklab, var(--gold) 45%, transparent); }
+.package-row li:first-child { border-top: 0; }
+.package-row p { margin: 0; color: var(--muted); }
+.package-name { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.7rem, 3vw, 2.2rem); line-height: 1.1; color: var(--gold-2) !important; margin-bottom: 0.6rem !important; }
+@media (min-width: 768px) {
+  .package-row { grid-template-columns: repeat(3, 1fr); }
+  .package-row li { border-top: 0; border-left: 1px solid color-mix(in oklab, var(--gold) 45%, transparent); padding-block: 0.5rem; }
+  .package-row li:first-child { border-left: 0; }
+}
+.packages .note { margin-top: 2rem; color: var(--muted); font-size: 0.92rem; }
+
+/* ---------- pulsanti ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.8rem 1.4rem; border-radius: 999px;
+  border: 1px solid var(--line-strong); color: var(--ink); background: transparent;
+  font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: transform 0.16s var(--ease-out), background-color 0.2s, border-color 0.2s, filter 0.2s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-gold { background: linear-gradient(180deg, var(--gold-2), var(--gold)); border-color: transparent; color: var(--bg); }
+.btn-gold:hover { filter: brightness(1.08); }
+.btn-ghost:hover { border-color: var(--gold); }
+.btn-icon { display: inline-grid; width: 1.15rem; height: 1.15rem; }
+.btn-icon svg { width: 100%; height: 100%; fill: currentColor; }
+
+/* ---------- contatti ---------- */
+.cta-panel h2 { margin: 0 auto 1rem; max-width: 40rem; font-size: clamp(2.2rem, 5.5vw, 3.75rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+.cta-panel .intro { color: var(--muted); max-width: 34rem; margin-inline: auto; }
+.cta-panel .call { max-width: 36rem; margin: 2rem auto 0; }
+.cta-panel .call h3 { margin: 0 0 0.4rem; font-size: 1.1rem; font-weight: 700; color: var(--gold-2); }
+.cta-panel .call p { color: var(--muted); }
+.cta-panel .cta-row { margin-top: 2rem; }
+
+.gold-text {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em;
+  background: linear-gradient(100deg, var(--gold-deep), var(--gold-2) 40%, var(--gold) 60%, var(--gold-deep));
+  background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmer 7s ease-in-out infinite;
+}
+@keyframes shimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+.contact-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-top: 1.25rem; text-align: left; }
+@media (min-width: 900px) { .contact-grid { grid-template-columns: 7fr 5fr; align-items: start; } }
+
+.contact-form { display: grid; gap: 1rem; }
+.field-row { display: grid; gap: 1rem; }
+@media (min-width: 640px) { .field-row { grid-template-columns: 1fr 1fr; } }
+.field { display: grid; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+.field input, .field select, .field textarea {
+  width: 100%; padding: 0.75rem 0.9rem; font: inherit; font-weight: 400; font-size: 0.98rem; color: var(--ink);
+  background: var(--surface-2); border: 1px solid var(--line-strong); border-radius: var(--radius-field);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field textarea { resize: vertical; min-height: 8rem; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px color-mix(in oklab, var(--gold) 25%, transparent); }
+.contact-form .check { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; }
+.contact-form .check input { accent-color: var(--gold); width: 1.05rem; height: 1.05rem; }
+.contact-form .check a { color: var(--ink); }
+.contact-form button { justify-self: start; }
+.form-status { margin: 0; padding: 0.7rem 0.9rem; border-left: 2px solid var(--gold); background: var(--surface-2); border-radius: 0 var(--radius-field) var(--radius-field) 0; }
+
+.contact-aside { display: grid; gap: 1.25rem; }
+.details { font-style: normal; padding: 1.5rem; border: 1px solid var(--line); border-radius: var(--radius-card); background: color-mix(in oklab, var(--surface) 94%, transparent); }
+.details dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.5rem 1.25rem; margin: 0; }
+.details dt { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); padding-top: 0.2em; }
+.details dd { margin: 0; }
+.details a { color: var(--ink); }
+
+.faq { padding: 0.5rem 1.5rem; border: 1px solid var(--line); border-radius: var(--radius-card); background: color-mix(in oklab, var(--surface) 94%, transparent); }
+.faq h3 { margin: 1rem 0 0.5rem; font-size: 1.05rem; font-weight: 700; }
+.faq details { border-top: 1px solid var(--line); }
+.faq details:first-of-type { border-top: 0; }
+.faq summary { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.95rem 0; cursor: pointer; list-style: none; font-weight: 600; font-size: 0.95rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq-icon { flex: none; display: grid; width: 1.1rem; height: 1.1rem; color: var(--gold-2); transition: transform 0.25s var(--ease-out); }
+.faq-icon svg { width: 100%; height: 100%; fill: currentColor; }
+.faq details[open] .faq-icon { transform: rotate(45deg); }
+.faq details p { margin: 0 0 1rem; color: var(--muted); font-size: 0.93rem; }
+.faq summary:hover { color: var(--gold-2); }
+
+/* ---------- movimento ridotto ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .js [data-inview] { transform: none; transition: opacity 0.3s linear; transition-delay: 0s; }
+  .stitch::after, .panel .panel-rule, .crack-line path, .js .seam .seam-run { transition-duration: 0s; }
+  .gold-text { animation: none; }
+  .card, .btn, .closing-link .arrow, .faq-icon { transition: none; }
+}

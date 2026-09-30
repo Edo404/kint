@@ -1,5 +1,29 @@
+/* Palette e caratteri ripresi dal sito di riferimento di Kint (oro, nero caldo, bianco caldo). */
 :root {
-  --black: #0a0a0a;
-  --white: #f5f3ee;
-  --gold: #c9a24b;
+  --bg: #0b0a09;
+  --surface: #141210;
+  --surface-2: #1c1916;
+  --line: #f3efe717;
+  --line-strong: #f3efe72e;
+  --ink: #f3efe7;
+  --muted: #a39d92;
+  --gold: #c29436;
+  --gold-2: #e5be62;
+  --gold-deep: #8a6a22;
+  --glow: #c2943659;
+
+  --font-sans: 'Manrope Variable', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Forme: schede 1.25rem, pannelli 2rem, campi 0.75rem, pulsanti a pillola. */
+  --radius-card: 1.25rem;
+  --radius-panel: 2rem;
+  --radius-field: 0.75rem;
+
+  /* Nomi usati dal codice precedente. */
+  --black: var(--bg);
+  --white: var(--ink);
 }

@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/styles/sections.css"
+        ],
+        "createdAt": "2026-09-30T14:13:14.072Z",
+        "reason": "Reference site chosen by the user (kint-edoardo workers.dev) uses the same gold shimmer on one emphasized word; applied only to .gold-text in the contact title"
+      }
+    ]
+  }
+}

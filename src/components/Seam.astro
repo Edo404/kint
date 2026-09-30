@@ -1,0 +1,10 @@
+---
+// Cucitura d'oro sul bordo superiore di una sezione: due fili partono da un punto e corrono ai lati.
+interface Props { at?: string }
+const { at = '50%' } = Astro.props;
+---
+<div class="seam" data-inview aria-hidden="true" style={`--seam-x:${at}`}>
+  <span class="seam-run seam-l"></span>
+  <span class="seam-run seam-r"></span>
+  <span class="seam-mark"></span>
+</div>
