@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 import { join, relative, sep } from 'node:path';
 
@@ -14,20 +14,33 @@ function* walk(dir) {
 }
 const gz = (buf) => gzipSync(buf).length;
 
-const html = readFileSync('dist/index.html', 'utf8');
-const referenced = new Set(
-  [...html.matchAll(/(?:src|href)="([^"]+\.(?:js|css))"/g)].map((m) =>
-    m[1].replace(/^\.?\//, '').replace(/^\//, ''),
-  ),
-);
+const LANGS = ['it', 'en', 'fr', 'de'];
+const pages = LANGS.map((l) => `dist/${l}/index.html`).filter((p) => existsSync(p));
+if (!pages.length) {
+  console.error('FAIL: nessuna pagina in dist/<lingua>/index.html: eseguire prima la build');
+  process.exit(1);
+}
 
-let initial = gz(Buffer.from(html));
+const assetsOf = (html) =>
+  [...html.matchAll(/(?:src|href)="([^"]+\.(?:js|css))"/g)].map((m) => m[1].replace(/^\.?\//, '').replace(/^\//, ''));
+
+// Peso iniziale = HTML + CSS + JS referenziati dalla pagina più pesante.
+let initial = 0;
+const referenced = new Set();
+for (const page of pages) {
+  const html = readFileSync(page, 'utf8');
+  const assets = assetsOf(html);
+  assets.forEach((a) => referenced.add(a));
+  const size = gz(Buffer.from(html)) + assets.reduce((n, a) => n + (existsSync(`dist/${a}`) ? gz(readFileSync(`dist/${a}`)) : 0), 0);
+  initial = Math.max(initial, size);
+}
+
 let failed = false;
-const rows = [['index.html', initial, 'iniziale']];
+const rows = pages.map((p) => [p.replace('dist/', ''), gz(readFileSync(p)), 'iniziale']);
 
 for (const file of walk('dist')) {
   const rel = relative('dist', file).split(sep).join('/');
-  if (rel === 'index.html') continue;
+  if (rel.endsWith('.html')) continue;
   const raw = readFileSync(file);
 
   if (rel.startsWith('models/')) {
@@ -37,7 +50,6 @@ for (const file of walk('dist')) {
       failed = true;
     }
   } else if (referenced.has(rel)) {
-    initial += gz(raw);
     rows.push([rel, gz(raw), 'iniziale']);
   } else if (/\.(js|css)$/.test(rel)) {
     rows.push([rel, gz(raw), 'lazy (3D)']);
