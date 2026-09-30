@@ -1,3 +1,5 @@
+> **SUPERATO il 2026-09-30** da `docs/superpowers/specs/2026-09-30-kint-stack-and-split-design.md` (Astro, due sotto-progetti). Lasciato come storico.
+
 # Kint 3D Scroll Site Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.

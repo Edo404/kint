@@ -1,3 +1,5 @@
+> **SUPERATO il 2026-09-30** da `docs/superpowers/specs/2026-09-30-kint-stack-and-split-design.md` (Astro, due sotto-progetti). Lasciato come storico.
+
 # kint: sito web con modello 3D guidato dallo scroll (design)
 
 Data: 2026-09-30
