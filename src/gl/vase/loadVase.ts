@@ -50,6 +50,7 @@ export function loadVase(
             texture.minFilter = texture.magFilter = NearestFilter;
             texture.needsUpdate = true;
             uniforms.uShardData.value = texture;
+            rename(mesh.geometry, '_kind', 'aKind');
             mesh.material = materials.shards;
             mesh.frustumCulled = false; // gli shader spostano i vertici fuori dal bounding box
             found.shards = true;

@@ -275,14 +275,16 @@ const scene = doc.createScene('vase');
 const shardMat = doc.createMaterial('shard').setBaseColorFactor([0.7, 0.38, 0.23, 1]).setDoubleSided(true);
 const seamMat = doc.createMaterial('seam').setBaseColorFactor([0.79, 0.64, 0.29, 1]).setDoubleSided(true);
 
-const shards = Array.from({ length: shardCount }, () => ({ pos: [], nrm: [], idx: [], map: new Map() }));
+const shards = Array.from({ length: shardCount }, () => ({ pos: [], nrm: [], kind: [], idx: [], map: new Map() }));
 
-function shardVertex(sh, key, p, n) {
+// kind: 0 = superficie esterna, 1 = interna, 2 = parete di frattura (argilla cruda)
+function shardVertex(sh, key, p, n, kind) {
   let i = sh.map.get(key);
   if (i === undefined) {
     i = sh.pos.length / 3;
     sh.pos.push(...p);
     sh.nrm.push(...n);
+    sh.kind.push(kind);
     sh.map.set(key, i);
   }
   return i;
@@ -297,7 +299,7 @@ function pushTri(sh, ia, ib, ic, refNormal) {
 }
 
 function addQuadLayer(sh, ids, P, N, layer) {
-  const vi = ids.map((id) => shardVertex(sh, `${layer}:${id}`, P[id], N[id]));
+  const vi = ids.map((id) => shardVertex(sh, `${layer}:${id}`, P[id], N[id], layer));
   const ref = ids.map((id) => N[id]).reduce(add);
   pushTri(sh, vi[0], vi[1], vi[2], ref);
   pushTri(sh, vi[0], vi[2], vi[3], ref);
@@ -319,6 +321,7 @@ function addWall(sh, a, b, refDir) {
   p.forEach((v) => {
     sh.pos.push(...v);
     sh.nrm.push(...nn);
+    sh.kind.push(2);
   });
   const c = cross(sub(p[1], p[0]), sub(p[2], p[0]));
   if (dot(c, nn) < 0) sh.idx.push(base, base + 2, base + 1, base, base + 3, base + 2);
@@ -356,6 +359,7 @@ shards.forEach((sh, i) => {
     .createPrimitive()
     .setAttribute('POSITION', acc('VEC3', sh.pos))
     .setAttribute('NORMAL', acc('VEC3', sh.nrm))
+    .setAttribute('_KIND', acc('SCALAR', sh.kind))
     .setIndices(acc('SCALAR', sh.idx, Uint32Array))
     .setMaterial(shardMat);
   scene.addChild(doc.createNode(`shard_${pad(i)}`).setMesh(doc.createMesh(`shard_${pad(i)}`).addPrimitive(prim)));
@@ -438,7 +442,7 @@ for (const [key, edges] of seamEdges) {
       for (const sgn of [1, -1]) {
         pos.push(...add(c, mul(side, (w / 2) * sgn)));
         nrm.push(...n);
-        uv.push(k / (m - 1), 0);
+        uv.push(k / (m - 1), sgn > 0 ? 1 : 0); // v = coordinata trasversale (bordi del nastro)
       }
     }
     for (let k = 0; k < m - 1; k++) {

@@ -21,7 +21,7 @@ const prim = (node) => node.getMesh().listPrimitives()[0];
 const arr = (node, semantic) => Array.from(prim(node).getAttribute(semantic).getArray());
 const indices = (node) => Array.from(prim(node).getIndices().getArray());
 
-const S = { pos: [], nrm: [], id: [], idx: [] };
+const S = { pos: [], nrm: [], kind: [], id: [], idx: [] };
 const known = new Set();
 shardNodes.forEach((node, i) => {
   if (Number(node.getName().slice(6)) !== i) throw new Error(`indice frammento non sequenziale: ${node.getName()}`);
@@ -30,6 +30,7 @@ shardNodes.forEach((node, i) => {
   const base = S.pos.length / 3;
   S.pos.push(...pos);
   S.nrm.push(...arr(node, 'NORMAL'));
+  S.kind.push(...arr(node, '_KIND'));
   for (let k = 0; k < pos.length / 3; k++) S.id.push(i);
   for (const ix of indices(node)) S.idx.push(base + ix);
 });
@@ -60,6 +61,7 @@ const shardPrim = doc
   .setAttribute('POSITION', acc('VEC3', S.pos))
   .setAttribute('NORMAL', acc('VEC3', S.nrm))
   .setAttribute('_SHARD', acc('SCALAR', S.id))
+  .setAttribute('_KIND', acc('SCALAR', S.kind))
   .setIndices(acc('SCALAR', S.idx, idxType(S.pos.length / 3)))
   .setMaterial(mat);
 scene.addChild(doc.createNode('shards').setMesh(doc.createMesh('shards').addPrimitive(shardPrim)));

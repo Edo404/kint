@@ -52,7 +52,7 @@ if (!existsSync(BUILT)) {
   const doc = await builtIO().read(BUILT);
   const byName = new Map(doc.getRoot().listNodes().map((n) => [n.getName(), n]));
   const need = {
-    shards: ['POSITION', 'NORMAL', '_SHARD'],
+    shards: ['POSITION', 'NORMAL', '_SHARD', '_KIND'],
     seams: ['POSITION', 'NORMAL', 'TEXCOORD_0', '_PAIR'],
   };
   for (const [name, attrs] of Object.entries(need)) {

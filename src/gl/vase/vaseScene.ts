@@ -41,6 +41,7 @@ export async function mountVase(
 
   const uniforms = createVaseUniforms();
   uniforms.uDrift.value = reducedMotion ? 0 : 1;
+  uniforms.uQuality.value = settings.weak ? 0 : 1;
   const materials = createVaseMaterials(uniforms);
 
   const governor = new PerfGovernor({
