@@ -105,21 +105,38 @@ const innerP = [];
 const innerN = [];
 const quads = []; // { v:[a,b,c,d], part:'body'|'handle0'|'handle1', centroid }
 
-for (let j = 0; j < NP; j++) {
+// Ogni vertice ha coordinate parametriche (u, v) sulla propria superficie: così si può
+// spostare lungo la superficie (per arrotondare i bordi dei cocci) e ricalcolarne la posizione.
+const vparam = []; // { part: 'body' | 0 | 1, u, v }
+const profN = profile.map((_, j) => {
   const a = profile[Math.max(0, j - 1)];
   const b = profile[Math.min(NP - 1, j + 1)];
   const dr = b.r - a.r, dy = b.y - a.y;
   const l = Math.hypot(dr, dy) || 1;
-  const nr = dy / l, ny = -dr / l; // normale esterna nel piano (r, y)
+  return { nr: dy / l, ny: -dr / l }; // normale esterna nel piano (r, y)
+});
+
+function evalBody(u, v) {
+  const j0 = Math.max(0, Math.min(NP - 2, Math.floor(v)));
+  const t = Math.max(0, Math.min(1, v - j0));
+  const lerp = (x, y) => x + (y - x) * t;
+  const r = lerp(profile[j0].r, profile[j0 + 1].r);
+  const y = lerp(profile[j0].y, profile[j0 + 1].y);
+  const nr = lerp(profN[j0].nr, profN[j0 + 1].nr);
+  const ny = lerp(profN[j0].ny, profN[j0 + 1].ny);
+  const th = (2 * Math.PI * u) / NA;
+  const c = Math.cos(th), s = Math.sin(th);
+  return { P: [r * c, y, r * s], N: norm([nr * c, ny, nr * s]) };
+}
+
+for (let j = 0; j < NP; j++) {
   for (let i = 0; i < NA; i++) {
-    const th = (2 * Math.PI * i) / NA;
-    const c = Math.cos(th), s = Math.sin(th);
-    const P = [profile[j].r * c, profile[j].y, profile[j].r * s];
-    const N = [nr * c, ny, nr * s];
+    const { P, N } = evalBody(i, j);
     outerP.push(P);
     outerN.push(N);
     innerP.push(sub(P, mul(N, T)));
     innerN.push(mul(N, -1));
+    vparam.push({ part: 'body', u: i, v: j });
   }
 }
 const vid = (i, j) => j * NA + (((i % NA) + NA) % NA);
@@ -132,22 +149,33 @@ for (let j = 0; j < NP - 1; j++) {
 
 // ---------- anse: tubi ad arco ----------
 const HANDLE_CTRL = [[0.19, 0.88], [0.42, 0.93], [0.72, 0.88], [0.86, 0.76], [0.8, 0.64], [0.55, 0.58]]; // [raggio, altezza 0..1]
+const handleFrames = [];
+function evalHandle(h, u, v) {
+  const { path, frame, binormal } = handleFrames[h];
+  const k0 = Math.max(0, Math.min(HANDLE_PATH - 2, Math.floor(v)));
+  const t = Math.max(0, Math.min(1, v - k0));
+  const c = add(mul(path[k0], 1 - t), mul(path[k0 + 1], t));
+  const nrm = norm(add(mul(frame[k0], 1 - t), mul(frame[k0 + 1], t)));
+  const a = (2 * Math.PI * u) / HANDLE_RING;
+  const dir = norm(add(mul(nrm, Math.cos(a)), mul(binormal, Math.sin(a))));
+  return { P: add(c, mul(dir, HANDLE_R)), N: dir };
+}
 for (let h = 0; h < 2; h++) {
   const phi = h * Math.PI;
   const radial = [Math.cos(phi), 0, Math.sin(phi)];
   const binormal = [-Math.sin(phi), 0, Math.cos(phi)];
   const path = resample(catmullRom(HANDLE_CTRL, 12), HANDLE_PATH).map(([r, y]) => add(mul(radial, r), [0, (y - 0.5) * H, 0]));
+  const frame = path.map((_, k) => norm(cross(binormal, norm(sub(path[Math.min(HANDLE_PATH - 1, k + 1)], path[Math.max(0, k - 1)])))));
+  handleFrames.push({ path, frame, binormal });
   const base = outerP.length;
   for (let k = 0; k < HANDLE_PATH; k++) {
-    const t = norm(sub(path[Math.min(HANDLE_PATH - 1, k + 1)], path[Math.max(0, k - 1)]));
-    const nrm = norm(cross(binormal, t));
     for (let m = 0; m < HANDLE_RING; m++) {
-      const a = (2 * Math.PI * m) / HANDLE_RING;
-      const dir = add(mul(nrm, Math.cos(a)), mul(binormal, Math.sin(a)));
-      outerP.push(add(path[k], mul(dir, HANDLE_R)));
-      outerN.push(dir);
+      const { P, N } = evalHandle(h, m, k);
+      outerP.push(P);
+      outerN.push(N);
       innerP.push(null);
       innerN.push(null);
+      vparam.push({ part: h, u: m, v: k });
     }
   }
   const hv = (k, m) => base + k * HANDLE_RING + (((m % HANDLE_RING) + HANDLE_RING) % HANDLE_RING);
@@ -267,6 +295,68 @@ for (let pass = 0; pass < 8; pass++) {
   shardCount = labelComponents();
 }
 if (shardCount > MAX_SHARDS) throw new Error(`troppi frammenti: ${shardCount}`);
+
+// ---------- bordi dei cocci arrotondati ----------
+// I cocci sono fatti di quadrati della griglia, quindi i contorni sarebbero a scalini.
+// Si levigano i vertici lungo le fratture (restando sulla superficie) e poi si rilassano
+// i vertici interni vicini, così i triangoli non si piegano. Le giunture seguono le stesse curve.
+{
+  const nV = outerP.length;
+  const gridNb = Array.from({ length: nV }, () => new Set());
+  const crackNb = Array.from({ length: nV }, () => new Set());
+  for (const e of edgeQuads.values()) {
+    gridNb[e.a].add(e.b);
+    gridNb[e.b].add(e.a);
+    if (e.quads.length === 2 && shardOf[e.quads[0]] !== shardOf[e.quads[1]]) {
+      crackNb[e.a].add(e.b);
+      crackNb[e.b].add(e.a);
+    }
+  }
+  const wrapOf = (q) => (q.part === 'body' ? NA : HANDLE_RING);
+  const lastV = (q) => (q.part === 'body' ? NP - 1 : HANDLE_PATH - 1);
+  // Bordi del dominio (polo, bocca, estremità delle anse): fermi.
+  const pinned = vparam.map((q) => q.v <= 0 || q.v >= lastV(q));
+  const isCrack = crackNb.map((s) => s.size > 0);
+
+  function relax(ids, neighboursOf, lambda) {
+    const next = ids.map((id) => {
+      const q = vparam[id];
+      const W = wrapOf(q);
+      const nb = [...neighboursOf(id)];
+      let du = 0, dv = 0;
+      for (const n of nb) {
+        const o = vparam[n];
+        du += ((((o.u - q.u) % W) + W * 1.5) % W) - W / 2;
+        dv += o.v - q.v;
+      }
+      return [q.u + (lambda * du) / nb.length, q.v + (lambda * dv) / nb.length];
+    });
+    ids.forEach((id, k) => {
+      const W = wrapOf(vparam[id]);
+      vparam[id].u = ((next[k][0] % W) + W) % W;
+      vparam[id].v = next[k][1];
+    });
+  }
+
+  // Tratti di frattura: solo i vertici con esattamente due vicini sulla crepa (non i nodi).
+  const crackIds = [...Array(nV).keys()].filter((id) => !pinned[id] && crackNb[id].size === 2);
+  for (let it = 0; it < 10; it++) relax(crackIds, (id) => crackNb[id], 0.5);
+
+  const interiorIds = [...Array(nV).keys()].filter((id) => !pinned[id] && !isCrack[id]);
+  for (let it = 0; it < 12; it++) relax(interiorIds, (id) => gridNb[id], 0.6);
+
+  for (let id = 0; id < nV; id++) {
+    const q = vparam[id];
+    const { P, N } = q.part === 'body' ? evalBody(q.u, q.v) : evalHandle(q.part, q.u, q.v);
+    outerP[id] = P;
+    outerN[id] = N;
+    if (q.part === 'body') {
+      innerP[id] = sub(P, mul(N, T));
+      innerN[id] = mul(N, -1);
+    }
+  }
+  for (const q of quads) q.centroid = mul(q.v.map((id) => outerP[id]).reduce(add), 0.25);
+}
 
 // ---------- costruzione dei frammenti ----------
 const doc = new Document();
