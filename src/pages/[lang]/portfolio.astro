@@ -50,6 +50,8 @@ const serviceName = new Map(c.services.items.map((s) => [s.id, s.title]));
   </main>
   <Footer c={c} lang={lang} site={site} showPortfolio={true} />
   <script>
+    import { initSmoothScroll } from '../../scripts/smooth-scroll';
+    initSmoothScroll();
     import { initPortfolioFilter } from '../../scripts/portfolio-filter';
     initPortfolioFilter();
   </script>

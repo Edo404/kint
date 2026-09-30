@@ -17,7 +17,7 @@ Documenti (leggerli prima di lavorare):
 
 ## Stack (deciso)
 
-Astro statico su Cloudflare Pages, contenuti YAML per lingua, Three.js (versione fissata) con un solo canvas fisso, matcap, scroll nativo (niente GSAP né Lenis), glTF con Meshopt, Vitest. Tecniche prese dal documento «Stack tecnologico» di lusion.co: si riproducono i pattern, non testi né identità.
+Astro statico su Cloudflare Pages, contenuti YAML per lingua, Three.js (versione fissata) con un solo canvas fisso, matcap, scroll morbido con Lenis (niente GSAP), glTF con Meshopt, Vitest. Tecniche prese dal documento «Stack tecnologico» di lusion.co: si riproducono i pattern, non testi né identità.
 
 ## Regole
 
@@ -40,7 +40,7 @@ Pagina sotto 300 KB gzip (modulo 3D e modello esclusi), modello sotto 1.5 MB, LC
 - `src/lib/`: `i18n.ts`, `flags.ts`, `content.ts` + `contentSchema.ts` (caricamento e validazione a ogni build: struttura, id, parità tra lingue, niente `[TODO]`), `jsonld.ts`, `seoFiles.ts`, `portfolio.ts`, `contactForm.ts` (validazione form ed email, usata anche da `functions/api/contact.ts`, Pages Function con invio via Email Routing, config in `wrangler.toml`), `emphasis.ts` (parola finale in oro nei titoli), `icons.ts` (icone Phosphor per id di settore/servizio).
 - Componenti in `src/components/`: Opening, Presentation, Sectors, Services, Contact, Faq, Closing, Footer, Nav, LangSwitch, Logo, SectionTitle (titolo con parola in oro e sottolineatura che si cuce), Seam (cucitura d'oro in testa alle sezioni).
 - Stili: `src/styles/tokens.css` (palette e font), `global.css`, `site.css` (nav, apertura, presentazione, footer), `sections.css` (Settori, Servizi, Contatti). Senza JS tutto è visibile: le animazioni partono solo con la classe `.js` su `<html>`. Niente `backdrop-filter` sulle schede (costoso sopra il canvas animato).
-- Script client in `src/scripts/`: `nav-reveal`, `form-status`, `sector-highlight` (clic su un settore evidenzia i servizi collegati), `portfolio-filter`, `reveal` (comparsa allo scroll su `[data-inview]`, con ritardo per colonna `--i`), `spotlight` (riflesso che segue il mouse su `[data-spotlight]`).
+- Script client in `src/scripts/`: `nav-reveal`, `form-status`, `sector-highlight` (clic su un settore evidenzia i servizi collegati), `portfolio-filter`, `reveal` (comparsa allo scroll su `[data-inview]`, con ritardo per colonna `--i`), `spotlight` (riflesso che segue il mouse su `[data-spotlight]`), `smooth-scroll` (Lenis: scroll morbido con inerzia per rotella e trackpad, `lerp` 0.09, ancore con offset per la barra fissa; il touch resta nativo; non si attiva con "riduci movimento"). Con Lenis attivo `html.lenis` spegne `scroll-behavior: smooth`, altrimenti i due scorrimenti si sommano.
 - Verifiche: `scripts/check-html.mjs` (un solo h1, testi e ancore, hreflang, canonical, JSON-LD, link interni, flag portfolio e noindex), `scripts/check-budget.mjs` (peso iniziale per lingua, font esclusi).
 - `src/gl/`: `support.ts` (WebGL e modalità fallback), `renderScheduler.ts` (on-demand + ciclo a fps), `governor.ts` (DPR massimo 1.5), `settings.ts` (override `?p=0..1` per fissare il progresso, `?USE_HD=1`), `boot.ts` (ingresso client, carica il 3D come chunk separato a riposo).
 - `src/gl/vase/`: `math.ts` (progresso, easing, opacità, layout), `material.ts` (matcap procedurali + shader), `loadVase.ts`, `vaseScene.ts` (scena, scroll, ciclo di vita).

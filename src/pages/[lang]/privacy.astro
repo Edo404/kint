@@ -28,4 +28,8 @@ const showPortfolio = portfolioPublished(buildEnv());
     </section>
   </main>
   <Footer c={c} lang={lang} site={loadSite()} showPortfolio={showPortfolio} />
+  <script>
+    import { initSmoothScroll } from '../../scripts/smooth-scroll';
+    initSmoothScroll();
+  </script>
 </Base>

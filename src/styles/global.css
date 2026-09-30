@@ -14,3 +14,9 @@ section { min-height: 100svh; display: flex; align-items: center; padding: 0 8vw
 #closing { justify-content: center; }
 .vase-fallback { display: none; max-height: 70svh; }
 [data-mode='fallback'] .vase-fallback { display: block; }
+
+/* Ancore: non finiscono sotto la barra fissa. Scorrimento morbido nativo quando Lenis non è attivo
+   Quando Lenis è attivo (classe .lenis su <html>) va spento, altrimenti i due scorrimenti si sommano. */
+section[id], article[id], form[id] { scroll-margin-top: 5rem; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+html.lenis { scroll-behavior: auto; }
