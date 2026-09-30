@@ -1,0 +1,19 @@
+.skip-link { position: absolute; left: -999px; top: 0; background: var(--gold); color: var(--black); padding: .5rem 1rem; z-index: 20; }
+.skip-link:focus { left: 0; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .75rem 5vw; background: linear-gradient(var(--black), transparent); transition: opacity .4s; }
+.site-nav[data-reveal='hidden']:not(:focus-within) { opacity: 0; pointer-events: none; }
+.site-nav ul { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
+.site-nav a { color: var(--white); text-decoration: none; }
+.site-nav a:hover, .site-nav a[aria-current='true'] { color: var(--gold); }
+.brand { letter-spacing: .2em; text-transform: uppercase; }
+
+.opening { flex-direction: column; justify-content: center; gap: 2rem; }
+.logo { width: min(80vw, 34rem); height: auto; color: var(--gold); }
+.scroll-hint { color: var(--white); text-decoration: none; font-size: 1.5rem; opacity: .7; }
+
+.wrap { width: 100%; }
+@media (min-width: 900px) and (orientation: landscape) {
+  .wrap { width: min(58vw, 60rem); }
+}

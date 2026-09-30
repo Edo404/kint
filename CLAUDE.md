@@ -40,6 +40,7 @@ Pagina sotto 300 KB gzip (modulo 3D e modello esclusi), modello sotto 1.5 MB, LC
 - `src/gl/vase/`: `math.ts` (progresso, easing, opacità, layout), `material.ts` (matcap procedurali + shader), `loadVase.ts`, `vaseScene.ts` (scena, scroll, ciclo di vita).
 - Modello: sorgente `models-src/vase.raw.glb` (contratto nello spec B: nodi `shard_XX` e `seam_AA_BB`); `scripts/build-vase.mjs` produce `public/models/vase.glb`; `scripts/check-vase.mjs` verifica contratto e peso. Il vaso attuale è un **placeholder** generato da `scripts/make-placeholder-vase.mjs`.
 - Sito (Piano 2, in corso): `src/lib/i18n.ts` (lingue, percorsi, hreflang), `flags.ts` (`PORTFOLIO_PUBLISHED`, `NOINDEX`; vedi `.env.example`), `content.types.ts` e `contentSchema.ts` (validatore dei contenuti YAML: struttura, id, parità tra lingue, nessun `[TODO]`).
+- Contenuti: `src/content/it.yaml` (sorgente; generato dai blocchi YAML del brief), `site.yaml` (dati organizzazione), `portfolio.yaml` (vuoto). `src/lib/content.ts` li carica e li valida a ogni build. Pagina per lingua: `src/pages/[lang]/index.astro`; layout SEO: `src/layouts/Base.astro`; componenti in `src/components/`; `/` reindirizza a `/it/` (`astro.config.mjs` + `public/_redirects`).
 - Comandi: `npm run dev`, `build`, `test`, `check` (test + contratto + build + budget), `vase:placeholder`, `vase:build`, `vase:check`.
 - Da sapere: i matcap sono generati a runtime (nessuna texture); il GLB non è compresso con Meshopt (il loader lo supporta); la trasparenza è un dithering a soglia (a opacità intermedie si vede la trama).
 

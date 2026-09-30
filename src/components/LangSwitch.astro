@@ -1,0 +1,12 @@
+---
+import { pathFor, type Lang } from '../lib/i18n';
+interface Props { lang: Lang; available: Lang[]; path: string; label: string }
+const { lang, available, path, label } = Astro.props;
+---
+<nav class="lang-switch" aria-label={label}>
+  <ul>
+    {available.map((l) => (
+      <li><a href={pathFor(l, path)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a></li>
+    ))}
+  </ul>
+</nav>

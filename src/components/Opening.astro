@@ -1,0 +1,10 @@
+---
+import Logo from './Logo.astro';
+import type { Content } from '../lib/content.types';
+interface Props { c: Content }
+const { c } = Astro.props;
+---
+<section id="opening" class="opening" aria-label={c.opening.logo_label}>
+  <Logo label={c.opening.logo_label} />
+  <a class="scroll-hint" href="#kint" aria-label={c.ui.scroll_hint}><span aria-hidden="true">↓</span></a>
+</section>
