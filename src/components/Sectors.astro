@@ -1,0 +1,38 @@
+---
+import type { Content } from '../lib/content.types';
+interface Props { c: Content }
+const { c } = Astro.props;
+const byId = new Map(c.services.items.map((s) => [s.id, s]));
+---
+<section id="settori" aria-labelledby="settori-title">
+  <div class="wrap">
+    <h2 id="settori-title">{c.sectors.title}</h2>
+    <p class="intro">{c.sectors.intro}</p>
+    <div class="grid">
+      {c.sectors.items.map((s) => (
+        <article id={`settori-${s.id}`} class="card" data-sector={s.id} data-linked={s.linked_services.join(' ')}>
+          <h3>{s.name}</h3>
+          <dl>
+            <dt>{c.ui.for_whom}</dt>
+            <dd>{s.for_whom}</dd>
+            <dt>{c.ui.typical_problem}</dt>
+            <dd>{s.problem}</dd>
+            <dt>{c.ui.what_we_do}</dt>
+            <dd>{s.what_we_do}</dd>
+          </dl>
+          <p class="label">{c.ui.key_services}</p>
+          <ul>
+            {s.key_services.map((k) => <li>{k}</li>)}
+          </ul>
+          <p class="label">{c.ui.linked_services}</p>
+          <ul class="chips">
+            {s.linked_services.map((id) => (
+              <li><a href={`#servizi-${id}`} data-service-link={id}>{byId.get(id)?.title ?? id}</a></li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+    <p class="closing-link"><a href="#contatti">{c.sectors.closing.text}</a></p>
+  </div>
+</section>

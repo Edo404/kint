@@ -1,0 +1,29 @@
+---
+import type { Content } from '../lib/content.types';
+interface Props { c: Content }
+const { c } = Astro.props;
+const p = c.presentation;
+---
+<section id="kint" aria-labelledby="kint-title">
+  <div class="wrap">
+    <h1 id="kint-title">{p.h1}</h1>
+    <p class="subtitle">{p.subtitle}</p>
+    <p>{p.paragraph}</p>
+    <p class="cta-row">
+      <a class="btn btn-gold" href={p.cta_primary.href}>{p.cta_primary.label}</a>
+      {p.cta_secondary && <a class="btn" href={p.cta_secondary.href}>{p.cta_secondary.label}</a>}
+    </p>
+    <article class="kintsugi" aria-labelledby="kintsugi-title">
+      <h2 id="kintsugi-title">{p.kintsugi.title}</h2>
+      <p>{p.kintsugi.text}</p>
+    </article>
+    <ul class="values">
+      {p.values.map((v) => (
+        <li>
+          <h3>{v.title}</h3>
+          <p>{v.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

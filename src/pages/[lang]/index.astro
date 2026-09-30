@@ -2,6 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Opening from '../../components/Opening.astro';
+import Presentation from '../../components/Presentation.astro';
+import Sectors from '../../components/Sectors.astro';
+import Services from '../../components/Services.astro';
 import { loadAll } from '../../lib/content';
 import { buildEnv, portfolioPublished } from '../../lib/flags';
 import type { Lang } from '../../lib/i18n';
@@ -21,9 +24,9 @@ const showPortfolio = portfolioPublished(buildEnv());
   <Nav c={c} lang={lang} available={available} showPortfolio={showPortfolio} />
   <main>
     <Opening c={c} />
-    <section id="kint" aria-labelledby="kint-title">
-      <div class="wrap"><h1 id="kint-title">{c.presentation.h1}</h1></div>
-    </section>
+    <Presentation c={c} />
+    <Sectors c={c} />
+    <Services c={c} />
   </main>
   <script>
     import { boot } from '../../gl/boot';

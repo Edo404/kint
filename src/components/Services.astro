@@ -1,0 +1,48 @@
+---
+import type { Content } from '../lib/content.types';
+interface Props { c: Content }
+const { c } = Astro.props;
+const s = c.services;
+---
+<section id="servizi" aria-labelledby="servizi-title">
+  <div class="wrap">
+    <h2 id="servizi-title">{s.title}</h2>
+    <p class="intro">{s.intro}</p>
+
+    <article id="servizi-featured" class="card featured" aria-labelledby="servizi-featured-title">
+      <p class="label">{c.ui.featured}</p>
+      <h3 id="servizi-featured-title">{s.featured.title}</h3>
+      <p>{s.featured.text}</p>
+    </article>
+
+    <div class="grid">
+      {s.items.map((item) => (
+        <article id={`servizi-${item.id}`} class="card service" data-service={item.id}>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+          <p class="pair">
+            <span class="crack"><strong>{c.ui.crack}</strong> {item.crack}</span>
+            <span class="gold"><strong>{c.ui.gold}</strong> {item.gold}</span>
+          </p>
+        </article>
+      ))}
+    </div>
+
+    <div class="always">
+      <h3>{s.always_included.title}</h3>
+      <ul>
+        {s.always_included.items.map((i) => <li>{i}</li>)}
+      </ul>
+    </div>
+
+    <div class="packages">
+      <h3>{s.packages.title}</h3>
+      <ul>
+        {s.packages.items.map((p) => (
+          <li><strong>{p.name}</strong> {p.text}</li>
+        ))}
+      </ul>
+      <p class="note">{s.packages.note}</p>
+    </div>
+  </div>
+</section>
