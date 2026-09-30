@@ -22,6 +22,7 @@
 - WebGL assente o modello non caricato: mostrare l'immagine statica di fallback, il sito resta usabile.
 - Modello: GLB con compressione Meshopt, texture KTX2 quando presenti.
 - Contenuto e SEO nell'HTML semantico, fuori dal canvas.
+- `CLAUDE.md` (già presente) è la documentazione del progetto: ogni task che aggiunge, sposta o rimuove file in `src/` o `scripts/`, cambia un comando npm o un budget, aggiorna `CLAUDE.md` e la data in cima nello stesso commit.
 
 ## File Structure
 
@@ -341,7 +342,7 @@ Expected: PASS (5 test).
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/support/webgl.ts tests/webgl.test.ts
+git add CLAUDE.md src/support/webgl.ts tests/webgl.test.ts
 git commit -m "feat: WebGL detection and fallback mode switch"
 ```
 
@@ -501,7 +502,7 @@ Expected: PASS (6 test).
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/three/renderScheduler.ts tests/renderScheduler.test.ts
+git add CLAUDE.md src/three/renderScheduler.ts tests/renderScheduler.test.ts
 git commit -m "feat: on-demand render scheduler"
 ```
 
@@ -649,7 +650,7 @@ Expected: PASS (10 test).
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/perf/governor.ts tests/governor.test.ts
+git add CLAUDE.md src/perf/governor.ts tests/governor.test.ts
 git commit -m "feat: performance governor lowering pixel ratio under 45 fps"
 ```
 
@@ -820,7 +821,7 @@ Expected: PASS (8 test).
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/scroll/poses.ts tests/poses.test.ts
+git add CLAUDE.md src/scroll/poses.ts tests/poses.test.ts
 git commit -m "feat: per-section poses with validation"
 ```
 
@@ -961,7 +962,7 @@ Expected: nessun errore.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add scripts/make-placeholder-model.mjs src/three/loadModel.ts public/models/kint.glb
+git add CLAUDE.md scripts/make-placeholder-model.mjs src/three/loadModel.ts public/models/kint.glb
 git commit -m "feat: placeholder GLB generator and Meshopt/KTX2 model loader"
 ```
 
@@ -1126,7 +1127,7 @@ Expected: compaiono `fallback.svg` e il messaggio "Impossibile caricare il model
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/three/scene.ts src/main.ts
+git add CLAUDE.md src/three/scene.ts src/main.ts
 git commit -m "feat: scene, on-demand rendering, perf governor and fallbacks wired in main"
 ```
 
@@ -1253,7 +1254,7 @@ Expected: nessun frame di rendering mentre la pagina è ferma.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/scroll/scroll.ts src/main.ts
+git add CLAUDE.md src/scroll/scroll.ts src/main.ts
 git commit -m "feat: Lenis smooth scroll with GSAP ScrollTrigger pose timeline and reduced-motion mode"
 ```
 
@@ -1367,7 +1368,7 @@ Senza WebGL, o se il modello non si carica, la pagina mostra `public/fallback.sv
 - [ ] **Step 5: Commit**
 
 ```bash
-git add scripts/check-budget.mjs README.md
+git add CLAUDE.md scripts/check-budget.mjs README.md
 git commit -m "chore: bundle budget check and README with model authoring guide"
 ```
 
