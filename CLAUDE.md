@@ -4,7 +4,7 @@ Sito aziendale di Kint (web agency, Lugano) in IT/EN/FR/DE, con un vaso 3D in ki
 
 ## Stato
 
-Piano 1 (scaffold Astro + vaso 3D con modello placeholder) completato. Prossimo: Piano 2 (sito: contenuti YAML, 5 blocchi, 4 lingue, SEO/JSON-LD, form) da scrivere. Da fare anche: modello reale del vaso in Blender, logo SVG, verifica su telefono reale e con `prefers-reduced-motion`.
+Piano 1 (scaffold Astro + vaso 3D con modello placeholder) completato. Piano 2 (sito: contenuti YAML, 5 blocchi, 4 lingue, SEO/JSON-LD, form) scritto, da eseguire. Da fare anche: modello reale del vaso in Blender, logo SVG, verifica su telefono reale e con `prefers-reduced-motion`.
 
 Documenti (leggerli prima di lavorare):
 - `docs/brief/kint-site-brief.md` contenuti, requisiti SEO/AI, multilingua. Fonte unica dei testi.
@@ -12,6 +12,7 @@ Documenti (leggerli prima di lavorare):
 - `docs/superpowers/specs/2026-09-30-kint-site-design.md` sotto-progetto A (sito).
 - `docs/superpowers/specs/2026-09-30-kint-vase-experience-design.md` sotto-progetto B (vaso 3D).
 - `docs/superpowers/plans/2026-09-30-kint-astro-vase.md` Piano 1: scaffold Astro e vaso (9 task).
+- `docs/superpowers/plans/2026-09-30-kint-site.md` Piano 2: sito, contenuti, 4 lingue, SEO, form (11 task).
 - Il primo spec e il primo piano (`...-3d-scroll-site...`) sono superati: solo storico.
 
 ## Stack (deciso)
