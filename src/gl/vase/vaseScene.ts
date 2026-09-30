@@ -54,7 +54,7 @@ export async function mountVase(
 
   let vase: Awaited<ReturnType<typeof loadVase>>;
   try {
-    vase = await loadVase(url, materials);
+    vase = await loadVase(url, materials, uniforms);
   } catch (err) {
     console.error(err);
     materials.dispose();
@@ -80,6 +80,7 @@ export async function mountVase(
       uniforms.uTime.value = performance.now() / 1000;
       uniforms.uOpacity.value = opacityAt(p) * a.opacityMul;
       vase.position.x = a.x * halfW;
+      vase.position.y = a.y;
       vase.scale.setScalar(a.scale);
       renderer.render(scene, camera);
     },

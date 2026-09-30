@@ -1,10 +1,12 @@
-import { CanvasTexture, DoubleSide, MeshMatcapMaterial, SRGBColorSpace } from 'three';
+import { CanvasTexture, DoubleSide, MeshMatcapMaterial, SRGBColorSpace, type DataTexture } from 'three';
+import { SEAM_LEAD, SEAM_MAX, SEAM_SPAN } from './shardData';
 
 export interface VaseUniforms {
   uP: { value: number };
   uTime: { value: number };
   uDrift: { value: number };
   uOpacity: { value: number };
+  uShardData: { value: DataTexture | null };
 }
 
 export function createVaseUniforms(): VaseUniforms {
@@ -13,6 +15,7 @@ export function createVaseUniforms(): VaseUniforms {
     uTime: { value: 0 },
     uDrift: { value: 1 },
     uOpacity: { value: 0.2 },
+    uShardData: { value: null },
   };
 }
 
@@ -45,11 +48,9 @@ function makeMatcap(base: string, light: string, dark: string, sheen: boolean): 
 
 const DITHER = /* glsl */ `
 uniform float uOpacity;
+// Rumore a gradiente interleaved: retinatura meno geometrica di una matrice di Bayer.
 float bayer4(vec2 p) {
-  ivec2 i = ivec2(mod(p, 4.0));
-  int idx = i.x + i.y * 4;
-  float m[16] = float[16](0.,8.,2.,10., 12.,4.,14.,6., 3.,11.,1.,9., 15.,7.,13.,5.);
-  return (m[idx] + 0.5) / 16.0;
+  return fract(52.9829189 * fract(dot(p, vec2(0.06711056, 0.00583715))));
 }
 `;
 
@@ -61,21 +62,21 @@ vec3 rotateAxis(vec3 v, vec3 axis, float angle) {
 }
 `;
 
+const f = (n: number) => n.toFixed(4);
+
+// Parametri per frammento (texture N×3): riga 0 = centro.xyz + angolo, riga 1 = dispersione.xyz + inizio,
+// riga 2 = asse.xyz + fine. Vedi shardData.ts.
 function shardMaterial(u: VaseUniforms, matcap: CanvasTexture): MeshMatcapMaterial {
-  const m = new MeshMatcapMaterial({ matcap });
-  m.customProgramCacheKey = () => 'vase-shards';
+  const m = new MeshMatcapMaterial({ matcap, side: DoubleSide });
+  m.customProgramCacheKey = () => 'vase-shards-v2';
   m.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, u);
     shader.vertexShader = shader.vertexShader
       .replace(
         '#include <common>',
         `#include <common>
-attribute vec3 aCenter;
-attribute vec3 aScatterPos;
-attribute vec3 aScatterAxis;
-attribute float aScatterAngle;
-attribute float aStart;
-attribute float aEnd;
+attribute float aShard;
+uniform sampler2D uShardData;
 uniform float uP;
 uniform float uTime;
 uniform float uDrift;
@@ -83,18 +84,22 @@ ${ROTATE}`,
       )
       .replace(
         '#include <beginnormal_vertex>',
-        `float e = smoothstep(aStart, aEnd, uP);
-vec3 axis = normalize(aScatterAxis);
-vec3 objectNormal = rotateAxis(normal, axis, aScatterAngle * (1.0 - e));`,
+        `int sid = int(aShard + 0.5);
+vec4 d0 = texelFetch(uShardData, ivec2(sid, 0), 0);
+vec4 d1 = texelFetch(uShardData, ivec2(sid, 1), 0);
+vec4 d2 = texelFetch(uShardData, ivec2(sid, 2), 0);
+float e = smoothstep(d1.w, d2.w, uP);
+vec3 axis = normalize(d2.xyz);
+vec3 objectNormal = rotateAxis(normal, axis, d0.w * (1.0 - e));`,
       )
       .replace(
         '#include <begin_vertex>',
         `vec3 drift = uDrift * 0.15 * vec3(
-  sin(uTime * 0.30 + aCenter.y * 3.0),
-  cos(uTime * 0.25 + aCenter.x * 3.0),
-  sin(uTime * 0.20 + aCenter.z * 2.0));
-vec3 transformed = rotateAxis(position - aCenter, axis, aScatterAngle * (1.0 - e))
-  + aCenter + (aScatterPos + drift) * (1.0 - e);`,
+  sin(uTime * 0.30 + d0.y * 3.0),
+  cos(uTime * 0.25 + d0.x * 3.0),
+  sin(uTime * 0.20 + d0.z * 2.0));
+vec3 transformed = rotateAxis(position - d0.xyz, axis, d0.w * (1.0 - e))
+  + d0.xyz + (d1.xyz + drift) * (1.0 - e);`,
       );
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <common>', `#include <common>\n${DITHER}`)
@@ -107,25 +112,32 @@ if (uOpacity < bayer4(gl_FragCoord.xy)) discard;`,
   return m;
 }
 
+// Le giunture stanno sul vaso assemblato e si "disegnano" lungo il percorso quando
+// i due frammenti che uniscono sono vicini alla posizione finale.
 function seamMaterial(u: VaseUniforms, matcap: CanvasTexture): MeshMatcapMaterial {
   const m = new MeshMatcapMaterial({ matcap, side: DoubleSide });
-  m.customProgramCacheKey = () => 'vase-seams';
+  m.customProgramCacheKey = () => 'vase-seams-v2';
   m.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, u);
     shader.vertexShader = shader.vertexShader
       .replace(
         '#include <common>',
         `#include <common>
-attribute float aSeamStart;
-attribute float aSeamEnd;
+attribute float aPair;
+uniform sampler2D uShardData;
 varying float vU;
 varying vec2 vSeam;`,
       )
       .replace(
         '#include <begin_vertex>',
         `#include <begin_vertex>
-vU = uv.x;
-vSeam = vec2(aSeamStart, aSeamEnd);`,
+float pa = floor((aPair + 0.5) / 1024.0);
+float pb = aPair - pa * 1024.0;
+float endA = texelFetch(uShardData, ivec2(int(pa + 0.5), 2), 0).w;
+float endB = texelFetch(uShardData, ivec2(int(pb + 0.5), 2), 0).w;
+float seamStart = max(endA, endB) - ${f(SEAM_LEAD)};
+vSeam = vec2(seamStart, min(${f(SEAM_MAX)}, seamStart + ${f(SEAM_SPAN)}));
+vU = uv.x;`,
       );
     shader.fragmentShader = shader.fragmentShader
       .replace(
@@ -160,6 +172,7 @@ export function createVaseMaterials(u: VaseUniforms) {
       seams.dispose();
       terracotta.dispose();
       gold.dispose();
+      u.uShardData.value?.dispose();
     },
   };
 }

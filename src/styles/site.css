@@ -10,7 +10,7 @@
 .brand { letter-spacing: .2em; text-transform: uppercase; justify-self: start; }
 .lang-switch { justify-self: end; }
 
-.opening { flex-direction: column; justify-content: center; gap: 2rem; }
+.opening { flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
 .logo { width: min(80vw, 34rem); height: auto; color: var(--gold); }
 .scroll-hint { color: var(--white); text-decoration: none; font-size: 1.5rem; opacity: .7; }
 
@@ -76,7 +76,7 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
 
 #closing { min-height: 100svh; flex-direction: column; justify-content: flex-end; align-items: center; gap: 1rem; padding-bottom: 2rem; }
 #closing .logo { width: min(40vw, 12rem); }
-.site-footer { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem; padding: 2rem 5vw; border-top: 1px solid rgb(245 243 238 / .15); background: var(--black); }
+.site-footer { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem; padding: 2rem 5vw; border-top: 1px solid rgb(245 243 238 / .15); background: rgb(10 10 10 / .7); backdrop-filter: blur(6px); }
 .site-footer ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; list-style: none; padding: 0; margin: 0; }
 .site-footer a { color: var(--white); }
 

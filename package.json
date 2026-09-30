@@ -9,7 +9,7 @@
     "build": "tsc --noEmit && astro build",
     "preview": "astro preview",
     "test": "vitest run",
-    "vase:placeholder": "node scripts/make-placeholder-vase.mjs && node scripts/build-vase.mjs",
+    "vase:placeholder": "node scripts/make-vase.mjs && node scripts/build-vase.mjs",
     "vase:build": "node scripts/build-vase.mjs",
     "vase:check": "node scripts/check-vase.mjs",
     "check": "npm test && npm run vase:check && npm run build && node scripts/check-budget.mjs && node scripts/check-html.mjs"

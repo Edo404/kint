@@ -3,22 +3,38 @@ import { existsSync, statSync } from 'node:fs';
 
 const RAW = 'models-src/vase.raw.glb';
 const BUILT = 'public/models/vase.glb';
-const MAX_BYTES = 1.5 * 1024 * 1024;
+const MAX_BYTES = 1024 * 1024; // obiettivo 1 MB (limite duro 1.5 MB)
 const errors = [];
 
 if (existsSync(RAW)) {
-  const nodes = (await new NodeIO().read(RAW)).getRoot().listNodes().map((n) => n.getName());
+  const doc = await new NodeIO().read(RAW);
+  const nodes = doc.getRoot().listNodes().map((n) => n.getName());
   const shards = nodes.filter((n) => n.startsWith('shard_')).sort();
   shards.forEach((n, i) => {
     if (n !== `shard_${String(i).padStart(2, '0')}`) errors.push(`indice frammento non sequenziale: ${n}`);
   });
-  if (shards.length < 24 || shards.length > 40) errors.push(`frammenti: ${shards.length}, attesi 24-40`);
+  if (shards.length < 24 || shards.length > 120) errors.push(`frammenti: ${shards.length}, attesi 24-120`);
   const known = new Set(shards.map((n) => Number(n.slice(6))));
   for (const n of nodes.filter((x) => x.startsWith('seam_'))) {
-    const m = n.match(/^seam_(\d\d)_(\d\d)$/);
+    const m = n.match(/^seam_(\d{2,3})_(\d{2,3})$/);
     if (!m) errors.push(`nome giuntura non valido: ${n}`);
     else if (!known.has(Number(m[1])) || !known.has(Number(m[2]))) errors.push(`${n} cita un frammento inesistente`);
   }
+  for (const n of shards) {
+    const node = doc.getRoot().listNodes().find((x) => x.getName() === n);
+    const tris = node.getMesh().listPrimitives()[0].getIndices().getCount() / 3;
+    if (tris < 12) errors.push(`${n} è troppo piccolo (${tris} triangoli)`);
+  }
+
+  const x = doc.getRoot().getExtras() ?? {};
+  if (x.profile) {
+    const ratio = x.profile.maxRadius / x.profile.neckRadius;
+    if (!(ratio > 2.2)) errors.push(`la sagoma non sembra un vaso: pancia/collo = ${ratio.toFixed(2)} (attesa > 2.2)`);
+  }
+  if (typeof x.seamIrregularity === 'number' && !(x.seamIrregularity > 1.15)) {
+    errors.push(`giunture troppo dritte: irregolarità ${x.seamIrregularity.toFixed(2)} (attesa > 1.15)`);
+  }
+  if (x.handles !== undefined && x.handles < 2) errors.push('mancano le anse');
 } else {
   console.log(`(salto il controllo del grezzo: ${RAW} non presente)`);
 }
@@ -31,8 +47,8 @@ if (!existsSync(BUILT)) {
   const doc = await new NodeIO().read(BUILT);
   const byName = new Map(doc.getRoot().listNodes().map((n) => [n.getName(), n]));
   const need = {
-    shards: ['POSITION', 'NORMAL', '_CENTER', '_SCATTER_POS', '_SCATTER_AXIS', '_SCATTER_ANGLE', '_START', '_END'],
-    seams: ['POSITION', 'NORMAL', 'TEXCOORD_0', '_SEAM_START', '_SEAM_END'],
+    shards: ['POSITION', 'NORMAL', '_SHARD'],
+    seams: ['POSITION', 'NORMAL', 'TEXCOORD_0', '_PAIR'],
   };
   for (const [name, attrs] of Object.entries(need)) {
     const node = byName.get(name);
@@ -42,6 +58,7 @@ if (!existsSync(BUILT)) {
     }
     const p = node.getMesh().listPrimitives()[0];
     for (const a of attrs) if (!p.getAttribute(a)) errors.push(`${name}: manca l'attributo ${a}`);
+    if (!p.getIndices()) errors.push(`${name}: mancano gli indici`);
   }
   if (!errors.length) console.log(`${BUILT}: ${size} B, contratto rispettato`);
 }

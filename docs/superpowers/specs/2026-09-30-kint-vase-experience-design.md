@@ -88,3 +88,12 @@ public/textures/matcap-terracotta.webp, matcap-gold.webp
 ## Fuori scopo
 
 Fisica, interazione con il mouse, audio, illuminazione dinamica, SMAA.
+
+## Revisione del 2026-09-30 (dopo la prima versione funzionante)
+
+- **Layout:** il sito è tutto centrato e il vaso sta sempre al centro come sfondo animato (non più a destra). Dietro i contenuti è attenuato al 60% dell'opacità; nella schermata di chiusura è pieno e si alza di 0.3 unità per lasciare spazio al logo. Sostituisce la sezione «Layout e leggibilità».
+- **Forma e frammenti:** anfora con collo, bocca svasata e due anse ad arco (non più un solido a celle). Circa 80 frammenti (limite 120) ottenuti con una frattura Voronoi in 3D con pesi casuali e distorsione a rumore a tre ottave, quindi di forma e dimensione irregolari. Le anse sono fratturate come il corpo (tubi, lasciati aperti sui bordi, disegnati a doppia faccia).
+- **Giunture:** seguono i bordi reali tra frammenti (percorsi spezzati), con una lieve smussatura e un nastro d'oro a spessore variabile. Indice di irregolarità richiesto: lunghezza del percorso / distanza tra gli estremi > 1.15 (attuale ≈ 1.29).
+- **Contratto del file:** i nodi `shard_XX` e `seam_AA_BB` possono avere 2 o 3 cifre. Il file costruito ha attributi `_SHARD` (id del frammento) e `_PAIR` (coppia a*1024+b) e indici condivisi; niente più attributi di movimento per vertice.
+- **Movimento:** i parametri per frammento (centro, dispersione, asse, angolo, inizio, fine) si generano a runtime da un seme (`shardData.ts`) e vanno agli shader in una texture RGBA float N×3. Le giunture ricavano da qui il proprio intervallo: partono 0.06 prima che arrivi il frammento più lento e durano 0.22 (max 0.95).
+- **Peso:** modello < 1 MB (attuale ≈ 1.0 MB) con griglia 80×60; se un modello reale è più pesante, comprimere con Meshopt.

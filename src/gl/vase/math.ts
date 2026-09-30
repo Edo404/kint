@@ -28,6 +28,7 @@ export function opacityAt(p: number): number {
 
 export interface Anchor {
   x: number;
+  y: number;
   scale: number;
   opacityMul: number;
 }
@@ -36,5 +37,5 @@ export function anchorFor(width: number, height: number, p: number): Anchor {
   const closing = smoothstep(0.92, 1, p);
   const narrow = !(width >= 900 && width > height);
   // Il vaso resta al centro come sfondo: attenuato dietro i contenuti, pieno nella chiusura.
-  return { x: 0, scale: narrow ? 0.85 : 1, opacityMul: 0.6 + 0.4 * closing };
+  return { x: 0, y: 0.3 * closing, scale: narrow ? 0.85 : 1, opacityMul: 0.6 + 0.4 * closing };
 }

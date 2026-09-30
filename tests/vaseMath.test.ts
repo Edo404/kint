@@ -97,4 +97,9 @@ describe('anchorFor', () => {
     expect(anchorFor(1440, 900, 0.5).scale).toBe(1);
     expect(anchorFor(390, 844, 0.5).scale).toBeCloseTo(0.85);
   });
+  it('in chiusura il vaso si alza per lasciare spazio al logo', () => {
+    expect(anchorFor(1440, 900, 0.3).y).toBe(0);
+    expect(anchorFor(1440, 900, 1).y).toBeCloseTo(0.3);
+    expect(anchorFor(390, 844, 1).y).toBeCloseTo(0.3);
+  });
 });
