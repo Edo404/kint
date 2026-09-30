@@ -100,4 +100,12 @@ describe('validateContent', () => {
     });
     expect(errors.some((e) => e.startsWith('de: struttura diversa da it'))).toBe(true);
   });
+
+  it('le chiavi facoltative possono mancare in una lingua', () => {
+    const errors = validateContent({
+      it: make('it', (c) => (c.meta.og_locale_alternate = 'it_CH')),
+      en: make('en'),
+    });
+    expect(errors).toEqual([]);
+  });
 });

@@ -1,0 +1,305 @@
+# needs-review: traduzione generata da AI, da far controllare a un madrelingua prima della pubblicazione
+lang: fr
+meta:
+  title: "Kint — Partenaire digital des petites entreprises en Italie et en Suisse"
+  description: "Sites, marque, réseaux sociaux, Google et automatisations IA pour les petites entreprises en Italie et en Suisse. Beaux pour les gens, lisibles par les IA."
+  og_locale: fr_CH
+  og_locale_alternate: fr_FR
+  portfolio_title: "Projets — Kint"
+  portfolio_description: "Les projets réalisés par Kint pour des petites entreprises en Italie et en Suisse : sites, marque, réseaux sociaux et automatisations."
+ui:
+  skip_to_content: "Aller au contenu"
+  nav_label: "Navigation principale"
+  lang_label: "Langue"
+  scroll_hint: "Défiler"
+  for_whom: "Pour qui"
+  typical_problem: "Le problème typique"
+  what_we_do: "Ce que nous faisons"
+  key_services: "Services clés"
+  linked_services: "Services associés"
+  crack: "Fissure"
+  gold: "Or"
+  featured: "À la une"
+nav:
+  sectors: "Secteurs"
+  services: "Services"
+  contact: "Contact"
+  portfolio: "Portfolio"
+opening:
+  logo_label: "Kint — le partenaire digital des petites entreprises"
+presentation:
+  h1: "Le partenaire digital des petites entreprises."
+  subtitle: "Des sites beaux pour les gens. Lisibles par les IA."
+  paragraph: "Kint construit la présence digitale des petites entreprises en Italie et en Suisse : site, marque, réseaux sociaux, Google et automatisations. Chaque site est conçu pour être utilisé par vos clients et lu par ChatGPT, Gemini, Claude et les autres assistants IA qui orientent aujourd'hui les décisions d'achat."
+  cta_primary:
+    label: "Écrivez-nous un mot"
+    href: "#contatti"
+  kintsugi:
+    title: "Pourquoi Kint"
+    text: "Kint vient du kintsugi, l'art japonais de réparer la céramique brisée avec de l'or. Il ne cache pas la fracture : il la met en valeur. Nous faisons de même avec votre présence en ligne. Un site vieillissant, aucune réservation, des avis sans réponse : pour nous, ce sont des fissures. Nous les réparons et nous en faisons votre meilleur atout."
+  values:
+    - title: "Transparence"
+      text: "Des options et des coûts clairs dès le premier appel. Nous voulons rendre votre entreprise compétitive, pas vous rendre dépendant de nous."
+    - title: "Rapidité"
+      text: "Nous travaillons par objectifs, pas à l'heure. Vous recevez des aperçus et des ébauches tout au long du projet."
+    - title: "Responsabilité"
+      text: "Nous prenons le problème en charge. Si nous ne pouvons pas le résoudre nous-mêmes, nous trouvons le bon professionnel."
+    - title: "Qualité"
+      text: "Nous ne visons pas le prix le plus bas. Nous visons des résultats qui, avec le temps, vous font faire des économies."
+sectors:
+  title: "Nous parlons la langue de votre métier."
+  intro: "Chaque secteur a ses problèmes typiques et des solutions déjà pensées. Trouvez le vôtre."
+  closing:
+    text: "Vous ne vous reconnaissez pas ? Écrivez-nous un mot."
+  items:
+    - id: ristorazione
+      name: "Restauration et hôtellerie"
+      for_whom: "Restaurants, bars, grotti (auberges tessinoises), B&B, petits hôtels, agritourismes"
+      problem: "Le client cherche sur Google, tombe sur un menu en PDF illisible sur téléphone et ne parvient pas à réserver. Il choisit un autre établissement."
+      what_we_do: "Un site rapide avec un menu modifiable, des réservations directes et des avis sous contrôle."
+      key_services:
+        - "Menu numérique multilingue"
+        - "Réservations en ligne et avis Google"
+        - "Reels et contenus pour les réseaux sociaux"
+      linked_services:
+        - siti
+        - google
+        - social
+    - id: agroalimentare
+      name: "Agroalimentaire et caves"
+      for_whom: "Caves, fromageries, huileries, brasseries, producteurs de spécialités locales"
+      problem: "Le produit est excellent, mais il ne se vend qu'en foire et par le bouche-à-oreille. Les intermédiaires gardent la marge."
+      what_we_do: "Vente directe en ligne, emballages cohérents avec le produit, supports pour les foires et les dégustations."
+      key_services:
+        - "E-commerce pour la vente directe"
+        - "Packaging et étiquettes"
+        - "Objets promotionnels pour foires et dégustations"
+      linked_services:
+        - siti
+        - brand
+        - gadget
+    - id: artigiani-edilizia
+      name: "Artisans et bâtiment"
+      for_whom: "Plombiers, électriciens, menuisiers, entreprises du bâtiment"
+      problem: "Les clients appellent le premier qu'ils trouvent sur Google. Votre site est absent ou illisible sur téléphone. Chaque devis demande plusieurs appels."
+      what_we_do: "Un site simple, des demandes de devis par WhatsApp avec photos, de la visibilité sur Google dans votre région."
+      key_services:
+        - "Un site lisible sur smartphone, même sur le chantier"
+        - "Devis par WhatsApp avec photos"
+        - "Visibilité sur Google dans votre zone"
+      linked_services:
+        - siti
+        - ai-automazioni
+        - google
+    - id: studi-professionali
+      name: "Cabinets professionnels"
+      for_whom: "Fiduciaires, avocats, experts-comptables, architectes"
+      problem: "La confiance se décide avant le premier contact. Un site vieillissant ou absent et aucune présence professionnelle en ligne vous coûtent des clients."
+      what_we_do: "Un site qui inspire confiance avec une page équipe, un profil LinkedIn soigné, des rendez-vous réservables en ligne."
+      key_services:
+        - "Un site qui inspire confiance, avec page équipe"
+        - "Une présence soignée sur LinkedIn"
+        - "Prise de rendez-vous en ligne"
+      linked_services:
+        - siti
+        - social
+        - ai-automazioni
+    - id: salute-benessere
+      name: "Santé et bien-être"
+      for_whom: "Dentistes, physiothérapeutes, cabinets médicaux, esthétique, salles de sport"
+      problem: "L'agenda se gère par téléphone, les rendez-vous sont manqués, les avis restent sans réponse."
+      what_we_do: "Agenda en ligne, rappels automatiques, gestion des avis."
+      key_services:
+        - "Agenda en ligne"
+        - "Rappels automatiques pour patients et clients"
+        - "Gestion des avis"
+      linked_services:
+        - siti
+        - ai-automazioni
+        - google
+    - id: negozi-retail
+      name: "Commerces et retail"
+      for_whom: "Boutiques, opticiens, bijouteries, commerces de quartier"
+      problem: "Le magasin est bien vivant en vitrine, mais invisible en ligne. Les clients du quartier ne savent pas ce que vous proposez."
+      what_we_do: "Instagram géré, commande en ligne avec retrait en magasin, campagnes locales ciblées."
+      key_services:
+        - "Instagram géré"
+        - "Click & collect"
+        - "Campagnes locales ciblées"
+      linked_services:
+        - social
+        - siti
+        - pubblicita
+    - id: auto-moto-immobiliare
+      name: "Auto, moto et immobilier"
+      for_whom: "Concessionnaires, garages, location, agences immobilières"
+      problem: "Des annonces pauvres se perdent parmi les portails. Les contacts arrivent, mais peu qualifiés."
+      what_we_do: "Des fiches soignées de véhicules et de biens, des photos et des vidéos professionnelles, une publicité qui apporte des demandes concrètes."
+      key_services:
+        - "Fiches véhicule ou bien immobilier soignées"
+        - "Leads issus de la publicité payante"
+        - "Vidéos et photos professionnelles"
+      linked_services:
+        - siti
+        - pubblicita
+        - foto-video
+    - id: industria-b2b
+      name: "Industrie et B2B"
+      for_whom: "Fabricants, logistique, entreprises familiales"
+      problem: "Catalogues en PDF, processus manuels, présence en foire déconnectée du digital."
+      what_we_do: "Un catalogue numérique, des supports pour les foires, des automatisations IA sur les processus répétitifs."
+      key_services:
+        - "Catalogue numérique"
+        - "Supports et objets promotionnels pour les foires"
+        - "Automatisations IA sur les processus"
+      linked_services:
+        - siti
+        - gadget
+        - ai-automazioni
+    - id: nuove-aperture
+      name: "Nouvelles ouvertures et startups"
+      for_whom: "Nouvelles activités, startups, spin-offs"
+      problem: "On part de zéro : aucun nom reconnaissable, aucune présence en ligne, peu de temps et peu de budget."
+      what_we_do: "Marque, site, réseaux sociaux et Google prêts le jour du lancement, plus un kit d'objets promotionnels d'ouverture."
+      key_services:
+        - "Marque complète : logo et identité visuelle"
+        - "Site, réseaux sociaux et Google prêts au lancement"
+        - "Kit d'objets promotionnels d'ouverture"
+      linked_services:
+        - brand
+        - siti
+        - gadget
+        - social
+services:
+  title: "Ce que nous faisons"
+  intro: "Chaque service répare une fissure. Chacun fonctionne seul ou avec les autres."
+  featured:
+    id: persone-e-ai
+    title: "Des sites pour les personnes et pour les IA"
+    text: "Les personnes regardent le design. Les assistants IA lisent la structure. Nous construisons les deux : devant, design, UX et marque ; dessous, données structurées, HTML sémantique et contenus que ChatGPT, Gemini, Claude et Perplexity peuvent lire, comprendre et citer. Nous ne promettons pas de positions : nous mesurons comment évolue votre visibilité sur les IA et nous vous montrons les résultats."
+  items:
+    - id: siti
+      title: "Sites et e-commerce"
+      description: "Sites vitrines, boutiques en ligne, pages d'atterrissage. Multilingues : italien, allemand, français."
+      crack: "Votre site est lent et illisible sur téléphone."
+      gold: "Un site rapide et clair qui apporte des demandes."
+    - id: brand
+      title: "Marque et graphisme"
+      description: "Logo, identité visuelle, catalogues, packaging, enseignes, imprimés."
+      crack: "Logo, cartes de visite et enseigne semblent venir d'entreprises différentes."
+      gold: "Une identité reconnaissable partout où l'on vous voit."
+    - id: gadget
+      title: "Objets promotionnels"
+      description: "Vêtements de travail, kits pour foires, cadeaux d'entreprise, kits de bienvenue."
+      crack: "Des cadeaux d'entreprise dont personne ne se souvient."
+      gold: "Des objets que le client garde, utilise et associe à vous."
+    - id: social
+      title: "Réseaux sociaux"
+      description: "Plan éditorial, publications, reels, animation de la communauté."
+      crack: "Votre profil est à l'arrêt depuis des mois."
+      gold: "Des contenus réguliers et une communauté qui répond."
+    - id: pubblicita
+      title: "Publicité payante"
+      description: "Google Ads, Meta (Facebook et Instagram), LinkedIn, campagnes géolocalisées."
+      crack: "Vous dépensez en publicité sans savoir ce que cela rapporte."
+      gold: "Des campagnes ciblées avec des résultats mesurés."
+    - id: ai-automazioni
+      title: "IA et automatisations"
+      description: "Chatbots sur le site, réponses aux avis, devis automatiques, flux automatisés."
+      crack: "Des heures perdues chaque jour en réponses et devis répétitifs."
+      gold: "Des chatbots et des flux qui travaillent à votre place."
+    - id: google
+      title: "Google et visibilité locale"
+      description: "Fiche Google Business, SEO local, stratégie pour les avis."
+      crack: "Personne ne vous trouve sur Google."
+      gold: "Une fiche optimisée, cinq étoiles bien en vue."
+    - id: foto-video
+      title: "Photo et vidéo"
+      description: "Tournage sur place : le matériel pour le site, les réseaux sociaux et la publicité."
+      crack: "Des photos prises au téléphone et du matériel dispersé."
+      gold: "Un tournage professionnel dans votre environnement, utilisé partout."
+    - id: ai-ready
+      title: "Visibilité sur les IA"
+      description: "Données structurées, contenus lisibles par les IA, suivi de la façon dont ChatGPT, Gemini, Claude et Perplexity parlent de vous."
+      crack: "Les assistants IA ne vous citent pas, ou disent des choses fausses à votre sujet."
+      gold: "Des informations correctes, structurées et citables."
+  always_included:
+    title: "Toujours inclus"
+    items:
+      - "Hébergement en Suisse"
+      - "Conformité LPD et RGPD"
+      - "Mises à jour et maintenance"
+      - "Un interlocuteur unique"
+  packages:
+    title: "Trois façons de travailler ensemble"
+    items:
+      - name: "Réparation"
+        text: "Une intervention ponctuelle sur un point précis."
+      - name: "Recomposition"
+        text: "Refonte complète de votre présence digitale."
+      - name: "Or continu"
+        text: "Abonnement mensuel : maintenance, contenus et améliorations dans la durée."
+    note: "Prix clair lors de l'appel, sans surprise."
+contact:
+  title: "Écrivez-nous un mot."
+  intro: "Racontez-nous votre activité. Nous vous répondons avec une proposition claire."
+  call:
+    title: "Premier appel : 20 minutes en ligne"
+    text: "Avant l'appel, nous regardons votre présence en ligne. Nous vous disons ce qui ne fonctionne pas, ce qui peut être fait et avec quelle approche. C'est vous qui décidez de continuer ou non."
+    cta_label: "Réserver l'appel"
+  details:
+    email: "info@kint.ch"
+    address: "Lugano, Tessin, Suisse"
+    labels:
+      email: "E-mail"
+      address: "Siège"
+      phone: "Téléphone"
+      hours: "Horaires"
+  form:
+    name: "Nom"
+    email: "E-mail"
+    phone: "Téléphone"
+    company: "Entreprise"
+    sector: "Secteur"
+    sector_other: "Autre"
+    message: "Message"
+    privacy_label: "J'ai lu la politique de confidentialité"
+    submit: "Envoyer"
+    sent: "Merci, nous vous répondons rapidement."
+    error: "Envoi impossible. Écrivez-nous à info@kint.ch."
+  faq:
+    title: "Questions fréquentes"
+    items:
+      - q: "Comment obtenir un devis ?"
+        a: "Contactez-nous via le formulaire, par e-mail ou par téléphone. Après un bref échange sur vos besoins, nous vous proposons plusieurs options à choisir."
+      - q: "Combien coûte un site ou un service Kint ?"
+        a: "Cela dépend du projet. Nous ne vendons pas de packs standard, pour ne pas tomber dans des travaux génériques. Nous vous donnons un prix clair lors de l'appel, avant de commencer."
+      - q: "Où êtes-vous basés et où travaillez-vous ?"
+        a: "Notre siège est à Lugano, au Tessin. Nous travaillons avec des entreprises en Suisse et en Italie, aussi à distance."
+      - q: "Qui êtes-vous ?"
+        a: "Une équipe aux parcours variés : management, informatique, startups, investissements et réseaux sociaux."
+      - q: "Comment suivre l'avancement du travail ?"
+        a: "Vous recevez des liens d'aperçu, des ébauches graphiques et des tests tout au long du projet. Chaque projet dispose d'une adresse e-mail dédiée @kint.ch et d'une équipe qui répond à vos questions."
+      - q: "En combien de temps mon projet est-il prêt ?"
+        a: "Vous recevez une estimation des délais avec le devis. Un site vitrine peut être en ligne en 10 jours."
+      - q: "Quelles garanties offrez-vous ?"
+        a: "Si le résultat ne vous satisfait pas, nous vous trouvons une alternative externe sans frais pour vous."
+      - q: "Que signifie qu'un site est AI-ready ?"
+        a: "Cela signifie qu'en plus d'être beau et utilisable, il est structuré pour être lu par des assistants comme ChatGPT, Gemini et Claude : données structurées, HTML sémantique, informations claires sur les services et les contacts. Ainsi, les IA comprennent qui vous êtes et peuvent vous citer correctement."
+      - q: "Où sont hébergées les données ?"
+        a: "L'hébergement est en Suisse. Nous respectons la LPD suisse et le RGPD européen."
+footer:
+  copyright: "© 2026 Kint · Lugano, Suisse"
+  privacy: "Confidentialité"
+  hosting: "Hébergement en Suisse"
+privacy:
+  title: "Politique de confidentialité"
+  intro: "Cette page décrit comment Kint traite les données personnelles collectées via le formulaire de contact, conformément à la LPD suisse et au RGPD."
+  body:
+    - "Responsable du traitement : Kint, Lugano, Suisse. Contact : info@kint.ch."
+    - "Données collectées : nom, e-mail, téléphone, entreprise, secteur et message que vous envoyez via le formulaire. Nous les utilisons uniquement pour répondre à votre demande."
+    - "Conservation : les données sont conservées le temps nécessaire au traitement de la demande. Vous pouvez demander l'accès à vos données ou leur suppression en écrivant à info@kint.ch."
+    - "Hébergement : le site est hébergé en Suisse."
+portfolio:
+  title: "Projets"
+  intro: "Des activités réelles, des problèmes réels. Voici ce que nous avons recomposé."

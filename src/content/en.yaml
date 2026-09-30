@@ -1,0 +1,304 @@
+# needs-review: traduzione generata da AI, da far controllare a un madrelingua prima della pubblicazione
+lang: en
+meta:
+  title: "Kint — Digital partner for small businesses in Italy and Switzerland"
+  description: "Websites, brand, social, Google and AI automations for small businesses in Italy and Switzerland. Beautiful for people, readable by AI."
+  og_locale: en_GB
+  portfolio_title: "Projects — Kint"
+  portfolio_description: "Projects by Kint for small businesses in Italy and Switzerland: websites, brand, social media and automations."
+ui:
+  skip_to_content: "Skip to content"
+  nav_label: "Main navigation"
+  lang_label: "Language"
+  scroll_hint: "Scroll"
+  for_whom: "Who it's for"
+  typical_problem: "The typical problem"
+  what_we_do: "What we do"
+  key_services: "Key services"
+  linked_services: "Related services"
+  crack: "Crack"
+  gold: "Gold"
+  featured: "Featured"
+nav:
+  sectors: "Sectors"
+  services: "Services"
+  contact: "Contact"
+  portfolio: "Portfolio"
+opening:
+  logo_label: "Kint — the digital partner for small businesses"
+presentation:
+  h1: "The digital partner for small businesses."
+  subtitle: "Websites that look great to people. Readable by AI."
+  paragraph: "Kint builds the digital presence of small businesses in Italy and Switzerland: website, brand, social media, Google and automations. Every site is designed to be used by customers and read by ChatGPT, Gemini, Claude and the other AI assistants that now guide buying decisions."
+  cta_primary:
+    label: "Drop us a line"
+    href: "#contatti"
+  kintsugi:
+    title: "Why Kint"
+    text: "Kint comes from kintsugi, the Japanese art of repairing broken ceramics with gold. It does not hide the break: it celebrates it. We do the same with your online presence. An outdated website, no bookings, reviews left unanswered: to us, these are cracks. We repair them and turn them into your best feature."
+  values:
+    - title: "Transparency"
+      text: "Clear options and costs from the very first call. We want to make your business competitive, not dependent on us."
+    - title: "Speed"
+      text: "We work towards goals, not hours. You receive previews and drafts throughout the project."
+    - title: "Responsibility"
+      text: "We take ownership of the problem. If we cannot solve it ourselves, we find the right professional."
+    - title: "Quality"
+      text: "We do not aim for the lowest price. We aim for results that save you money over time."
+sectors:
+  title: "We speak the language of your trade."
+  intro: "Every sector has its typical problems and ready-made solutions. Find yours."
+  closing:
+    text: "Don't see yourself here? Drop us a line."
+  items:
+    - id: ristorazione
+      name: "Restaurants and hospitality"
+      for_whom: "Restaurants, bars, grotti (Ticino taverns), B&Bs, small hotels, farm stays"
+      problem: "The customer searches on Google, finds a PDF menu that is unreadable on a phone and cannot book. They choose another venue."
+      what_we_do: "A fast website with an easy-to-update menu, direct bookings and reviews under control."
+      key_services:
+        - "Multilingual digital menu"
+        - "Online bookings and Google reviews"
+        - "Reels and social content"
+      linked_services:
+        - siti
+        - google
+        - social
+    - id: agroalimentare
+      name: "Food producers and wineries"
+      for_whom: "Wineries, dairies, olive mills, breweries, producers of local specialities"
+      problem: "The product is excellent but sells only at fairs and by word of mouth. Middlemen keep the margin."
+      what_we_do: "Direct online sales, packaging consistent with the product, materials for fairs and tastings."
+      key_services:
+        - "E-commerce for direct sales"
+        - "Packaging and labels"
+        - "Merchandise for fairs and tastings"
+      linked_services:
+        - siti
+        - brand
+        - gadget
+    - id: artigiani-edilizia
+      name: "Trades and construction"
+      for_whom: "Plumbers, electricians, window fitters, building companies"
+      problem: "Customers call whoever they find first on Google. Your website is missing or unreadable on a phone. Every quote takes several phone calls."
+      what_we_do: "A simple website, quote requests via WhatsApp with photos, visibility on Google in your area."
+      key_services:
+        - "A website readable on a smartphone, even on site"
+        - "Quotes via WhatsApp with photos"
+        - "Visibility on Google in your local area"
+      linked_services:
+        - siti
+        - ai-automazioni
+        - google
+    - id: studi-professionali
+      name: "Professional firms"
+      for_whom: "Fiduciary firms, lawyers, accountants, architects"
+      problem: "Trust is decided before the first contact. An outdated or missing website and no professional presence online cost you clients."
+      what_we_do: "An authoritative website with a team page, a polished LinkedIn profile and appointments bookable online."
+      key_services:
+        - "Authoritative website with a team page"
+        - "A polished LinkedIn presence"
+        - "Online appointment booking"
+      linked_services:
+        - siti
+        - social
+        - ai-automazioni
+    - id: salute-benessere
+      name: "Health and wellness"
+      for_whom: "Dentists, physiotherapists, medical practices, beauty, gyms"
+      problem: "The diary is managed by phone, appointments fall through and reviews go unanswered."
+      what_we_do: "Online diary, automatic reminders, review management."
+      key_services:
+        - "Online diary"
+        - "Automatic reminders for patients and clients"
+        - "Review management"
+      linked_services:
+        - siti
+        - ai-automazioni
+        - google
+    - id: negozi-retail
+      name: "Shops and retail"
+      for_whom: "Boutiques, opticians, jewellers, neighbourhood shops"
+      problem: "The shop is alive in the window but invisible online. Local customers do not know what you have."
+      what_we_do: "Managed Instagram, online ordering with in-store pickup, targeted local campaigns."
+      key_services:
+        - "Managed Instagram"
+        - "Click & collect"
+        - "Targeted local campaigns"
+      linked_services:
+        - social
+        - siti
+        - pubblicita
+    - id: auto-moto-immobiliare
+      name: "Cars, motorbikes and real estate"
+      for_whom: "Dealerships, garages, rental companies, estate agencies"
+      problem: "Thin listings get lost among the portals. Enquiries come in, but poorly qualified."
+      what_we_do: "Polished vehicle and property listings, professional photos and videos, advertising that brings concrete requests."
+      key_services:
+        - "Polished vehicle or property listings"
+        - "Leads from paid advertising"
+        - "Professional photos and videos"
+      linked_services:
+        - siti
+        - pubblicita
+        - foto-video
+    - id: industria-b2b
+      name: "Industry and B2B"
+      for_whom: "Manufacturers, logistics, family-owned companies"
+      problem: "PDF catalogues, manual processes, a trade-fair presence disconnected from digital."
+      what_we_do: "A digital catalogue, materials for trade fairs, AI automations for repetitive processes."
+      key_services:
+        - "Digital catalogue"
+        - "Materials and merchandise for trade fairs"
+        - "AI automations for processes"
+      linked_services:
+        - siti
+        - gadget
+        - ai-automazioni
+    - id: nuove-aperture
+      name: "New openings and startups"
+      for_whom: "New businesses, startups, spin-offs"
+      problem: "You start from zero: no recognisable name, no online presence, little time and little budget."
+      what_we_do: "Brand, website, social media and Google ready on launch day, plus an opening merchandise kit."
+      key_services:
+        - "Complete brand: logo and visual identity"
+        - "Website, social media and Google ready at launch"
+        - "Opening merchandise kit"
+      linked_services:
+        - brand
+        - siti
+        - gadget
+        - social
+services:
+  title: "What we do"
+  intro: "Every service repairs a crack. Each one works alone or together with the others."
+  featured:
+    id: persone-e-ai
+    title: "Websites for people and for AI"
+    text: "People look at the design. AI assistants read the structure. We build both: on the surface, design, UX and brand; underneath, structured data, semantic HTML and content that ChatGPT, Gemini, Claude and Perplexity can read, understand and cite. We do not promise rankings: we measure how your visibility on AI changes and show you the results."
+  items:
+    - id: siti
+      title: "Websites and e-commerce"
+      description: "Showcase sites, online shops, landing pages. Multilingual in Italian, German, French and English."
+      crack: "Your website is slow and unreadable on a phone."
+      gold: "A fast, clear website that brings enquiries."
+    - id: brand
+      title: "Brand and graphics"
+      description: "Logo, visual identity, catalogues, packaging, signage, print."
+      crack: "Logo, business cards and signage look like they belong to different companies."
+      gold: "An identity recognisable wherever people see you."
+    - id: gadget
+      title: "Merchandise"
+      description: "Workwear, trade-fair kits, corporate gifts, welcome kits."
+      crack: "Corporate gifts nobody remembers."
+      gold: "Objects your customers keep, use and associate with you."
+    - id: social
+      title: "Social media"
+      description: "Editorial plan, posts, reels, community management."
+      crack: "Your profile has been silent for months."
+      gold: "Regular content and a community that responds."
+    - id: pubblicita
+      title: "Paid advertising"
+      description: "Google Ads, Meta (Facebook and Instagram), LinkedIn, geo-targeted campaigns."
+      crack: "You spend on advertising without knowing what pays off."
+      gold: "Targeted campaigns with measured results."
+    - id: ai-automazioni
+      title: "AI and automations"
+      description: "Website chatbots, replies to reviews, automatic quotes, automated workflows."
+      crack: "Hours lost every day on repetitive replies and quotes."
+      gold: "Chatbots and workflows that work in your place."
+    - id: google
+      title: "Google and local visibility"
+      description: "Google Business Profile, local SEO, review strategy."
+      crack: "Nobody finds you on Google."
+      gold: "An optimised profile, five stars in sight."
+    - id: foto-video
+      title: "Photo and video"
+      description: "On-site shoots: the material for your website, social media and advertising."
+      crack: "Phone photos and scattered material."
+      gold: "A professional shoot in your own setting, used everywhere."
+    - id: ai-ready
+      title: "Visibility on AI"
+      description: "Structured data, content readable by AI, monitoring how ChatGPT, Gemini, Claude and Perplexity talk about you."
+      crack: "AI assistants do not cite you, or say wrong things about you."
+      gold: "Correct, structured, citable information."
+  always_included:
+    title: "Always included"
+    items:
+      - "Hosting in Switzerland"
+      - "Swiss FADP and GDPR compliance"
+      - "Updates and maintenance"
+      - "A single point of contact"
+  packages:
+    title: "Three ways of working together"
+    items:
+      - name: "Repair"
+        text: "A single intervention on one specific point."
+      - name: "Reassembly"
+        text: "A complete rebuild of your digital presence."
+      - name: "Ongoing Gold"
+        text: "Monthly subscription: maintenance, content and improvements over time."
+    note: "Clear pricing on the call, no surprises."
+contact:
+  title: "Drop us a line."
+  intro: "Tell us about your business. We will reply with a clear proposal."
+  call:
+    title: "First call: 20 minutes online"
+    text: "Before the call we look at your online presence. We tell you what is not working, what can be done and with which approach. You decide whether to go ahead."
+    cta_label: "Book the call"
+  details:
+    email: "info@kint.ch"
+    address: "Lugano, Ticino, Switzerland"
+    labels:
+      email: "Email"
+      address: "Office"
+      phone: "Phone"
+      hours: "Opening hours"
+  form:
+    name: "Name"
+    email: "Email"
+    phone: "Phone"
+    company: "Company"
+    sector: "Sector"
+    sector_other: "Other"
+    message: "Message"
+    privacy_label: "I have read the privacy notice"
+    submit: "Send"
+    sent: "Thank you, we will reply shortly."
+    error: "Sending failed. Please write to info@kint.ch."
+  faq:
+    title: "Frequently asked questions"
+    items:
+      - q: "How do I get a quote?"
+        a: "Contact us through the form, by email or by phone. After a short discussion of your needs we propose several options to choose from."
+      - q: "How much does a Kint website or service cost?"
+        a: "It depends on the project. We do not sell standard packages, so as not to end up with generic work. We give you a clear price on the call, before we start."
+      - q: "Where are you based and where do you work?"
+        a: "Our office is in Lugano, Ticino. We work with businesses in Switzerland and Italy, also remotely."
+      - q: "Who are you?"
+        a: "A team with diverse backgrounds: management, IT, startups, investments and social media."
+      - q: "How do I follow the progress of the work?"
+        a: "You receive preview links, graphic drafts and tests throughout the project. Every project has a dedicated @kint.ch email address and a team that answers your questions."
+      - q: "How long until my project is ready?"
+        a: "You receive an estimate of the timing together with the quote. A showcase website can be online in 10 days."
+      - q: "What guarantees do you offer?"
+        a: "If you are not satisfied with the result, we find you an external alternative at no cost to you."
+      - q: "What does it mean that a website is AI-ready?"
+        a: "It means that, besides being beautiful and usable, it is structured to be read by assistants such as ChatGPT, Gemini and Claude: structured data, semantic HTML, clear information about services and contacts. This way AI understands who you are and can cite you correctly."
+      - q: "Where is the data hosted?"
+        a: "Hosting is in Switzerland. We comply with the Swiss FADP and the European GDPR."
+footer:
+  copyright: "© 2026 Kint · Lugano, Switzerland"
+  privacy: "Privacy"
+  hosting: "Hosting in Switzerland"
+privacy:
+  title: "Privacy notice"
+  intro: "This page describes how Kint processes the personal data collected through the contact form, in accordance with the Swiss FADP and the GDPR."
+  body:
+    - "Data controller: Kint, Lugano, Switzerland. Contact: info@kint.ch."
+    - "Data collected: name, email, phone, company, sector and the message you send through the form. We use them only to reply to your request."
+    - "Retention: data are kept for as long as necessary to handle the request. You can ask for access to or deletion of your data by writing to info@kint.ch."
+    - "Hosting: the website is hosted in Switzerland."
+portfolio:
+  title: "Projects"
+  intro: "Real businesses, real problems. Here is what we have put back together."

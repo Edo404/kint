@@ -27,6 +27,11 @@ const REQUIRED_ARRAYS = [
   'services.packages.items', 'contact.faq.items', 'privacy.body',
 ];
 
+const OPTIONAL = ['meta.og_locale_alternate', 'presentation.cta_secondary', 'contact.details.phone', 'contact.details.hours'];
+
+const comparable = (paths: string[]): string[] =>
+  paths.filter((k) => !OPTIONAL.some((o) => k === o || k.startsWith(`${o}.`) || k.startsWith(`${o}#`)));
+
 const ITEM_FIELDS: Record<string, string[]> = {
   'presentation.values': ['title', 'text'],
   'sectors.items': ['id', 'name', 'for_whom', 'problem', 'what_we_do'],
@@ -119,7 +124,7 @@ export function validateContent(all: Partial<Record<Lang, unknown>>): string[] {
     if (c) validateOne(lang, c, errors);
   }
 
-  const shape = new Set(structure(source));
+  const shape = new Set(comparable(structure(source)));
   const ids = (c: unknown, p: string) => ((get(c, p) as Array<{ id: string }>) ?? []).map((x) => x.id).join(',');
 
   for (const lang of LANGS) {
@@ -129,7 +134,7 @@ export function validateContent(all: Partial<Record<Lang, unknown>>): string[] {
     if (ids(c, 'sectors.items') !== ids(source, 'sectors.items')) errors.push(`${lang}: gli id dei settori non coincidono con quelli di it`);
     if (ids(c, 'services.items') !== ids(source, 'services.items')) errors.push(`${lang}: gli id dei servizi non coincidono con quelli di it`);
 
-    const mine = new Set(structure(c));
+    const mine = new Set(comparable(structure(c)));
     const missing = [...shape].filter((k) => !mine.has(k));
     const extra = [...mine].filter((k) => !shape.has(k));
     if (missing.length || extra.length) {
