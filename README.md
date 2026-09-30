@@ -27,7 +27,8 @@ Una lingua è pubblicata solo se il suo file YAML esiste.
 
 1. Build: `npm run build`, cartella di output `dist`.
 2. Il redirect `/` → `/it/` (301) sta in `public/_redirects`.
-3. Form di contatto: `functions/api/contact.ts` invia l'email con Cloudflare Email Routing (`wrangler.toml`, binding `SEND_EMAIL`). Attivare Email Routing su kint.ch e verificare `info@kint.ch` come destinazione. Controllare i nomi del binding nella documentazione Cloudflare.
+3. Form di contatto: `functions/api/contact.ts` valida il modulo e prova a inviare con un binding `SEND_EMAIL`, che però **le Pages non supportano** (il deploy fallisce se è in `wrangler.toml`). Senza binding il modulo risponde con il messaggio d'errore e l'indirizzo email. Opzioni per l'invio reale: spostare l'endpoint in un Worker separato con il binding `send_email` e Email Routing attivo su kint.ch, oppure usare un servizio di invio via API (chiave come segreto Cloudflare).
+   Staging attuale: progetto Pages `kint`, https://kint-2qa.pages.dev, pubblicato con `NOINDEX=true npm run build` e `npx wrangler pages deploy dist --project-name kint --branch main`.
 4. Antispam: il modulo ha un campo trappola e un controllo dell'origine. Aggiungere in Cloudflare una regola di rate limiting su `POST /api/contact` (non si può configurare dal codice).
 5. **Cloudflare e crawler AI:** nel pannello, per kint.ch, verificare che non siano attivi il blocco automatico dei bot AI né «AI Labyrinth». Se lo sono, `robots.txt` e tutto il resto non servono. Annotare l'impostazione trovata.
 6. Verificare i nomi degli user agent in `src/lib/seoFiles.ts` (`AI_BOTS`) con la documentazione dei fornitori: cambiano.

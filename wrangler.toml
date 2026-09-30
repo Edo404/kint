@@ -5,10 +5,8 @@ compatibility_date = "2026-09-01"
 [vars]
 CONTACT_TO = "info@kint.ch"
 CONTACT_FROM = "noreply@kint.ch"
-ALLOWED_ORIGINS = "https://kint.ch"
+ALLOWED_ORIGINS = "https://kint.ch,https://kint-2qa.pages.dev"
 
-# Serve Cloudflare Email Routing attivo su kint.ch, con info@kint.ch come destinazione verificata.
-# Verificare i nomi del binding nella documentazione Cloudflare prima del deploy: cambiano.
-[[send_email]]
-name = "SEND_EMAIL"
-destination_address = "info@kint.ch"
+# Invio email: le Pages non supportano il binding "send_email" (errore di validazione al deploy).
+# Finché non c'è un canale di invio, functions/api/contact.ts risponde con ?error=1 e la pagina
+# mostra l'indirizzo info@kint.ch. Vedi README.md, sezione Deploy.

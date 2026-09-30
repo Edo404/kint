@@ -1,79 +1,44 @@
-import { describe, expect, it } from 'vitest';
-import { buildEmailText, buildRawEmail, parseContact, redirectFor } from '../src/lib/contactForm';
+import { EmailMessage } from 'cloudflare:email';
+import { buildEmailText, buildRawEmail, parseContact, redirectFor } from '../../src/lib/contactForm';
 
-const fields = (over: Record<string, string> = {}) => {
-  const base: Record<string, string> = {
-    lang: 'it', name: 'Mario Rossi', email: 'mario@example.com', phone: '', company: 'Rossi Srl',
-    sector: 'ristorazione', message: 'Vorrei un sito.', privacy: 'on', website: '',
-  };
-  const all = { ...base, ...over };
-  return (k: string) => (k in all ? all[k] : null);
+interface Env {
+  SEND_EMAIL?: { send(message: unknown): Promise<void> };
+  CONTACT_TO?: string;
+  CONTACT_FROM?: string;
+  ALLOWED_ORIGINS?: string;
+}
+
+const redirect = (location: string) => new Response(null, { status: 303, headers: { Location: location } });
+
+export const onRequestPost = async ({ request, env }: { request: Request; env: Env }): Promise<Response> => {
+  const origin = request.headers.get('Origin');
+  const allowed = (env.ALLOWED_ORIGINS ?? 'https://kint.ch').split(',').map((s) => s.trim());
+  if (origin && !allowed.includes(origin)) return new Response('Forbidden', { status: 403 });
+
+  const form = await request.formData();
+  const result = parseContact((k) => {
+    const v = form.get(k);
+    return typeof v === 'string' ? v : null;
+  });
+
+  // Il campo trappola risponde come se l'invio fosse riuscito, per non dare indizi ai bot.
+  if (!result.ok) return redirect(redirectFor(result.lang, result.reason === 'honeypot' ? 'sent' : 'error'));
+
+  const to = env.CONTACT_TO ?? 'info@kint.ch';
+  const from = env.CONTACT_FROM ?? 'noreply@kint.ch';
+  try {
+    if (!env.SEND_EMAIL) throw new Error('binding SEND_EMAIL non configurato');
+    const raw = buildRawEmail({
+      from,
+      to,
+      replyTo: result.data.email,
+      subject: 'Nuovo contatto dal sito Kint',
+      text: buildEmailText(result.data),
+    });
+    await env.SEND_EMAIL.send(new EmailMessage(from, to, raw));
+  } catch (err) {
+    console.error('invio email fallito', err);
+    return redirect(redirectFor(result.data.lang, 'error'));
+  }
+  return redirect(redirectFor(result.data.lang, 'sent'));
 };
-
-describe('parseContact', () => {
-  it('accetta un modulo valido', () => {
-    const r = parseContact(fields());
-    expect(r.ok).toBe(true);
-    if (r.ok) expect(r.data).toMatchObject({ lang: 'it', name: 'Mario Rossi', email: 'mario@example.com', sector: 'ristorazione' });
-  });
-
-  it('scarta gli invii con il campo trappola compilato', () => {
-    const r = parseContact(fields({ website: 'http://spam' }));
-    expect(r).toMatchObject({ ok: false, reason: 'honeypot' });
-  });
-
-  it('richiede nome, email, messaggio e consenso privacy', () => {
-    for (const bad of [{ name: '' }, { email: '' }, { message: '  ' }, { privacy: '' }]) {
-      expect(parseContact(fields(bad))).toMatchObject({ ok: false, reason: 'invalid' });
-    }
-  });
-
-  it('rifiuta un\'email malformata', () => {
-    expect(parseContact(fields({ email: 'non-una-email' })).ok).toBe(false);
-  });
-
-  it('rifiuta i ritorni a capo nei campi di intestazione (header injection)', () => {
-    expect(parseContact(fields({ name: 'Mario\r\nBcc: x@y.z' })).ok).toBe(false);
-    expect(parseContact(fields({ email: 'a@b.it\r\nBcc: x@y.z' })).ok).toBe(false);
-  });
-
-  it('rifiuta testi troppo lunghi', () => {
-    expect(parseContact(fields({ message: 'a'.repeat(5001) })).ok).toBe(false);
-  });
-
-  it('accetta il settore "other" e rifiuta valori strani', () => {
-    expect(parseContact(fields({ sector: 'other' })).ok).toBe(true);
-    expect(parseContact(fields({ sector: '<script>' })).ok).toBe(false);
-  });
-
-  it('ripiega su it per una lingua sconosciuta', () => {
-    const r = parseContact(fields({ lang: 'xx' }));
-    expect(r.ok && r.data.lang).toBe('it');
-  });
-});
-
-describe('redirectFor', () => {
-  it('torna al blocco contatti con lo stato', () => {
-    expect(redirectFor('fr', 'sent')).toBe('/fr/?sent=1#contatti');
-    expect(redirectFor('de', 'error')).toBe('/de/?error=1#contatti');
-  });
-});
-
-describe('email', () => {
-  const data = { lang: 'it' as const, name: 'Mario', email: 'mario@example.com', phone: '+41 79 000 00 00', company: 'Rossi', sector: 'ristorazione', message: 'Ciao è un àccento' };
-
-  it('il testo contiene tutti i campi', () => {
-    const t = buildEmailText(data);
-    for (const v of ['Mario', 'mario@example.com', '+41 79 000 00 00', 'Rossi', 'ristorazione', 'Ciao è un àccento']) expect(t).toContain(v);
-  });
-
-  it('il MIME ha le intestazioni e il corpo in base64', () => {
-    const raw = buildRawEmail({ from: 'noreply@kint.ch', to: 'info@kint.ch', replyTo: 'mario@example.com', subject: 'Nuovo contatto dal sito Kint', text: 'Ciao è' });
-    expect(raw).toContain('From: noreply@kint.ch\r\n');
-    expect(raw).toContain('To: info@kint.ch\r\n');
-    expect(raw).toContain('Reply-To: mario@example.com\r\n');
-    expect(raw).toContain('Content-Transfer-Encoding: base64');
-    const body = raw.split('\r\n\r\n')[1].replace(/\r\n/g, '');
-    expect(Buffer.from(body, 'base64').toString('utf8')).toBe('Ciao è');
-  });
-});
