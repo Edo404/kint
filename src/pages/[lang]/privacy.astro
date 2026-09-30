@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { loadAll, loadSite } from '../../lib/content';
+import { buildEnv, portfolioPublished } from '../../lib/flags';
+import type { Lang } from '../../lib/i18n';
+
+export function getStaticPaths() {
+  return loadAll().available.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const { content, available } = loadAll();
+const c = content[lang]!;
+const showPortfolio = portfolioPublished(buildEnv());
+---
+<Base lang={lang} path="privacy" title={`${c.privacy.title} — Kint`} description={c.privacy.intro} ogLocale={c.meta.og_locale} ogLocaleAlternate={c.meta.og_locale_alternate}>
+  <a class="skip-link" href="#privacy">{c.ui.skip_to_content}</a>
+  <Nav c={c} lang={lang} available={available} path="privacy" showPortfolio={showPortfolio} />
+  <main class="page">
+    <section id="privacy" aria-labelledby="privacy-title">
+      <div class="wrap">
+        <h1 id="privacy-title">{c.privacy.title}</h1>
+        <p class="intro">{c.privacy.intro}</p>
+        {c.privacy.body.map((p) => <p>{p}</p>)}
+      </div>
+    </section>
+  </main>
+  <Footer c={c} lang={lang} site={loadSite()} showPortfolio={showPortfolio} />
+</Base>

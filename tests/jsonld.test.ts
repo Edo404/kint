@@ -81,3 +81,20 @@ describe('buildJsonLd', () => {
     expect(web.inLanguage).toBe('it');
   });
 });
+
+import { buildPortfolioJsonLd } from '../src/lib/jsonld';
+
+describe('buildPortfolioJsonLd', () => {
+  const projects: any[] = [
+    { slug: 'alfa', name: 'Alfa', client_sector: 's1', services: ['siti'], year: 2026, url: 'https://alfa.example', summary: 'Sintesi', results: [], images: [], publication_allowed: true },
+  ];
+  const blocks = buildPortfolioJsonLd({ content: { ...content, portfolio: { title: 'Progetti', intro: 'Intro' }, meta: { ...content.meta, portfolio_description: 'Desc' } }, lang: 'it', projects }) as any[];
+
+  it('emette CollectionPage con ItemList e BreadcrumbList', () => {
+    expect(blocks[0]['@type']).toBe('CollectionPage');
+    expect(blocks[0].mainEntity['@type']).toBe('ItemList');
+    expect(blocks[0].mainEntity.itemListElement[0].item['@type']).toBe('CreativeWork');
+    expect(blocks[1]['@type']).toBe('BreadcrumbList');
+    expect(blocks[1].itemListElement).toHaveLength(2);
+  });
+});

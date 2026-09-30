@@ -1,0 +1,19 @@
+projects:
+  - slug: esempio-ristorante
+    name: "Esempio Ristorante (fittizio)"
+    client_sector: ristorazione
+    services: [siti, google]
+    year: 2026
+    summary: "Progetto fittizio per lo sviluppo: menu digitale e prenotazioni dirette."
+    results: []
+    images: []
+    publication_allowed: true
+  - slug: esempio-studio
+    name: "Esempio Studio (fittizio)"
+    client_sector: studi-professionali
+    services: [siti, social]
+    year: 2026
+    summary: "Progetto fittizio per lo sviluppo: sito autorevole e profilo LinkedIn."
+    results: []
+    images: []
+    publication_allowed: true

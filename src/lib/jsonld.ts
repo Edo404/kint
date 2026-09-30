@@ -1,4 +1,4 @@
-import type { Content, SiteData } from './content.types';
+import type { Content, Project, SiteData } from './content.types';
 import { SITE, absoluteUrl, pathFor, type Lang } from './i18n';
 
 export const ORG_ID = `${SITE}/#organization`;
@@ -83,4 +83,44 @@ export function buildJsonLd({ content, site, lang }: Input): object[] {
   };
 
   return [organization, website, faq];
+}
+
+export function buildPortfolioJsonLd({ content, lang, projects }: { content: Content; lang: Lang; projects: Project[] }): object[] {
+  const page = absoluteUrl(pathFor(lang, 'portfolio'));
+  return [
+    {
+      '@context': CONTEXT,
+      '@type': 'CollectionPage',
+      '@id': `${page}#page`,
+      name: content.portfolio.title,
+      description: content.meta.portfolio_description,
+      url: page,
+      inLanguage: lang,
+      isPartOf: { '@id': `${absoluteUrl(pathFor(lang))}#website` },
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: projects.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          item: {
+            '@type': 'CreativeWork',
+            '@id': `${page}#${p.slug}`,
+            name: p.name,
+            description: p.summary,
+            dateCreated: String(p.year),
+            creator: { '@id': ORG_ID },
+            ...(p.url ? { url: p.url } : {}),
+          },
+        })),
+      },
+    },
+    {
+      '@context': CONTEXT,
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Kint', item: absoluteUrl(pathFor(lang)) },
+        { '@type': 'ListItem', position: 2, name: content.portfolio.title, item: page },
+      ],
+    },
+  ];
 }

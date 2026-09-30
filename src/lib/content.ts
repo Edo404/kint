@@ -2,7 +2,8 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { parse } from 'yaml';
 import { validateContent } from './contentSchema';
-import type { Content, SiteData } from './content.types';
+import type { Content, Project, SiteData } from './content.types';
+import { buildEnv, portfolioPublished } from './flags';
 import { LANGS, type Lang } from './i18n';
 
 const DIR = join(process.cwd(), 'src', 'content');
@@ -28,4 +29,11 @@ export function loadSite(): SiteData {
 
 export function lastmodFor(lang: Lang): string {
   return statSync(join(DIR, `${lang}.yaml`)).mtime.toISOString().slice(0, 10);
+}
+
+export function loadPortfolio(): Project[] {
+  const real = (read('portfolio.yaml') as { projects?: Project[] }).projects ?? [];
+  const dev = process.env.NODE_ENV !== 'production' && portfolioPublished(buildEnv()) && existsSync(join(DIR, 'portfolio.dev.yaml'));
+  const fixtures = dev ? ((read('portfolio.dev.yaml') as { projects?: Project[] }).projects ?? []) : [];
+  return [...real, ...fixtures];
 }

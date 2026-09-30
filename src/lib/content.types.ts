@@ -98,3 +98,16 @@ export interface SiteData {
   call_url?: string;
   same_as: string[];
 }
+
+export interface Project {
+  slug: string;
+  name: string;
+  client_sector: string;
+  services: string[];
+  year: number;
+  url?: string;
+  summary: string;
+  results: string[];
+  images: Array<{ file: string; alt: string }>;
+  publication_allowed: boolean;
+}

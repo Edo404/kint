@@ -1,0 +1,56 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { loadAll, loadPortfolio, loadSite } from '../../lib/content';
+import { buildEnv, portfolioPublished } from '../../lib/flags';
+import { pathFor, type Lang } from '../../lib/i18n';
+import { buildPortfolioJsonLd } from '../../lib/jsonld';
+import { portfolioPaths, publishable } from '../../lib/portfolio';
+
+export function getStaticPaths() {
+  return portfolioPaths(portfolioPublished(buildEnv()), loadAll().available, loadPortfolio());
+}
+
+const lang = Astro.params.lang as Lang;
+const { content, available } = loadAll();
+const c = content[lang]!;
+const site = loadSite();
+const projects = publishable(loadPortfolio());
+const sectorName = new Map(c.sectors.items.map((s) => [s.id, s.name]));
+const serviceName = new Map(c.services.items.map((s) => [s.id, s.title]));
+---
+<Base lang={lang} path="portfolio" title={c.meta.portfolio_title} description={c.meta.portfolio_description} ogLocale={c.meta.og_locale} ogLocaleAlternate={c.meta.og_locale_alternate} jsonld={buildPortfolioJsonLd({ content: c, lang, projects })}>
+  <a class="skip-link" href="#progetti">{c.ui.skip_to_content}</a>
+  <Nav c={c} lang={lang} available={available} path="portfolio" showPortfolio={true} />
+  <main class="page">
+    <section id="progetti" aria-labelledby="portfolio-title">
+      <div class="wrap">
+        <h1 id="portfolio-title">{c.portfolio.title}</h1>
+        <p class="intro">{c.portfolio.intro}</p>
+        <ul class="chips">
+          {c.sectors.items.map((s) => <li><a href={`?sector=${s.id}`}>{s.name}</a></li>)}
+          {c.services.items.map((s) => <li><a href={`?service=${s.id}`}>{s.title}</a></li>)}
+        </ul>
+        <div class="grid">
+          {projects.map((p) => (
+            <article id={p.slug} class="card" data-project data-sector={p.client_sector} data-services={p.services.join(' ')}>
+              <h2>{p.name}</h2>
+              <p class="label">{sectorName.get(p.client_sector)} · {p.year}</p>
+              <p>{p.summary}</p>
+              <ul class="chips">{p.services.map((id) => <li>{serviceName.get(id) ?? id}</li>)}</ul>
+              {p.results.length > 0 && <ul>{p.results.map((r) => <li>{r}</li>)}</ul>}
+              {p.images.map((img) => <img src={img.file} alt={img.alt} loading="lazy" />)}
+              {p.url && <p><a href={p.url} rel="noopener">{p.url}</a></p>}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer c={c} lang={lang} site={site} showPortfolio={true} />
+  <script>
+    import { initPortfolioFilter } from '../../scripts/portfolio-filter';
+    initPortfolioFilter();
+  </script>
+</Base>

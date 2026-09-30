@@ -78,3 +78,6 @@ section { padding-block: 6rem; align-items: flex-start; }
 .site-footer { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding: 2rem 5vw; border-top: 1px solid rgb(245 243 238 / .15); background: var(--black); }
 .site-footer ul { display: flex; flex-wrap: wrap; gap: 1.25rem; list-style: none; padding: 0; margin: 0; }
 .site-footer a { color: var(--white); }
+
+.page section { min-height: 100svh; }
+.page { position: relative; z-index: 1; }
