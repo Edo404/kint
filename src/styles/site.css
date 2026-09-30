@@ -81,3 +81,17 @@ section { padding-block: 6rem; align-items: flex-start; }
 
 .page section { min-height: 100svh; }
 .page { position: relative; z-index: 1; }
+
+.card[data-active] { border-color: var(--gold); }
+.card[data-sector] { cursor: pointer; }
+.service { position: relative; overflow: hidden; transition: border-color .3s, box-shadow .3s; }
+.service[data-highlight] { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 0 24px rgb(201 162 75 / .35); }
+.service::after {
+  content: ''; position: absolute; top: 0; right: 0; width: 5rem; height: 5rem; pointer-events: none; opacity: .45;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cpath d='M80 0 L58 20 L66 34 L44 52 L52 80' fill='none' stroke='%23c9a24b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat;
+  transition: opacity .3s;
+}
+.service:hover::after, .service[data-highlight]::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .service, .service::after, .site-nav { transition: none; }
+}
