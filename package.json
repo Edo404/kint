@@ -25,7 +25,8 @@
   "homepage": "https://github.com/Edo404/kint#readme",
   "dependencies": {
     "astro": "^7.3.5",
-    "three": "^0.186.1"
+    "three": "^0.186.1",
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "@gltf-transform/cli": "^4.5.1",
