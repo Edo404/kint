@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="it" data-mode="webgl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kint</title>
+    <meta name="description" content="Kint" />
+  </head>
+  <body>
+    <canvas id="stage" aria-hidden="true"></canvas>
+    <img id="fallback" src="/fallback.svg" alt="Il modello Kint" width="640" height="640" />
+    <div id="loader" role="status" aria-label="Caricamento"><div id="loader-bar"></div></div>
+    <p id="notice" hidden></p>
+
+    <main id="story">
+      <section id="hero">
+        <div class="copy">
+          <h1>Kint</h1>
+          <p>Un oggetto da guardare da vicino. Scorri per scoprirlo.</p>
+        </div>
+      </section>
+      <section id="detail" class="right">
+        <div class="copy">
+          <h2>Ogni dettaglio</h2>
+          <p>Superfici, proporzioni e materiali pensati per essere osservati da ogni lato.</p>
+        </div>
+      </section>
+      <section id="features">
+        <div class="copy">
+          <h2>Leggero per natura</h2>
+          <p>Un solo modello, un solo canvas, nessun peso inutile.</p>
+        </div>
+      </section>
+      <section id="cta" class="right">
+        <div class="copy">
+          <h2>Inizia da qui</h2>
+          <p><a href="#hero">Torna all'inizio</a></p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+node_modules
+dist
+public/basis
+public/models/*.raw.glb
+.DS_Store
