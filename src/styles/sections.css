@@ -447,6 +447,52 @@
 }
 @media (min-width: 1440px) { .rail-marks li[data-current] .rail-label { opacity: 1; transform: none; } }
 
+/* ---------- filo d'oro (gold-thread.ts): dietro i contenuti, sopra il vaso ---------- */
+.thread { position: absolute; top: 0; left: 0; z-index: -1; pointer-events: none; overflow: visible; }
+.thread path { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.thread-glow { stroke: var(--gold); stroke-width: 7; opacity: 0.12; }
+.thread-core { stroke: var(--gold-2); stroke-width: 1.6; opacity: 0.85; }
+.thread-branch { stroke: var(--gold); stroke-width: 1.1; opacity: 0.65; transition: stroke-dashoffset 1s var(--ease-out); }
+.thread-branch.is-lit { stroke-dashoffset: 0; }
+.thread-head { opacity: 0; transition: opacity 0.4s; }
+
+/* ---------- sezione coperta: un coccio scuro che passa sopra il vaso ---------- */
+.cover { isolation: isolate; background: #0d0b0a; padding-block: clamp(7rem, 13vw, 11rem); }
+.cover-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.cover-veins { position: absolute; inset: 0; background-image: var(--veins); background-size: 900px 900px; opacity: 0.07; }
+/* Riquadro di luce: si sposta con transform; lo sfondo si sposta al contrario e resta allineato alle venature. */
+.cover-lit {
+  position: absolute; left: 0; top: 0; width: 704px; height: 704px; margin: -352px 0 0 -352px;
+  transform: translate3d(var(--gx, 50vw), var(--gy, 40vh), 0);
+  background-image: radial-gradient(closest-side, color-mix(in oklab, var(--gold) 16%, transparent), transparent), var(--veins);
+  background-size: 100% 100%, 900px 900px;
+  background-position: 0 0, calc(352px - var(--gx, 50vw)) calc(352px - var(--gy, 40vh));
+  -webkit-mask-image: radial-gradient(closest-side, #000 15%, transparent);
+  mask-image: radial-gradient(closest-side, #000 15%, transparent);
+  opacity: 0; transition: opacity 0.6s;
+}
+.cover[data-glow] .cover-lit { opacity: 0.7; }
+.cover-edge { position: absolute; left: 0; z-index: 1; width: 100%; height: 28px; overflow: visible; pointer-events: none; }
+.cover-edge-top { top: 0; }
+.cover-edge-bottom { bottom: 0; }
+.js .cover-edge[data-inview] { opacity: 1; transform: none; }
+.cover-edge path {
+  fill: none; stroke: var(--gold-2); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round;
+  stroke-dasharray: 1; stroke-dashoffset: 0; filter: drop-shadow(0 0 5px var(--glow));
+  transition: stroke-dashoffset 1.8s var(--ease-out) 0.1s;
+}
+.js .cover-edge:not(.is-in) path { stroke-dashoffset: 1; }
+.cover .band { background: color-mix(in oklab, var(--surface-2) 70%, transparent); }
+
+/* ---------- titoli: le parole salgono una alla volta, la parola in oro arriva per ultima ---------- */
+.section-head .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+.section-head .wi { display: inline-block; transition: transform 0.9s var(--ease-out) calc(var(--w, 0) * 70ms + 0.1s); }
+.js .section-head:not(.is-in) .wi { transform: translateY(110%); }
+.section-head .stitch { transition: opacity 0.7s var(--ease-out) calc(var(--w, 0) * 70ms + 0.25s), transform 0.9s var(--ease-out) calc(var(--w, 0) * 70ms + 0.25s); }
+.section-head .stitch::after { transition-delay: calc(var(--w, 0) * 70ms + 0.75s); }
+.js .section-head:not(.is-in) .stitch { opacity: 0; transform: translateY(0.35em) rotate(-3deg); }
+.js .section-head[data-inview]:not(.is-in) { transform: none; }
+
 /* ---------- movimento ridotto ---------- */
 @media (prefers-reduced-motion: reduce) {
   .js [data-inview] { transform: none; transition: opacity 0.3s linear; transition-delay: 0s; }
@@ -454,5 +500,7 @@
   .crack-gold, .split-seam path, .service::after, .repair-thumb, .kintsugi-seam path { transition-duration: 0s !important; transition-delay: 0s !important; }
   .js .repair-faces > p, .js .explorer[data-ready] .sector-panel { transition: none; transform: none; }
   .gold-text, .marquee { animation: none; }
+  .thread-branch, .cover-edge path, .section-head .wi, .section-head .stitch { transition: none !important; }
+  .js .section-head:not(.is-in) .wi, .js .section-head:not(.is-in) .stitch { transform: none; }
   .card, .btn, .closing-link .arrow, .aside-call .arrow, .faq-icon, .explorer-list a { transition: none; }
 }

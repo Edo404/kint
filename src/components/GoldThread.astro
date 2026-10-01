@@ -1,0 +1,19 @@
+---
+// Filo d'oro che attraversa la pagina dietro i contenuti e si disegna scorrendo (gold-thread.ts).
+// Il tracciato si calcola nel browser dalle posizioni delle sezioni: qui c'è solo il contenitore.
+---
+<svg class="thread" data-thread aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="thread-head-glow">
+      <stop offset="0" stop-color="#ffe7a8" stop-opacity="0.9" />
+      <stop offset="0.35" stop-color="#e5be62" stop-opacity="0.35" />
+      <stop offset="1" stop-color="#c29436" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <g data-thread-branches></g>
+  <g data-thread-chunks></g>
+  <g class="thread-head" data-thread-head>
+    <circle r="16" fill="url(#thread-head-glow)" />
+    <circle r="2.4" fill="#fff4d6" />
+  </g>
+</svg>

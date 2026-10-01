@@ -9,6 +9,7 @@ import Contact from '../../components/Contact.astro';
 import Closing from '../../components/Closing.astro';
 import Footer from '../../components/Footer.astro';
 import ChapterRail from '../../components/ChapterRail.astro';
+import GoldThread from '../../components/GoldThread.astro';
 import { loadAll, loadSite } from '../../lib/content';
 import { buildJsonLd } from '../../lib/jsonld';
 import { buildEnv, portfolioPublished } from '../../lib/flags';
@@ -31,6 +32,7 @@ const jsonld = buildJsonLd({ content: c, site, lang });
   <Nav c={c} lang={lang} available={available} showPortfolio={showPortfolio} />
   <ChapterRail c={c} />
   <main>
+    <GoldThread />
     <Opening c={c} />
     <Presentation c={c} />
     <Sectors c={c} />
@@ -47,6 +49,8 @@ const jsonld = buildJsonLd({ content: c, site, lang });
     import { initRepairToggle } from '../../scripts/repair-toggle';
     import { initChapterRail } from '../../scripts/chapter-rail';
     import { initMarquee } from '../../scripts/marquee';
+    import { initGoldThread } from '../../scripts/gold-thread';
+    import { initCoverGlow } from '../../scripts/cover-glow';
     import { initReveal } from '../../scripts/reveal';
     import { initSpotlight } from '../../scripts/spotlight';
     import { initSmoothScroll } from '../../scripts/smooth-scroll';
@@ -57,6 +61,8 @@ const jsonld = buildJsonLd({ content: c, site, lang });
     initRepairToggle();
     initChapterRail();
     initMarquee();
+    initGoldThread();
+    initCoverGlow();
     initReveal();
     initSpotlight();
     initSmoothScroll();

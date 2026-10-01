@@ -2,10 +2,16 @@
 import SectionTitle from './SectionTitle.astro';
 import Seam from './Seam.astro';
 import { iconFor, ui } from '../lib/icons';
+import { edgePath, jaggedEdge, shardClip, veinTile } from '../lib/shard';
 import type { Content } from '../lib/content.types';
 interface Props { c: Content }
 const { c } = Astro.props;
 const s = c.services;
+// Sezione "coperta": copre il vaso come un coccio, con bordi frastagliati cuciti d'oro e venature.
+const EDGE = 28;
+const top = jaggedEdge(21, EDGE);
+const bottom = jaggedEdge(34, EDGE);
+const coverStyle = `clip-path:${shardClip(top, bottom)};--veins:${veinTile(5)}`;
 // Ogni crepa ha un tracciato diverso, scelto dall'indice del servizio.
 const CRACKS = [
   'M2 12 L22 7 L34 15 L52 5 L66 13 L86 8 L98 14',
@@ -19,8 +25,17 @@ const STEPS = [
   '<path d="M18 8 h12 M20 8 v6 q-10 6 -10 16 q0 12 14 14 q14 -2 14 -14 q0 -10 -10 -16 v-6" /><path class="g" d="M13 26 L20 24 L24 30 L31 27 L37 31 M22 36 L27 33 L30 39" />',
 ];
 ---
-<section id="servizi" class="block" aria-labelledby="servizi-title">
-  <Seam at="62%" />
+<section id="servizi" class="block cover" aria-labelledby="servizi-title" style={coverStyle} data-cover>
+  <div class="cover-bg" aria-hidden="true">
+    <div class="cover-veins"></div>
+    <div class="cover-lit" data-cover-lit></div>
+  </div>
+  <svg class="cover-edge cover-edge-top" viewBox={`0 0 1440 ${EDGE}`} preserveAspectRatio="none" aria-hidden="true" data-inview>
+    <path d={edgePath(top, EDGE)} pathLength="1" />
+  </svg>
+  <svg class="cover-edge cover-edge-bottom" viewBox={`0 0 1440 ${EDGE}`} preserveAspectRatio="none" aria-hidden="true" data-inview>
+    <path d={edgePath(bottom, EDGE, true)} pathLength="1" />
+  </svg>
   <div class="wrap">
     <SectionTitle id="servizi-title" text={s.title} intro={s.intro} index={2} chapter={c.nav.services} />
 

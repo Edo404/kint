@@ -1,14 +1,18 @@
 ---
-// Titolo di sezione: numero di capitolo, titolo con l'ultima parola in oro e sottolineatura che si "cuce" quando entra in vista.
+// Titolo di sezione: numero di capitolo, titolo con l'ultima parola in oro e sottolineatura che si "cuce".
+// Entrando in vista le parole salgono una alla volta da sotto una maschera; la parola in oro arriva per ultima.
 import { splitEmphasis } from '../lib/emphasis';
 interface Props { id: string; text: string; intro?: string; index?: number; chapter?: string }
 const { id, text, intro, index, chapter } = Astro.props;
 const { lead, word, tail } = splitEmphasis(text);
+const words = lead.split(/(\s+)/).filter(Boolean);
+let n = 0;
+const parts = words.map((w) => (/^\s+$/.test(w) ? { space: w } : { word: w, i: n++ }));
 ---
 <header class="section-head" data-inview>
   {index !== undefined && (
     <p class="chapter" aria-hidden="true"><span class="chapter-num">{String(index).padStart(2, '0')}</span><span class="chapter-line"></span>{chapter}</p>
   )}
-  <h2 id={id}>{lead}<span class="stitch">{word}</span>{tail}</h2>
+  <h2 id={id}>{parts.map((p) => (p.space !== undefined ? p.space : <span class="w"><span class="wi" style={`--w:${p.i}`}>{p.word}</span></span>))}<span class="stitch" style={`--w:${n}`}>{word}</span>{tail}</h2>
   {intro && <p class="intro">{intro}</p>}
 </header>
