@@ -2,6 +2,7 @@ import { MathUtils, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
 import { PerfGovernor, buildPixelRatioLevels } from '../governor';
 import { PerfMeter, createPerfOverlay } from '../perf';
 import { RenderScheduler } from '../renderScheduler';
+import { needsResize, type Size } from '../viewport';
 import { MAX_PIXELS, browserEnv, capPixelRatio, readSettings } from '../settings';
 import { loadVase } from './loadVase';
 import { anchorFor, opacityAt, scrollProgress } from './math';
@@ -47,17 +48,27 @@ export async function mountVase(
   const governor = new PerfGovernor({
     levels,
     onChange: () => {
-      applySize();
+      applySize(true);
       scheduler.request();
     },
   });
 
-  function applySize(): void {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    renderer.setPixelRatio(capPixelRatio(governor.pixelRatio, w, h, maxPixels));
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
+  // Altezza "grande" della finestra (barra di Safari nascosta), letta da un elemento alto 100lvh:
+  // il canvas ha la stessa altezza in CSS, quindi non cambia quando la barra entra o esce.
+  const probe = document.createElement('div');
+  probe.setAttribute('aria-hidden', 'true');
+  probe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:100vh;height:100lvh;visibility:hidden;pointer-events:none';
+  document.body.appendChild(probe);
+  const viewport = (): Size => ({ w: window.innerWidth, h: probe.offsetHeight || window.innerHeight });
+
+  let size: Size | null = null;
+  function applySize(force = false): void {
+    const next = viewport();
+    if (!force && !needsResize(size, next)) return;
+    size = next;
+    renderer.setPixelRatio(capPixelRatio(governor.pixelRatio, next.w, next.h, maxPixels));
+    renderer.setSize(next.w, next.h, false);
+    camera.aspect = next.w / next.h;
     camera.updateProjectionMatrix();
   }
 
@@ -81,8 +92,7 @@ export async function mountVase(
     (dt) => {
       // Nel ciclo a 30 fps il dt è voluto: non è un segnale di lentezza.
       if (!scheduler.looping) governor.tick(dt);
-      const w = window.innerWidth;
-      const h = window.innerHeight;
+      const { w, h } = size ?? viewport();
       const p =
         settings.debugP ??
         scrollProgress(window.scrollY, document.documentElement.scrollHeight, h);
@@ -117,8 +127,9 @@ export async function mountVase(
 
   const request = () => scheduler.request();
   const onResize = () => {
+    const before = size;
     applySize();
-    scheduler.request();
+    if (size !== before) scheduler.request();
   };
   const onVisibility = () => {
     if (!document.hidden) scheduler.request();
@@ -148,6 +159,7 @@ export async function mountVase(
       scheduler.stop();
       window.removeEventListener('scroll', request);
       window.removeEventListener('resize', onResize);
+      probe.remove();
       document.removeEventListener('visibilitychange', onVisibility);
       canvas.removeEventListener('webglcontextlost', onLost);
       canvas.removeEventListener('webglcontextrestored', request);
