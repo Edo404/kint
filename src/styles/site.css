@@ -2,12 +2,13 @@
 .skip-link:focus { left: 0; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
-/* Barra a pillola sospesa, centrata in alto: logo | sezioni + Contattaci | bandiera. */
+/* Barra a pillola sospesa, centrata in alto: logo | sezioni + Contattaci | bandiera.
+   Su telefono: puntini (le sezioni si aprono sotto) + Contattaci | bandiera. */
 .site-nav { position: fixed; top: 0.9rem; left: 0; right: 0; z-index: 10; display: flex; justify-content: center; padding-inline: 0.75rem; pointer-events: none; transition: opacity .4s, transform .4s var(--ease-out); }
 .site-nav[data-reveal='hidden']:not(:focus-within) { opacity: 0; transform: translateY(-0.75rem); }
 .site-nav[data-reveal='hidden']:not(:focus-within) .nav-pill { pointer-events: none; }
 .nav-pill {
-  pointer-events: auto; display: flex; align-items: center; gap: 0.9rem; max-width: 100%;
+  position: relative; pointer-events: auto; display: flex; align-items: center; gap: 0.9rem; max-width: 100%;
   padding: 0.35rem 0.4rem 0.35rem 1.15rem; border-radius: 999px;
   background: color-mix(in oklab, var(--surface) 86%, transparent); border: 1px solid var(--line-strong);
   backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
@@ -16,22 +17,22 @@
 .brand { display: flex; align-items: center; color: var(--gold-2); text-decoration: none; }
 .brand .nav-logo { width: 3.6rem; height: auto; }
 .nav-sep { flex: none; width: 1px; height: 1.3rem; background: var(--line-strong); }
-.nav-main ul { display: flex; align-items: center; gap: 1.35rem; list-style: none; margin: 0; padding: 0; }
+.nav-main { display: flex; align-items: center; gap: 1.35rem; }
+.nav-links { display: flex; align-items: center; gap: 1.35rem; list-style: none; margin: 0; padding: 0; }
 .nav-main a { position: relative; display: inline-block; padding-block: 0.35rem; color: var(--ink); text-decoration: none; font-size: .92rem; font-weight: 500; white-space: nowrap; transition: color .2s; }
-.nav-main a:not(.nav-cta)::after {
+.nav-links a::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: 0.1rem; height: 1px; background: var(--gold-2);
   transform: scaleX(0); transform-origin: left center; transition: transform .35s var(--ease-out);
 }
-.nav-main a:not(.nav-cta):hover { color: var(--gold-2); }
-.nav-main a:not(.nav-cta):hover::after, .nav-main a[aria-current]::after { transform: scaleX(1); }
-.nav-main a[aria-current] { color: var(--gold-2); }
+.nav-links a:hover, .nav-links a[aria-current] { color: var(--gold-2); }
+.nav-links a:hover::after, .nav-links a[aria-current]::after { transform: scaleX(1); }
 .nav-main .nav-cta {
   padding: 0.5rem 1.1rem; border-radius: 999px; color: var(--bg); font-weight: 700;
   background: linear-gradient(180deg, var(--gold-2), var(--gold)); transition: filter .2s, transform .16s var(--ease-out);
 }
 .nav-main .nav-cta:hover { filter: brightness(1.08); }
-.cta-short { display: none; }
 .nav-main .nav-cta:active { transform: scale(0.97); }
+.nav-more { display: none; }
 
 /* Selettore della lingua: bandiera corrente, menu con le altre. */
 .lang-switch { position: relative; }
@@ -59,25 +60,35 @@
 
 @media (max-width: 640px) {
   .site-nav { top: 0.6rem; padding-inline: 0.5rem; }
-  .nav-pill { gap: 0.6rem; padding-left: 0.85rem; }
-  .brand .nav-logo { width: 2.9rem; }
-  .nav-main ul { gap: 0.8rem; }
-  .nav-main a { font-size: .82rem; }
-  .nav-main .nav-cta { padding: 0.45rem 0.8rem; }
-  .lang-code { display: none; }
-  .lang-switch summary { padding: 0 0.5rem; gap: 0.3rem; }
+  .nav-pill { gap: 0.55rem; padding-left: 0.4rem; }
+  .brand, .brand + .nav-sep { display: none; }
+  .nav-main { gap: 0.4rem; }
+  .nav-main .nav-cta { padding: 0.55rem 1.1rem; font-size: .9rem; }
+  .lang-code, .lang-caret { display: none; }
+  .lang-switch summary { padding: 0 0.6rem; }
+
+  /* Puntini che aprono l'elenco delle sezioni sotto la barra. Senza JS l'elenco resta in riga. */
+  .js .nav-more {
+    display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border: 0; border-radius: 50%;
+    background: none; color: var(--ink); cursor: pointer; transition: background-color .2s;
+  }
+  .js .nav-more span { display: grid; width: 1.15rem; height: 1.15rem; }
+  .js .nav-more svg { width: 100%; height: 100%; fill: currentColor; }
+  .js .nav-more:hover, .js .site-nav[data-menu-open] .nav-more { background: var(--surface-2); }
+  .js .nav-links {
+    position: absolute; top: calc(100% + 0.6rem); left: 0; min-width: 13rem; padding: 0.4rem;
+    flex-direction: column; align-items: stretch; gap: 2px; border-radius: 1rem;
+    background: var(--surface); border: 1px solid var(--line-strong); box-shadow: 0 18px 40px -16px #000;
+    visibility: hidden; opacity: 0; transform: translateY(-6px); transform-origin: top left;
+    transition: opacity .2s var(--ease-out), transform .25s var(--ease-out), visibility 0s linear .25s;
+  }
+  .js .site-nav[data-menu-open] .nav-links { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
+  .js .nav-links a { display: block; padding: 0.75rem 0.9rem; border-radius: 0.7rem; font-size: 1rem; }
+  .js .nav-links a::after { left: 0.9rem; right: auto; width: 2rem; bottom: 0.45rem; }
+  .js .nav-links a:hover { background: var(--surface-2); }
+  html:not(.js) .nav-links { gap: 0.8rem; }
+  html:not(.js) .nav-main a { font-size: .82rem; }
 }
-/* Telefoni stretti: etichetta breve sul pulsante (quella lunga resta per i lettori di schermo). */
-@media (max-width: 420px) {
-  .nav-pill { gap: 0.5rem; padding-left: 0.75rem; }
-  .brand .nav-logo { width: 2.5rem; }
-  .nav-main ul { gap: 0.65rem; }
-  .nav-main a { font-size: .8rem; }
-  .cta-full { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .cta-short { display: inline; }
-  .lang-caret { display: none; }
-}
-@media (max-width: 380px) { .nav-pill { gap: 0.45rem; } .nav-main ul { gap: 0.55rem; } }
 
 .opening { flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
 .logo { width: min(80vw, 34rem); height: auto; color: var(--gold); }
@@ -133,6 +144,6 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
 .page { position: relative; z-index: 1; }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-nav, .nav-main a::after, .lang-caret { transition: none; }
+  .site-nav, .nav-links, .nav-links a::after, .lang-caret, .nav-more { transition: none; }
   .lang-menu { animation: none; }
 }

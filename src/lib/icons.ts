@@ -24,6 +24,7 @@ import sparkle from '@phosphor-icons/core/assets/regular/sparkle.svg?raw';
 import storefront from '@phosphor-icons/core/assets/regular/storefront.svg?raw';
 import wine from '@phosphor-icons/core/assets/regular/wine.svg?raw';
 import wrench from '@phosphor-icons/core/assets/regular/wrench.svg?raw';
+import dotsVertical from '@phosphor-icons/core/assets/bold/dots-three-vertical-bold.svg?raw';
 import caretDown from '@phosphor-icons/core/assets/regular/caret-down.svg?raw';
 import flagDe from 'flag-icons/flags/4x3/de.svg?raw';
 import flagFr from 'flag-icons/flags/4x3/fr.svg?raw';
@@ -52,7 +53,7 @@ const byId: Record<string, string> = {
   'ai-ready': sparkle,
 };
 
-export const ui = { arrowRight, calendarCheck, caretDown, check, clock, envelope, mapPin, phone, plus, sparkle };
+export const ui = { arrowRight, calendarCheck, caretDown, check, clock, dotsVertical, envelope, mapPin, phone, plus, sparkle };
 
 export function iconFor(id: string): string {
   return byId[id] ?? sparkle;

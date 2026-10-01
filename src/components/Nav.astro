@@ -1,7 +1,9 @@
 ---
 // Barra a pillola sospesa, centrata in alto: logo | sezioni + Contattaci | lingua.
+// Su telefono: puntini (le sezioni si aprono sotto) + Contattaci | lingua.
 import LangSwitch from './LangSwitch.astro';
 import Logo from './Logo.astro';
+import { ui } from '../lib/icons';
 import { pathFor, type Lang } from '../lib/i18n';
 import type { Content } from '../lib/content.types';
 interface Props { c: Content; lang: Lang; available: Lang[]; path?: string; showPortfolio?: boolean }
@@ -13,12 +15,15 @@ const home = pathFor(lang);
     <a class="brand" href={home} aria-label="Kint"><Logo class="nav-logo" /></a>
     <span class="nav-sep" aria-hidden="true"></span>
     <nav class="nav-main" aria-label={c.ui.nav_label}>
-      <ul>
+      <button class="nav-more" type="button" aria-expanded="false" aria-controls="nav-links" aria-label={c.ui.nav_label} data-nav-toggle>
+        <span aria-hidden="true" set:html={ui.dotsVertical} />
+      </button>
+      <ul id="nav-links" class="nav-links" data-nav-menu>
         <li><a href={`${home}#settori`} data-nav-link="settori">{c.nav.sectors}</a></li>
         <li><a href={`${home}#servizi`} data-nav-link="servizi">{c.nav.services}</a></li>
         {showPortfolio && <li><a href={pathFor(lang, 'portfolio')} aria-current={path === 'portfolio' ? 'page' : undefined}>{c.nav.portfolio}</a></li>}
-        <li><a class="nav-cta" href={`${home}#contatti`}><span class="cta-full">{c.nav.contact_cta}</span><span class="cta-short" aria-hidden="true">{c.nav.contact}</span></a></li>
       </ul>
+      <a class="nav-cta" href={`${home}#contatti`}>{c.nav.contact_cta}</a>
     </nav>
     <span class="nav-sep" aria-hidden="true"></span>
     <LangSwitch lang={lang} available={available} path={path} label={c.ui.lang_label} />
@@ -27,6 +32,8 @@ const home = pathFor(lang);
 <script>
   import { initLangMenu } from '../scripts/lang-menu';
   import { initNavActive } from '../scripts/nav-active';
+  import { initNavMenu } from '../scripts/nav-menu';
   initLangMenu();
   initNavActive();
+  initNavMenu();
 </script>
