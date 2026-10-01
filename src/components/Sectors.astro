@@ -6,47 +6,69 @@ import type { Content } from '../lib/content.types';
 interface Props { c: Content }
 const { c } = Astro.props;
 const byId = new Map(c.services.items.map((s) => [s.id, s]));
-// Ritmo della griglia: su 3 colonne le schede 0, 3 e 7 occupano due colonne (4 righe piene).
-const WIDE = new Set([0, 3, 7]);
+const num = (i: number) => String(i + 1).padStart(2, '0');
+// Lista dei settori a sinistra, scheda del settore scelto a destra (sector-explorer.ts).
+// Senza JavaScript i link della lista portano alle schede, che sono tutte visibili una sotto l'altra.
 ---
 <section id="settori" class="block" aria-labelledby="settori-title">
   <Seam at="34%" />
   <div class="wrap">
-    <SectionTitle id="settori-title" text={c.sectors.title} intro={c.sectors.intro} />
-    <div class="bento">
-      {c.sectors.items.map((s, i) => (
-        <article
-          id={`settori-${s.id}`}
-          class:list={['card', 'sector', { 'is-wide': WIDE.has(i), 'is-first': i === 0 }]}
-          data-sector={s.id}
-          data-linked={s.linked_services.join(' ')}
-          data-spotlight
-          data-inview
-          style={`--i:${i % 3}`}
-        >
-          <div class="card-glow" aria-hidden="true"></div>
-          <div class="sector-main">
-            <span class="icon-tile" aria-hidden="true" set:html={iconFor(s.id)} />
-            <h3>{s.name}</h3>
-            <p class="for-whom"><span class="visually-hidden">{c.ui.for_whom}: </span>{s.for_whom}</p>
-            <p class="problem"><span class="label">{c.ui.typical_problem}</span>{s.problem}</p>
-          </div>
-          <div class="sector-side">
-            <p class="label">{c.ui.what_we_do}</p>
-            <p class="what">{s.what_we_do}</p>
-            <p class="label">{c.ui.key_services}</p>
-            <ul class="ticks">
-              {s.key_services.map((k) => <li><span class="tick" aria-hidden="true" set:html={ui.check} />{k}</li>)}
-            </ul>
-            <p class="label">{c.ui.linked_services}</p>
-            <ul class="chips">
-              {s.linked_services.map((id) => (
-                <li><a href={`#servizi-${id}`} data-service-link={id}>{byId.get(id)?.title ?? id}</a></li>
-              ))}
-            </ul>
-          </div>
-        </article>
-      ))}
+    <SectionTitle id="settori-title" text={c.sectors.title} intro={c.sectors.intro} index={1} chapter={c.nav.sectors} />
+    <div class="explorer" data-explorer data-inview>
+      <ol class="explorer-list" data-explorer-list>
+        {c.sectors.items.map((s, i) => (
+          <li>
+            <a href={`#settori-${s.id}`} id={`settori-tab-${s.id}`} data-explorer-tab={s.id}>
+              <span class="explorer-num" aria-hidden="true">{num(i)}</span>
+              <span class="explorer-icon" aria-hidden="true" set:html={iconFor(s.id)} />
+              <span class="explorer-name">{s.name}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <div class="explorer-panels">
+        {c.sectors.items.map((s, i) => (
+          <article
+            id={`settori-${s.id}`}
+            class="sector-panel"
+            data-sector={s.id}
+            data-linked={s.linked_services.join(' ')}
+            data-spotlight
+            aria-labelledby={`settori-${s.id}-title`}
+          >
+            <div class="card-glow" aria-hidden="true"></div>
+            <header class="sector-head">
+              <span class="icon-tile" aria-hidden="true" set:html={iconFor(s.id)} />
+              <div>
+                <h3 id={`settori-${s.id}-title`}>{s.name}</h3>
+                <p class="for-whom"><span class="visually-hidden">{c.ui.for_whom}: </span>{s.for_whom}</p>
+              </div>
+            </header>
+            <div class="sector-split">
+              <div class="sector-crack">
+                <p class="label">{c.ui.typical_problem}</p>
+                <p class="problem">{s.problem}</p>
+              </div>
+              <svg class="split-seam" viewBox="0 0 20 100" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M10 0 L6 18 L13 34 L7 52 L14 70 L8 86 L11 100" pathLength="1" />
+              </svg>
+              <div class="sector-gold">
+                <p class="label">{c.ui.what_we_do}</p>
+                <p class="what">{s.what_we_do}</p>
+                <ul class="ticks" aria-label={c.ui.key_services}>
+                  {s.key_services.map((k) => <li><span class="tick" aria-hidden="true" set:html={ui.check} />{k}</li>)}
+                </ul>
+                <p class="label">{c.ui.linked_services}</p>
+                <ul class="chips">
+                  {s.linked_services.map((id) => (
+                    <li><a href={`#servizi-${id}`} data-service-link={id}>{byId.get(id)?.title ?? id}</a></li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
     <p class="closing-link" data-inview>
       <a href="#contatti">{c.sectors.closing.text}<span class="arrow" aria-hidden="true" set:html={ui.arrowRight} /></a>

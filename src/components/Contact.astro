@@ -1,7 +1,7 @@
 ---
 import Faq from './Faq.astro';
 import Seam from './Seam.astro';
-import { splitEmphasis } from '../lib/emphasis';
+import { leadNumber, splitEmphasis } from '../lib/emphasis';
 import { ui } from '../lib/icons';
 import type { Content, SiteData } from '../lib/content.types';
 import { pathFor, type Lang } from '../lib/i18n';
@@ -12,6 +12,8 @@ const d = c.contact.details;
 // Senza link di prenotazione, la CTA porta al modulo.
 const callHref = site.call_url ?? '#contatti-form';
 const t = splitEmphasis(c.contact.title);
+// Durata della prima call in grande ("20" da "Prima call: 20 minuti online"), solo decorativa.
+const minutes = leadNumber(c.contact.call.title);
 ---
 <section id="contatti" class="block" aria-labelledby="contatti-title">
   <Seam at="48%" />
@@ -19,11 +21,15 @@ const t = splitEmphasis(c.contact.title);
     <div class="panel cta-panel" data-inview>
       <span class="panel-rule" aria-hidden="true"></span>
       <div class="panel-glow" aria-hidden="true"></div>
+      <p class="chapter" aria-hidden="true"><span class="chapter-num">03</span><span class="chapter-line"></span>{c.nav.contact}</p>
       <h2 id="contatti-title">{t.lead}<span class="gold-text">{t.word}</span>{t.tail}</h2>
       <p class="intro">{c.contact.intro}</p>
       <div class="call">
-        <h3 id="call-title">{c.contact.call.title}</h3>
-        <p>{c.contact.call.text}</p>
+        {minutes && <span class="call-time" aria-hidden="true">{minutes}<span>′</span></span>}
+        <div>
+          <h3 id="call-title">{c.contact.call.title}</h3>
+          <p>{c.contact.call.text}</p>
+        </div>
       </div>
       <div class="cta-row">
         <a class="btn btn-gold" href={callHref}><span class="btn-icon" aria-hidden="true" set:html={ui.calendarCheck} />{c.contact.call.cta_label}</a>
@@ -60,17 +66,37 @@ const t = splitEmphasis(c.contact.title);
 
       <aside class="contact-aside" data-inview style="--i:1">
         <address class="details">
-          <dl>
-            <dt>{d.labels.email}</dt>
-            <dd><a href={`mailto:${d.email}`}>{d.email}</a></dd>
-            <dt>{d.labels.address}</dt>
-            <dd>{d.address}</dd>
-            {d.phone && (<><dt>{d.labels.phone}</dt><dd><a href={`tel:${d.phone.replace(/\s/g, '')}`}>{d.phone}</a></dd></>)}
-            {d.hours && (<><dt>{d.labels.hours}</dt><dd>{d.hours}</dd></>)}
-          </dl>
+          <ul>
+            <li>
+              <span class="details-icon" aria-hidden="true" set:html={ui.envelope} />
+              <span><span class="details-label">{d.labels.email}</span><a href={`mailto:${d.email}`}>{d.email}</a></span>
+            </li>
+            <li>
+              <span class="details-icon" aria-hidden="true" set:html={ui.mapPin} />
+              <span><span class="details-label">{d.labels.address}</span>{d.address}</span>
+            </li>
+            {d.phone && (
+              <li>
+                <span class="details-icon" aria-hidden="true" set:html={ui.phone} />
+                <span><span class="details-label">{d.labels.phone}</span><a href={`tel:${d.phone.replace(/\s/g, '')}`}>{d.phone}</a></span>
+              </li>
+            )}
+            {d.hours && (
+              <li>
+                <span class="details-icon" aria-hidden="true" set:html={ui.clock} />
+                <span><span class="details-label">{d.labels.hours}</span>{d.hours}</span>
+              </li>
+            )}
+          </ul>
         </address>
-        <Faq c={c} />
+        <a class="aside-call" href={callHref}>
+          <span class="details-icon" aria-hidden="true" set:html={ui.calendarCheck} />
+          <span>{c.contact.call.cta_label}</span>
+          <span class="arrow" aria-hidden="true" set:html={ui.arrowRight} />
+        </a>
       </aside>
     </div>
+
+    <Faq c={c} />
   </div>
 </section>

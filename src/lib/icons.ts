@@ -4,6 +4,7 @@ import briefcase from '@phosphor-icons/core/assets/regular/briefcase.svg?raw';
 import browser from '@phosphor-icons/core/assets/regular/browser.svg?raw';
 import calendarCheck from '@phosphor-icons/core/assets/regular/calendar-check.svg?raw';
 import camera from '@phosphor-icons/core/assets/regular/camera.svg?raw';
+import clock from '@phosphor-icons/core/assets/regular/clock.svg?raw';
 import chatsCircle from '@phosphor-icons/core/assets/regular/chats-circle.svg?raw';
 import check from '@phosphor-icons/core/assets/regular/check.svg?raw';
 import envelope from '@phosphor-icons/core/assets/regular/envelope-simple.svg?raw';
@@ -14,6 +15,7 @@ import heartbeat from '@phosphor-icons/core/assets/regular/heartbeat.svg?raw';
 import key from '@phosphor-icons/core/assets/regular/key.svg?raw';
 import mapPin from '@phosphor-icons/core/assets/regular/map-pin.svg?raw';
 import megaphone from '@phosphor-icons/core/assets/regular/megaphone.svg?raw';
+import phone from '@phosphor-icons/core/assets/regular/phone.svg?raw';
 import penNib from '@phosphor-icons/core/assets/regular/pen-nib.svg?raw';
 import plus from '@phosphor-icons/core/assets/regular/plus.svg?raw';
 import robot from '@phosphor-icons/core/assets/regular/robot.svg?raw';
@@ -44,7 +46,7 @@ const byId: Record<string, string> = {
   'ai-ready': sparkle,
 };
 
-export const ui = { arrowRight, calendarCheck, check, envelope, plus, sparkle };
+export const ui = { arrowRight, calendarCheck, check, clock, envelope, mapPin, phone, plus, sparkle };
 
 export function iconFor(id: string): string {
   return byId[id] ?? sparkle;

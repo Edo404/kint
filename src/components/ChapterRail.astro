@@ -1,0 +1,23 @@
+---
+// Filo d'oro fisso sul lato destro: si riempie scorrendo e accende il capitolo corrente (chapter-rail.ts).
+// Solo decorativo: la navigazione vera è nella barra in alto.
+import type { Content } from '../lib/content.types';
+interface Props { c: Content }
+const { c } = Astro.props;
+const marks = [
+  { id: 'kint', label: 'Kint' },
+  { id: 'settori', label: c.nav.sectors },
+  { id: 'servizi', label: c.nav.services },
+  { id: 'contatti', label: c.nav.contact },
+];
+---
+<div class="rail" aria-hidden="true" data-rail>
+  <span class="rail-track"><span class="rail-fill" data-rail-fill></span></span>
+  <ol class="rail-marks">
+    {marks.map((m, i) => (
+      <li data-rail-mark={m.id} style={`--at:${i / (marks.length - 1)}`}>
+        <span class="rail-dot"></span><span class="rail-label">{String(i).padStart(2, '0')} · {m.label}</span>
+      </li>
+    ))}
+  </ol>
+</div>

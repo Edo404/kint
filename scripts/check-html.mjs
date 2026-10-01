@@ -11,7 +11,9 @@ const fail = (m) => errors.push(m);
 
 const decode = (s) =>
   s.replace(/&#39;|&#x27;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
-const textOf = (html) => decode(html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ');
+// I tag in linea (parola in oro dentro un titolo) non spezzano il testo; gli altri valgono come spazio.
+const textOf = (html) =>
+  decode(html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<\/?(?:span|a|em|strong)(?=[\s>])[^>]*>/g, '').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ');
 const read = (p) => readFileSync(p, 'utf8');
 
 function* walk(dir) {

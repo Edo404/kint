@@ -1,29 +1,39 @@
 ---
+import { splitEmphasis, splitQuote } from '../lib/emphasis';
 import type { Content } from '../lib/content.types';
 interface Props { c: Content }
 const { c } = Astro.props;
 const p = c.presentation;
+const h = splitEmphasis(p.h1);
+// La seconda frase del testo sul kintsugi diventa la citazione grande; il testo resta uno solo.
+const k = splitQuote(p.kintsugi.text);
 ---
 <section id="kint" aria-labelledby="kint-title">
   <div class="wrap">
-    <h1 id="kint-title">{p.h1}</h1>
+    <h1 id="kint-title" class="hero-title">{h.lead}<span class="stitch">{h.word}</span>{h.tail}</h1>
     <p class="subtitle">{p.subtitle}</p>
-    <p>{p.paragraph}</p>
+    <p class="hero-text">{p.paragraph}</p>
     <p class="cta-row">
       <a class="btn btn-gold" href={p.cta_primary.href}>{p.cta_primary.label}</a>
-      {p.cta_secondary && <a class="btn" href={p.cta_secondary.href}>{p.cta_secondary.label}</a>}
+      {p.cta_secondary && <a class="btn btn-ghost" href={p.cta_secondary.href}>{p.cta_secondary.label}</a>}
     </p>
-    <article class="kintsugi" aria-labelledby="kintsugi-title">
-      <h2 id="kintsugi-title">{p.kintsugi.title}</h2>
-      <p>{p.kintsugi.text}</p>
+    <article class="kintsugi" aria-labelledby="kintsugi-title" data-inview>
+      <h2 id="kintsugi-title" class="chapter"><span class="chapter-line"></span>{p.kintsugi.title}<span class="chapter-line"></span></h2>
+      <p class="kintsugi-intro">{k.intro}</p>
+      {k.quote && <blockquote class="kintsugi-quote"><p>{k.quote}</p></blockquote>}
+      {k.rest && <p class="kintsugi-rest">{k.rest}</p>}
+      <svg class="kintsugi-seam" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 12 C40 4 70 20 110 11 S170 3 205 13 S265 22 300 10 S360 6 400 12" pathLength="1" />
+      </svg>
     </article>
-    <ul class="values">
-      {p.values.map((v) => (
-        <li>
+    <ol class="values">
+      {p.values.map((v, i) => (
+        <li data-inview style={`--i:${i}`}>
+          <span class="value-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
           <h3>{v.title}</h3>
           <p>{v.text}</p>
         </li>
       ))}
-    </ul>
+    </ol>
   </div>
 </section>

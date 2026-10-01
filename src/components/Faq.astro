@@ -1,15 +1,25 @@
 ---
+// Domande frequenti: fisarmonica numerata su due colonne. Le risposte restano nell'HTML (details).
 import { ui } from '../lib/icons';
 import type { Content } from '../lib/content.types';
 interface Props { c: Content }
 const { c } = Astro.props;
+const items = c.contact.faq.items.map((f, i) => ({ ...f, n: String(i + 1).padStart(2, '0') }));
+const half = Math.ceil(items.length / 2);
+const cols = [items.slice(0, half), items.slice(half)];
 ---
-<div class="faq" aria-labelledby="faq-title">
+<div class="faq" aria-labelledby="faq-title" data-inview>
   <h3 id="faq-title">{c.contact.faq.title}</h3>
-  {c.contact.faq.items.map((f) => (
-    <details>
-      <summary>{f.q}<span class="faq-icon" aria-hidden="true" set:html={ui.plus} /></summary>
-      <p>{f.a}</p>
-    </details>
-  ))}
+  <div class="faq-cols">
+    {cols.map((col) => (
+      <div class="faq-col">
+        {col.map((f) => (
+          <details>
+            <summary><span class="faq-num" aria-hidden="true">{f.n}</span><span class="faq-q">{f.q}</span><span class="faq-icon" aria-hidden="true" set:html={ui.plus} /></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    ))}
+  </div>
 </div>
