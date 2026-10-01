@@ -24,6 +24,7 @@ nav:
   sectors: "Secteurs"
   services: "Services"
   contact: "Contact"
+  contact_cta: "Contactez-nous"
   portfolio: "Portfolio"
 opening:
   logo_label: "Kint — le partenaire digital des petites entreprises"

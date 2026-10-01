@@ -45,7 +45,7 @@ export interface Content {
     gold: string;
     featured: string;
   };
-  nav: { sectors: string; services: string; contact: string; portfolio: string };
+  nav: { sectors: string; services: string; contact: string; contact_cta: string; portfolio: string };
   opening: { logo_label: string };
   presentation: {
     h1: string;

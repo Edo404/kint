@@ -31,3 +31,6 @@ export function alternatesFor(available: Lang[], path = ''): Alternate[] {
   }
   return out;
 }
+
+// Nome di ogni lingua nella lingua stessa, per il selettore.
+export const LANG_NAMES: Record<Lang, string> = { it: 'Italiano', en: 'English', fr: 'Français', de: 'Deutsch' };

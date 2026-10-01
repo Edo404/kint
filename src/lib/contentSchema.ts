@@ -4,7 +4,7 @@ const REQUIRED_STRINGS = [
   'meta.title', 'meta.description', 'meta.og_locale', 'meta.portfolio_title', 'meta.portfolio_description',
   'ui.skip_to_content', 'ui.nav_label', 'ui.lang_label', 'ui.scroll_hint', 'ui.for_whom', 'ui.typical_problem',
   'ui.what_we_do', 'ui.key_services', 'ui.linked_services', 'ui.crack', 'ui.gold', 'ui.featured',
-  'nav.sectors', 'nav.services', 'nav.contact', 'nav.portfolio',
+  'nav.sectors', 'nav.services', 'nav.contact', 'nav.contact_cta', 'nav.portfolio',
   'opening.logo_label',
   'presentation.h1', 'presentation.subtitle', 'presentation.paragraph',
   'presentation.cta_primary.label', 'presentation.cta_primary.href',

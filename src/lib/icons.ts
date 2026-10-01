@@ -24,6 +24,12 @@ import sparkle from '@phosphor-icons/core/assets/regular/sparkle.svg?raw';
 import storefront from '@phosphor-icons/core/assets/regular/storefront.svg?raw';
 import wine from '@phosphor-icons/core/assets/regular/wine.svg?raw';
 import wrench from '@phosphor-icons/core/assets/regular/wrench.svg?raw';
+import caretDown from '@phosphor-icons/core/assets/regular/caret-down.svg?raw';
+import flagDe from 'flag-icons/flags/4x3/de.svg?raw';
+import flagFr from 'flag-icons/flags/4x3/fr.svg?raw';
+import flagGb from 'flag-icons/flags/4x3/gb.svg?raw';
+import flagIt from 'flag-icons/flags/4x3/it.svg?raw';
+import type { Lang } from './i18n';
 
 const byId: Record<string, string> = {
   ristorazione: forkKnife,
@@ -46,8 +52,15 @@ const byId: Record<string, string> = {
   'ai-ready': sparkle,
 };
 
-export const ui = { arrowRight, calendarCheck, check, clock, envelope, mapPin, phone, plus, sparkle };
+export const ui = { arrowRight, calendarCheck, caretDown, check, clock, envelope, mapPin, phone, plus, sparkle };
 
 export function iconFor(id: string): string {
   return byId[id] ?? sparkle;
+}
+
+// Bandiere (flag-icons) per il selettore della lingua; l'inglese usa quella britannica.
+// L'id del file originale si toglie: la stessa bandiera può comparire più volte nella pagina.
+const FLAGS: Record<Lang, string> = { it: flagIt, en: flagGb, fr: flagFr, de: flagDe };
+export function flagFor(lang: Lang): string {
+  return FLAGS[lang].replace(/\s+id="[^"]*"/, '');
 }

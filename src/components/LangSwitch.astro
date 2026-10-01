@@ -1,12 +1,27 @@
 ---
-import { pathFor, type Lang } from '../lib/i18n';
+// Selettore della lingua: bandiera della lingua corrente, si apre sulle altre.
+// È un <details>, quindi funziona anche senza JavaScript; lang-menu.ts lo chiude con Esc o clic fuori.
+import { LANG_NAMES, pathFor, type Lang } from '../lib/i18n';
+import { flagFor, ui } from '../lib/icons';
 interface Props { lang: Lang; available: Lang[]; path: string; label: string }
 const { lang, available, path, label } = Astro.props;
 ---
-<nav class="lang-switch" aria-label={label}>
-  <ul>
-    {available.map((l) => (
-      <li><a href={pathFor(l, path)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a></li>
-    ))}
-  </ul>
-</nav>
+<details class="lang-switch" data-lang-menu>
+  <summary aria-label={`${label}: ${LANG_NAMES[lang]}`}>
+    <span class="flag" aria-hidden="true" set:html={flagFor(lang)} />
+    <span class="lang-code" aria-hidden="true">{lang.toUpperCase()}</span>
+    <span class="lang-caret" aria-hidden="true" set:html={ui.caretDown} />
+  </summary>
+  <nav class="lang-menu" aria-label={label}>
+    <ul>
+      {available.map((l) => (
+        <li>
+          <a href={pathFor(l, path)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>
+            <span class="flag" aria-hidden="true" set:html={flagFor(l)} />
+            {LANG_NAMES[l]}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</details>

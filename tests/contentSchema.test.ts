@@ -9,7 +9,7 @@ function make(lang: string, over: (c: any) => void = () => {}) {
       skip_to_content: 'a', nav_label: 'a', lang_label: 'a', scroll_hint: 'a', for_whom: 'a',
       typical_problem: 'a', what_we_do: 'a', key_services: 'a', linked_services: 'a', crack: 'a', gold: 'a', featured: 'a',
     },
-    nav: { sectors: 'a', services: 'a', contact: 'a', portfolio: 'a' },
+    nav: { sectors: 'a', services: 'a', contact: 'a', contact_cta: 'a', portfolio: 'a' },
     opening: { logo_label: 'a' },
     presentation: {
       h1: 'a', subtitle: 'a', paragraph: 'a',
