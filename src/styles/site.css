@@ -14,8 +14,11 @@
   backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
   box-shadow: inset 0 1px 0 color-mix(in oklab, var(--ink) 7%, transparent), 0 14px 40px -16px #000;
 }
-.brand { display: flex; align-items: center; color: var(--gold-2); text-decoration: none; }
-.brand .nav-logo { width: 3.6rem; height: auto; }
+/* Logotipo come nel sito di riferimento: "k" oro, "int" chiaro, punto d'oro; Manrope 800 stretto. */
+.brand { display: inline-flex; align-items: baseline; font-family: var(--font-sans); font-weight: 800; font-size: 1.5rem; line-height: 1; letter-spacing: -0.06em; text-decoration: none; }
+.brand-k { color: var(--gold); }
+.brand-int { color: color-mix(in oklab, var(--ink) 80%, transparent); }
+.brand-dot { display: inline-block; width: 0.28em; height: 0.28em; margin-left: 0.25rem; border-radius: 50%; background: var(--gold); }
 .nav-sep { flex: none; width: 1px; height: 1.3rem; background: var(--line-strong); }
 .nav-main { display: flex; align-items: center; gap: 1.35rem; }
 .nav-links { display: flex; align-items: center; gap: 1.35rem; list-style: none; margin: 0; padding: 0; }
@@ -61,7 +64,8 @@
 @media (max-width: 640px) {
   .site-nav { top: 0.6rem; padding-inline: 0.5rem; }
   .nav-pill { gap: 0.55rem; padding-left: 0.4rem; }
-  .brand, .brand + .nav-sep { display: none; }
+  .nav-pill { padding-left: 0.95rem; }
+  .brand { font-size: 1.3rem; }
   .nav-main { gap: 0.4rem; }
   .nav-main .nav-cta { padding: 0.55rem 1.1rem; font-size: .9rem; }
   .lang-code, .lang-caret { display: none; }
@@ -88,6 +92,11 @@
   .js .nav-links a:hover { background: var(--surface-2); }
   html:not(.js) .nav-links { gap: 0.8rem; }
   html:not(.js) .nav-main a { font-size: .82rem; }
+}
+/* Telefoni molto stretti ("Contactez-nous"): pulsante e spazi più compatti. */
+@media (max-width: 374px) {
+  .nav-pill { gap: 0.4rem; padding-left: 0.8rem; }
+  .nav-main .nav-cta { padding-inline: 0.8rem; font-size: .85rem; }
 }
 
 .opening { flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }

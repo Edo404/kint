@@ -2,7 +2,6 @@
 // Barra a pillola sospesa, centrata in alto: logo | sezioni + Contattaci | lingua.
 // Su telefono: puntini (le sezioni si aprono sotto) + Contattaci | lingua.
 import LangSwitch from './LangSwitch.astro';
-import Logo from './Logo.astro';
 import { ui } from '../lib/icons';
 import { pathFor, type Lang } from '../lib/i18n';
 import type { Content } from '../lib/content.types';
@@ -12,7 +11,9 @@ const home = pathFor(lang);
 ---
 <header class="site-nav" data-nav>
   <div class="nav-pill">
-    <a class="brand" href={home} aria-label="Kint"><Logo class="nav-logo" /></a>
+    <a class="brand" href={home} aria-label="Kint">
+      <span class="brand-k" aria-hidden="true">k</span><span class="brand-int" aria-hidden="true">int</span><span class="brand-dot" aria-hidden="true"></span>
+    </a>
     <span class="nav-sep" aria-hidden="true"></span>
     <nav class="nav-main" aria-label={c.ui.nav_label}>
       <button class="nav-more" type="button" aria-expanded="false" aria-controls="nav-links" aria-label={c.ui.nav_label} data-nav-toggle>
