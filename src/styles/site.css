@@ -192,7 +192,8 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
 .footer-main { display: grid; justify-items: center; gap: 1.75rem; }
 .footer-brand { display: inline-flex; padding: 0.35rem 0; }
 .footer-brand .kint-mark { height: 1.9rem; width: auto; }
-.footer-nav > ul { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+.footer-nav > ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem 2rem; }
+.footer-nav-sectors { flex-basis: 100%; }
 .footer-nav a, .footer-base a { color: var(--muted); text-decoration: none; transition: color 0.25s; }
 .footer-nav a { display: inline-block; padding: 0.4rem 0; font-weight: 500; }
 .footer-nav a:hover, .footer-base a:hover { color: var(--gold-2); }
@@ -220,10 +221,9 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
 @media (min-width: 900px) {
   .footer-main { grid-template-columns: 1fr auto 1fr; align-items: start; }
   .footer-brand, .footer-social { align-self: start; }
-  /* due colonne: Settori con il suo ramo di loghi, accanto le altre voci */
-  .footer-nav > ul { display: grid; grid-template-columns: auto auto; align-items: start; column-gap: clamp(3rem, 6vw, 5rem); row-gap: 0; }
-  .footer-nav > ul > li:not(.footer-nav-sectors) { grid-column: 2; }
-  .footer-nav-sectors { grid-column: 1; grid-row: 1 / span 4; justify-items: start; }
+  /* Settori con il suo ramo di loghi, accanto Servizi e Contatti sulla stessa riga */
+  .footer-nav > ul { display: grid; grid-auto-flow: column; align-items: start; column-gap: clamp(2.5rem, 5vw, 4rem); }
+  .footer-nav-sectors { justify-items: start; }
   .footer-nav .footer-sub {
     flex-direction: column; align-items: flex-start; gap: 0; margin: 0.15rem 0 0 0.2rem; padding-left: 1rem;
     border-left: 1px solid color-mix(in oklab, var(--gold) 40%, transparent);
