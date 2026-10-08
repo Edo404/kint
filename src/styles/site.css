@@ -109,8 +109,9 @@
   /* la copia intera compare quando l'ultimo coccio è arrivato (0.2s + 8 × 70ms + 1.6s) */
   .js .sh-whole { animation: sh-whole-in 0.15s linear 2.35s both; }
   @supports (animation-timeline: scroll()) {
-    .js .sh-drift { animation: sh-out linear both; animation-timeline: scroll(root); animation-range: 0 85vh; }
-    .js .sh-whole-out { animation: sh-whole-out linear both; animation-timeline: scroll(root); animation-range: 0 6vh; }
+    /* Proprietà separate, niente "animation:": il minificatore unirebbe la timeline nella scorciatoia, che Chrome scarta. */
+    .js .sh-drift { animation-name: sh-out; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); animation-range: 0 85vh; }
+    .js .sh-whole-out { animation-name: sh-whole-out; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); animation-range: 0 6vh; }
   }
   /* senza scroll-driven animations (shatter-scroll.ts imposta --sh e --shw) */
   .sh-js .sh-drift {

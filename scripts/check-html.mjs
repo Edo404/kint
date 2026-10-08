@@ -107,6 +107,11 @@ for (const file of walk('dist')) {
   }
 }
 
+// Il minificatore può unire animation-timeline nella scorciatoia "animation:", che Chrome scarta del tutto.
+for (const file of walk('dist')) {
+  if (file.endsWith('.css') && /animation:[^;}]*\b(?:scroll|view)\(/.test(read(file))) fail(`timeline dentro "animation:" in ${file.replaceAll('\\', '/')}: usare proprietà separate`);
+}
+
 if (errors.length) {
   for (const e of [...new Set(errors)]) console.error('FAIL', e);
   process.exit(1);
