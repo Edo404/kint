@@ -83,7 +83,7 @@ export interface Content {
     };
     faq: { title: string; items: Array<{ q: string; a: string }> };
   };
-  footer: { copyright: string; privacy: string; hosting: string };
+  footer: { nav_label: string; copyright: string; privacy: string; hosting: string };
   privacy: { title: string; intro: string; body: string[] };
   portfolio: { title: string; intro: string };
 }

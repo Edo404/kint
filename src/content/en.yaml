@@ -283,6 +283,7 @@ contact:
       - q: "Where is the data hosted?"
         a: "Hosting is in Switzerland. We comply with the Swiss FADP and the European GDPR."
 footer:
+  nav_label: Sections
   copyright: "© 2026 Kint · Lugano, Switzerland"
   privacy: "Privacy"
   hosting: "Hosting in Switzerland"

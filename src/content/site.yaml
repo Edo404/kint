@@ -7,7 +7,9 @@ region: Ticino
 country_code: CH
 areas_served: [IT, CH]
 # call_url: link Cal.com (assente: la CTA della call porta al modulo di contatto)
-same_as: []   # profili social e LinkedIn: si aggiungono quando arrivano
+same_as:   # profili social: JSON-LD (sameAs) e icone nel footer
+  - https://www.linkedin.com/company/kint-ch/
+  - https://www.instagram.com/kint.ch/
 # Sotto-landing per settore (sezione Settori della home). L'indirizzo si cambia solo qui.
 landings:
   - id: ristoranti

@@ -58,6 +58,7 @@ for (const lang of langs) {
     const url = site.landings?.find((x) => x.id === l.id)?.url;
     if (!url || !html.includes(`href="${url}"`)) fail(tag(`link alla sotto-landing mancante: ${l.id}`));
   }
+  for (const url of site.same_as ?? []) if (!html.includes(`href="${url}"`)) fail(tag(`link social mancante nel footer: ${url}`));
   for (const s of c.services.items) if (!html.includes(`id="servizi-${s.id}"`)) fail(tag(`ancora mancante: servizi-${s.id}`));
   for (const id of ['kint', 'settori', 'servizi', 'contatti']) if (!html.includes(`id="${id}"`)) fail(tag(`ancora mancante: ${id}`));
 

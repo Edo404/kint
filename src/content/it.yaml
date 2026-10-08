@@ -283,6 +283,7 @@ contact:
       - q: Dove sono ospitati i dati?
         a: L'hosting è in Svizzera. Rispettiamo la LPD svizzera e il GDPR europeo.
 footer:
+  nav_label: Sezioni
   copyright: © 2026 Kint · Lugano, Svizzera
   privacy: Privacy
   hosting: Hosting in Svizzera

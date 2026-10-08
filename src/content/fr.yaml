@@ -284,6 +284,7 @@ contact:
       - q: "Où sont hébergées les données ?"
         a: "L'hébergement est en Suisse. Nous respectons la LPD suisse et le RGPD européen."
 footer:
+  nav_label: Sections
   copyright: "© 2026 Kint · Lugano, Suisse"
   privacy: "Confidentialité"
   hosting: "Hébergement en Suisse"

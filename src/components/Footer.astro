@@ -1,15 +1,50 @@
 ---
+// Footer: cucitura d'oro spezzata in testa (stessa geometria dei bordi delle sezioni coperte, si disegna
+// quando entra in vista), poi logo, sezioni e social su una riga; sotto, copyright, email, hosting e privacy.
+// I social sono i profili in site.yaml → same_as (gli stessi del JSON-LD).
+import KintMark from './KintMark.astro';
 import type { Content, SiteData } from '../lib/content.types';
 import { pathFor, type Lang } from '../lib/i18n';
+import { edgePath, jaggedEdge } from '../lib/shard';
+import { socialFor } from '../lib/icons';
 interface Props { c: Content; lang: Lang; site: SiteData; showPortfolio?: boolean }
 const { c, lang, site, showPortfolio = false } = Astro.props;
+const home = pathFor(lang);
+const EDGE = 22;
+const seam = edgePath(jaggedEdge(47, EDGE), EDGE);
+const socials = site.same_as.flatMap((url) => {
+  const s = socialFor(url);
+  return s ? [{ url, ...s }] : [];
+});
 ---
 <footer class="site-footer">
-  <p>{c.footer.copyright}</p>
-  <ul>
-    <li><a href={pathFor(lang, 'privacy')}>{c.footer.privacy}</a></li>
-    {showPortfolio && <li><a href={pathFor(lang, 'portfolio')}>{c.nav.portfolio}</a></li>}
-    <li>{c.footer.hosting}</li>
-    <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-  </ul>
+  <svg class="footer-seam" viewBox={`0 0 1440 ${EDGE}`} preserveAspectRatio="none" aria-hidden="true" data-inview>
+    <path d={seam} pathLength="1" />
+  </svg>
+  <div class="footer-main">
+    <a class="footer-brand" href={home} aria-label="Kint"><KintMark /></a>
+    <nav class="footer-nav" aria-label={c.footer.nav_label}>
+      <ul>
+        <li><a href={`${home}#settori`}>{c.nav.sectors}</a></li>
+        <li><a href={`${home}#servizi`}>{c.nav.services}</a></li>
+        {showPortfolio && <li><a href={pathFor(lang, 'portfolio')}>{c.nav.portfolio}</a></li>}
+        <li><a href={`${home}#contatti`}>{c.nav.contact}</a></li>
+      </ul>
+    </nav>
+    {socials.length > 0 && (
+      <ul class="footer-social">
+        {socials.map((s) => (
+          <li><a href={s.url} target="_blank" rel="noopener" aria-label={s.name}><span set:html={s.icon} /></a></li>
+        ))}
+      </ul>
+    )}
+  </div>
+  <div class="footer-base">
+    <p>{c.footer.copyright}</p>
+    <ul>
+      <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+      <li>{c.footer.hosting}</li>
+      <li><a href={pathFor(lang, 'privacy')}>{c.footer.privacy}</a></li>
+    </ul>
+  </div>
 </footer>

@@ -284,6 +284,7 @@ contact:
       - q: "Wo werden die Daten gehostet?"
         a: "Das Hosting erfolgt in der Schweiz. Wir halten das Schweizer DSG und die europäische DSGVO ein."
 footer:
+  nav_label: Bereiche
   copyright: "© 2026 Kint · Lugano, Schweiz"
   privacy: "Datenschutz"
   hosting: "Hosting in der Schweiz"

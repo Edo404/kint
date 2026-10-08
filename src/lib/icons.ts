@@ -23,6 +23,8 @@ import sparkle from '@phosphor-icons/core/assets/regular/sparkle.svg?raw';
 import storefront from '@phosphor-icons/core/assets/regular/storefront.svg?raw';
 import wine from '@phosphor-icons/core/assets/regular/wine.svg?raw';
 import wrench from '@phosphor-icons/core/assets/regular/wrench.svg?raw';
+import instagramLogo from '@phosphor-icons/core/assets/regular/instagram-logo.svg?raw';
+import linkedinLogo from '@phosphor-icons/core/assets/regular/linkedin-logo.svg?raw';
 import dotsVertical from '@phosphor-icons/core/assets/bold/dots-three-vertical-bold.svg?raw';
 import caretDown from '@phosphor-icons/core/assets/regular/caret-down.svg?raw';
 import flagDe from 'flag-icons/flags/4x3/de.svg?raw';
@@ -60,4 +62,15 @@ export function iconFor(id: string): string {
 const FLAGS: Record<Lang, string> = { it: flagIt, en: flagGb, fr: flagFr, de: flagDe };
 export function flagFor(lang: Lang): string {
   return FLAGS[lang].replace(/\s+id="[^"]*"/, '');
+}
+
+// Profili social (site.yaml → same_as): nome e icona scelti dal dominio; null se il dominio non è noto.
+const SOCIAL: Array<[RegExp, string, string]> = [
+  [/(^|\.)linkedin\.com$/, 'LinkedIn', linkedinLogo],
+  [/(^|\.)instagram\.com$/, 'Instagram', instagramLogo],
+];
+export function socialFor(url: string): { name: string; icon: string } | null {
+  const host = new URL(url).hostname;
+  const hit = SOCIAL.find(([re]) => re.test(host));
+  return hit ? { name: hit[1], icon: hit[2] } : null;
 }
