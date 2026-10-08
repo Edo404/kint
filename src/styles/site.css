@@ -14,7 +14,7 @@
   backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
   box-shadow: inset 0 1px 0 color-mix(in oklab, var(--ink) 7%, transparent), 0 14px 40px -16px #000;
 }
-/* Logotipo "kint." (KintMark): Manrope 600 con contorno tondo dello stesso colore; k e punto in oro. */
+/* Logo "kint." (KintMark: forme ufficiali in src/lib/kintLogo.ts). Le classi .km-* servono al logo grande che si spacca (ShatteredLogo). */
 .brand { display: inline-flex; align-items: center; text-decoration: none; }
 .brand .kint-mark { height: 1.55rem; width: auto; display: block; }
 .km-text { font-family: var(--font-sans); font-weight: 600; font-size: 200px; letter-spacing: -4px; stroke-width: 12px; stroke-linejoin: round; }
