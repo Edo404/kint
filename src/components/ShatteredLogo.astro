@@ -2,13 +2,15 @@
 // Logo grande dell'apertura: il logotipo "kint." spezzato in cocci come il vaso.
 // All'arrivo i cocci entrano da fuori e si ricompongono: il logo torna intero, senza giunture.
 // Scorrendo verso il basso il logo si riapre un poco (CSS scroll-driven; dove manca, src/scripts/shatter-scroll.ts).
-// Stessa geometria del logotipo della barra (src/lib/logoMark.ts).
-import { MARK, markViewBox } from '../lib/logoMark';
+// Stesse forme del logo ufficiale della barra (src/lib/kintLogo.ts).
+import { LOGO, LOGO_SHAPES } from '../lib/kintLogo';
 import { centroid, polyPoints, shatter, type P } from '../lib/shatter';
 interface Props { label: string }
 const { label } = Astro.props;
 
-const { x: X0, y: Y0, w: W, h: H } = MARK.viewBox;
+const [X0, Y0, W, H] = LOGO.viewBox.split(' ').map(Number);
+// spinte e scarti erano tarati su un logo largo 427: si riscalano, così il movimento resta lo stesso
+const K = W / 427;
 // cocci calcolati in [0,W]×[0,H] e spostati nell'area del viewBox
 const cells = shatter(W, H, 9, 4).cells.map((c) => c.map(([x, y]): P => [x + X0, y + Y0]));
 const mid: P = [X0 + W / 2, Y0 + H / 2];
@@ -19,23 +21,25 @@ const shards = cells.map((cell, i) => {
   const dx = cx - mid[0];
   const dy = cy - mid[1];
   const len = Math.hypot(dx, dy) || 1;
-  const push = 70 + ((i * 37) % 60);
+  const push = (70 + ((i * 37) % 60)) * K;
   return {
     i,
     points: polyPoints(cell),
     origin: `${cx.toFixed(1)}px ${cy.toFixed(1)}px`,
     tx: ((dx / len) * push).toFixed(1),
-    ty: ((dy / len) * push * 0.8 + ((i % 3) - 1) * 18).toFixed(1),
+    ty: ((dy / len) * push * 0.8 + ((i % 3) - 1) * 18 * K).toFixed(1),
     rot: (((i * 53) % 34) - 17).toFixed(1),
   };
 });
 ---
-<svg class="shattered" viewBox={markViewBox} role="img" aria-label={label} data-shattered>
+<svg class="shattered" viewBox={LOGO.viewBox} role="img" aria-label={label} data-shattered>
   <defs>
     {shards.map((s) => <clipPath id={`sh-${s.i}`}><polygon points={s.points} /></clipPath>)}
     <g id="sh-word">
-      <text x="0" y={MARK.base} class="km-text"><tspan class="km-k">k</tspan><tspan class="km-int" dx={MARK.gapK}>int</tspan></text>
-      <circle cx={MARK.dot.cx} cy={MARK.dot.cy} r={MARK.dot.r} class="km-dot" />
+      {LOGO_SHAPES.map((sh) => {
+        const Tag = sh.tag;
+        return <Tag {...sh.attrs} fill={LOGO[sh.tone]} fill-rule="evenodd" />;
+      })}
     </g>
   </defs>
   {shards.map((s) => (
