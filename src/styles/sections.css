@@ -178,27 +178,19 @@
   .layers { height: 17rem; }
 }
 
-/* ---------- servizi: interruttore crepa / oro ---------- */
-.repair-toggle { display: none; }
-.js .repair-toggle {
-  position: sticky; top: 5.75rem; z-index: 3; display: grid; grid-template-columns: 1fr 1fr; width: max-content;
-  margin: clamp(2.5rem, 5vw, 3.5rem) auto 1.5rem; padding: 4px; border-radius: 999px;
-  background: color-mix(in oklab, var(--surface) 97%, transparent); border: 1px solid var(--line-strong);
-  box-shadow: 0 10px 30px -12px #000;
+/* ---------- servizi: lo scroll ripara le schede (repair-scroll.ts) ---------- */
+/* Desktop: titolo e griglia restano fermi per un tratto di scroll in più (--pin-extra). */
+.repair-track.is-pinned::after { content: ''; display: block; height: var(--pin-extra); } /* spazio nel contenuto: lo sticky non entra nel padding */
+.repair-track.is-pinned .repair-pin { position: sticky; top: var(--pin-top); }
+/* Portatili bassi (1280×720, 1366×768): schede più compatte perché le 2 righe stiano nello schermo. */
+@media (min-width: 1024px) and (max-height: 880px) {
+  .service-grid { gap: 0.85rem; }
+  .service { padding: 1.15rem 1.5rem; }
+  .service h3 { margin-top: 0.8rem; }
+  .service .icon-tile { width: 2.4rem; height: 2.4rem; }
+  .service .repair { padding-top: 0.8rem; }
+  .service .crack-line { margin-bottom: 0.6rem; }
 }
-.repair-toggle button {
-  position: relative; z-index: 1; min-width: 7.5rem; min-height: 44px; padding: 0.55rem 1.4rem; border: 0; border-radius: 999px; background: none; cursor: pointer;
-  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
-  transition: color 0.35s;
-}
-.repair-toggle button[aria-pressed='true'] { color: var(--ink); }
-.repair-toggle[data-state='gold'] button[aria-pressed='true'] { color: var(--bg); }
-.repair-thumb {
-  position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 999px;
-  background: var(--surface-2); border: 1px dashed var(--line-strong);
-  transition: transform 0.5s var(--ease-out), background-color 0.4s, border-color 0.4s;
-}
-.repair-toggle[data-state='gold'] .repair-thumb { transform: translateX(100%); background: var(--gold); border: 1px solid var(--gold-2); box-shadow: 0 0 20px -6px var(--glow); }
 
 .service-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
 @media (min-width: 768px) { .service-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -211,7 +203,7 @@
   content: ''; position: absolute; top: 0; left: 1.5rem; right: 1.5rem; height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold-2), transparent); transform: scaleX(0); transition: transform 0.8s var(--ease-out);
 }
-.service-grid[data-state='gold'] .service::after { transform: scaleX(1); transition-delay: calc(var(--i, 0) * 120ms + 0.2s); }
+.service[data-state='gold']::after { transform: scaleX(1); }
 
 .repair { margin-top: auto; padding-top: 1.25rem; }
 .repair-faces { display: grid; gap: 0.75rem; }
@@ -222,16 +214,13 @@
 .crack-line { display: block; width: 100%; height: 14px; margin: 0 0 0.9rem; overflow: visible; }
 .crack-line path { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .crack-base { stroke: var(--line-strong); stroke-dasharray: 3 4; }
-.crack-gold { stroke: var(--gold-2); stroke-dasharray: 1; stroke-dashoffset: 0; filter: drop-shadow(0 0 4px var(--glow)); transition: stroke-dashoffset 1.2s var(--ease-out); }
+/* La linea d'oro segue lo scroll (--p da 0 a 1); senza JavaScript è piena. */
+.crack-gold { stroke: var(--gold-2); stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--p, 1)); filter: drop-shadow(0 0 4px var(--glow)); }
 
 /* Con JavaScript le due facce stanno nello stesso spazio e si alternano. */
 .js .repair-faces > p { grid-area: 1 / 1; transition: opacity 0.45s var(--ease-out), transform 0.55s var(--ease-out), visibility 0s; }
 .js [data-state='crack'] .repair-faces .gold,
 .js [data-state='gold'] .repair-faces .crack { opacity: 0; visibility: hidden; transform: translateY(10px); transition-delay: 0s, 0s, 0.45s; }
-.js [data-state='crack'] .repair-faces .crack,
-.js [data-state='gold'] .repair-faces .gold { transition-delay: calc(var(--i, 0) * 120ms + 0.15s); }
-.js [data-state='crack'] .crack-gold { stroke-dashoffset: 1; transition-duration: 0.4s; }
-.js [data-state='gold'] .crack-gold { transition-delay: calc(var(--i, 0) * 120ms); }
 
 /* Fascia "sempre inclusi": nastro che scorre (marquee.ts); fermo e centrato senza JS. */
 .band { position: relative; margin-block: clamp(4rem, 8vw, 6rem); margin-inline: -1.5rem; padding: clamp(2rem, 4vw, 2.75rem) 0; overflow: hidden; background: color-mix(in oklab, var(--surface-2) 95%, transparent); }
@@ -435,7 +424,7 @@
 @media (prefers-reduced-motion: reduce) {
   .js [data-inview] { transform: none; transition: opacity 0.3s linear; transition-delay: 0s; }
   .stitch::after, .panel .panel-rule, .chapter-line, .js .seam .seam-run, .layer, .step-mark, .steps::before,
-  .crack-gold, .service::after, .repair-thumb, .kintsugi-seam path { transition-duration: 0s !important; transition-delay: 0s !important; }
+  .service::after, .kintsugi-seam path { transition-duration: 0s !important; transition-delay: 0s !important; }
   .js .repair-faces > p { transition: none; transform: none; }
   .gold-text, .marquee { animation: none; }
   .thread-branch, .cover-edge path, .section-head .wi, .section-head .stitch { transition: none !important; }

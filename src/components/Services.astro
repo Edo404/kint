@@ -36,43 +36,41 @@ const STEPS = [
     <path d={edgePath(bottom, EDGE, true)} pathLength="1" />
   </svg>
   <div class="wrap">
-    <SectionTitle id="servizi-title" text={s.title} intro={s.intro} index={2} chapter={c.nav.services} />
+    <div class="repair-track" data-repair-track>
+      <div class="repair-pin" data-repair-pin>
+        <SectionTitle id="servizi-title" text={s.title} intro={s.intro} index={2} chapter={c.nav.services} />
 
-
-    <div class="repair-toggle" role="group" aria-label={`${c.ui.crack} / ${c.ui.gold}`} data-repair-toggle>
-      <button type="button" data-repair="crack" aria-pressed="false">{c.ui.crack}</button>
-      <button type="button" data-repair="gold" aria-pressed="true">{c.ui.gold}</button>
-      <span class="repair-thumb" aria-hidden="true"></span>
-    </div>
-
-    <div class="service-grid" data-repair-grid data-state="gold">
-      {s.items.map((item, i) => (
-        <article
-          id={`servizi-${item.id}`}
-          class="card service"
-          data-spotlight
-          data-inview
-          style={`--i:${i % 3}`}
-        >
-          <div class="card-glow" aria-hidden="true"></div>
-          <div class="service-top">
-            <span class="icon-tile" aria-hidden="true" set:html={iconFor(item.id)} />
-            <span class="service-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-          </div>
-          <h3>{item.title}</h3>
-          <p class="desc">{item.description}</p>
-          <div class="repair">
-            <svg class="crack-line" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
-              <path class="crack-base" d={CRACKS[i % CRACKS.length]} />
-              <path class="crack-gold" d={CRACKS[i % CRACKS.length]} pathLength="1" />
-            </svg>
-            <div class="repair-faces">
-              <p class="crack"><span class="label">{c.ui.crack}</span>{item.crack}</p>
-              <p class="gold"><span class="label">{c.ui.gold}</span>{item.gold}</p>
-            </div>
-          </div>
-        </article>
-      ))}
+        <div class="service-grid" data-repair-grid>
+          {s.items.map((item, i) => (
+            <article
+              id={`servizi-${item.id}`}
+              class="card service"
+              data-spotlight
+              data-inview
+              style={`--i:${i % 3}`}
+              data-state="gold"
+            >
+              <div class="card-glow" aria-hidden="true"></div>
+              <div class="service-top">
+                <span class="icon-tile" aria-hidden="true" set:html={iconFor(item.id)} />
+                <span class="service-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <h3>{item.title}</h3>
+              <p class="desc">{item.description}</p>
+              <div class="repair">
+                <svg class="crack-line" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                  <path class="crack-base" d={CRACKS[i % CRACKS.length]} />
+                  <path class="crack-gold" d={CRACKS[i % CRACKS.length]} pathLength="1" />
+                </svg>
+                <div class="repair-faces">
+                  <p class="crack"><span class="label">{c.ui.crack}</span>{item.crack}</p>
+                  <p class="gold"><span class="label">{c.ui.gold}</span>{item.gold}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 
