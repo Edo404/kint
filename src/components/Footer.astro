@@ -7,7 +7,7 @@ import KintMark from './KintMark.astro';
 import type { Content, SiteData } from '../lib/content.types';
 import { pathFor, type Lang } from '../lib/i18n';
 import { edgePath, jaggedEdge, shardClip } from '../lib/shard';
-import { countryFlags, socialFor } from '../lib/icons';
+import { countryFlags, socialFor, ui } from '../lib/icons';
 interface Props { c: Content; lang: Lang; site: SiteData; showPortfolio?: boolean }
 const { c, lang, site, showPortfolio = false } = Astro.props;
 const home = pathFor(lang);
@@ -44,13 +44,20 @@ const socials = site.same_as.flatMap((url) => {
         <li><a href={`${home}#contatti`}>{c.nav.contact}</a></li>
       </ul>
     </nav>
-    {socials.length > 0 && (
-      <ul class="footer-social">
-        {socials.map((s) => (
-          <li><a href={s.url} target="_blank" rel="noopener"><span class="social-icon" aria-hidden="true" set:html={s.icon} />{s.name}</a></li>
-        ))}
-      </ul>
-    )}
+    <div class="footer-aside">
+      {socials.length > 0 && (
+        <ul class="footer-social">
+          {socials.map((s) => (
+            <li><a href={s.url} target="_blank" rel="noopener"><span class="social-icon" aria-hidden="true" set:html={s.icon} />{s.name}</a></li>
+          ))}
+        </ul>
+      )}
+      <div class="footer-flags footer-flags-desk" role="img" aria-label={c.footer.countries}>
+        {countryFlags.map((f) => <span class="flag" aria-hidden="true" set:html={f} />)}
+      </div>
+      <!-- "#top" porta in cima anche senza JavaScript; con Lenis lo scorrimento è morbido -->
+      <a class="footer-top" href="#top" aria-label={c.footer.to_top} title={c.footer.to_top}><span aria-hidden="true" set:html={ui.arrowUp} /></a>
+    </div>
   </div>
   <div class="footer-base">
     <p>{c.footer.copyright}</p>
@@ -60,8 +67,8 @@ const socials = site.same_as.flatMap((url) => {
       <li><a href={pathFor(lang, 'privacy')}>{c.footer.privacy}</a></li>
     </ul>
   </div>
-  <!-- ultime su mobile; su desktop salgono sotto i social (order in site.css) -->
-  <div class="footer-flags" role="img" aria-label={c.footer.countries}>
+  <!-- su mobile le bandiere sono l'ultima cosa; su desktop si vedono quelle sotto i social -->
+  <div class="footer-flags footer-flags-mob" role="img" aria-label={c.footer.countries}>
     {countryFlags.map((f) => <span class="flag" aria-hidden="true" set:html={f} />)}
   </div>
 </footer>

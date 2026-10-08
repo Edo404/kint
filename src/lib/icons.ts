@@ -1,5 +1,6 @@
 // Icone Phosphor (regular) come SVG in linea, scelte per id di settore e servizio.
 import arrowRight from '@phosphor-icons/core/assets/regular/arrow-right.svg?raw';
+import arrowUp from '@phosphor-icons/core/assets/regular/arrow-up.svg?raw';
 import briefcase from '@phosphor-icons/core/assets/regular/briefcase.svg?raw';
 import browser from '@phosphor-icons/core/assets/regular/browser.svg?raw';
 import calendarCheck from '@phosphor-icons/core/assets/regular/calendar-check.svg?raw';
@@ -52,7 +53,7 @@ const byId: Record<string, string> = {
   'seo-geo': magnifyingGlass,
 };
 
-export const ui = { arrowRight, calendarCheck, caretDown, check, clock, dotsVertical, envelope, mapPin, phone, plus, sparkle };
+export const ui = { arrowRight, arrowUp, calendarCheck, caretDown, check, clock, dotsVertical, envelope, mapPin, phone, plus, sparkle };
 
 export function iconFor(id: string): string {
   return byId[id] ?? sparkle;
