@@ -14,11 +14,13 @@
   backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
   box-shadow: inset 0 1px 0 color-mix(in oklab, var(--ink) 7%, transparent), 0 14px 40px -16px #000;
 }
-/* Logotipo come nel sito di riferimento: "k" oro, "int" chiaro, punto d'oro; Manrope 800 stretto. */
-.brand { display: inline-flex; align-items: baseline; font-family: var(--font-sans); font-weight: 800; font-size: 1.5rem; line-height: 1; letter-spacing: -0.06em; text-decoration: none; }
-.brand-k { color: var(--gold); }
-.brand-int { color: color-mix(in oklab, var(--ink) 80%, transparent); }
-.brand-dot { display: inline-block; width: 0.28em; height: 0.28em; margin-left: 0.25rem; border-radius: 50%; background: var(--gold); }
+/* Logotipo "kint." (KintMark): Manrope 600 con contorno tondo dello stesso colore; k e punto in oro. */
+.brand { display: inline-flex; align-items: center; text-decoration: none; }
+.brand .kint-mark { height: 1.55rem; width: auto; display: block; }
+.km-text { font-family: var(--font-sans); font-weight: 600; font-size: 200px; letter-spacing: -4px; stroke-width: 12px; stroke-linejoin: round; }
+.km-k { fill: var(--gold); stroke: var(--gold); }
+.km-dot { fill: var(--gold); }
+.km-int { fill: color-mix(in oklab, var(--ink) 90%, var(--bg)); stroke: color-mix(in oklab, var(--ink) 90%, var(--bg)); } /* opaco: riempimento e contorno non si sommano */
 .nav-sep { flex: none; width: 1px; height: 1.3rem; background: var(--line-strong); }
 .nav-main { display: flex; align-items: center; gap: 1.35rem; }
 .nav-links { display: flex; align-items: center; gap: 1.35rem; list-style: none; margin: 0; padding: 0; }
@@ -65,7 +67,7 @@
   .site-nav { top: 0.6rem; padding-inline: 0.5rem; }
   .nav-pill { gap: 0.55rem; padding-left: 0.4rem; }
   .nav-pill { padding-left: 0.95rem; }
-  .brand { font-size: 1.3rem; }
+  .brand .kint-mark { height: 1.35rem; }
   .nav-main { gap: 0.4rem; }
   .nav-main .nav-cta { padding: 0.55rem 1.1rem; font-size: .9rem; }
   .lang-code, .lang-caret { display: none; }
@@ -103,9 +105,6 @@
 .logo { width: min(80vw, 34rem); height: auto; color: var(--gold); }
 /* Logo grande dell'apertura (ShatteredLogo): "kint." in cocci che si ricompongono. */
 .shattered { width: min(86vw, 46rem); height: auto; overflow: visible; }
-.sh-text { font-family: var(--font-sans); font-weight: 800; font-size: 200px; letter-spacing: -12px; }
-.sh-k, .sh-dot { fill: var(--gold); }
-.sh-int { fill: color-mix(in oklab, var(--ink) 90%, transparent); }
 @media (prefers-reduced-motion: no-preference) {
   .js .sh-piece { animation: sh-in 1.6s cubic-bezier(.16, 1, .3, 1) both; animation-delay: calc(0.2s + var(--i) * 70ms); }
   /* la copia intera compare quando l'ultimo coccio è arrivato (0.2s + 8 × 70ms + 1.6s) */

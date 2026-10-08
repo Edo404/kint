@@ -2,18 +2,16 @@
 // Logo grande dell'apertura: il logotipo "kint." spezzato in cocci come il vaso.
 // All'arrivo i cocci entrano da fuori e si ricompongono: il logo torna intero, senza giunture.
 // Scorrendo verso il basso il logo si riapre un poco (CSS scroll-driven, dove supportato).
-// Geometria: Manrope 800 a 200px, spaziatura -0.06em ("kint" largo ~338 unità, misurato nel browser).
-// Il punto è un po' più piccolo e vicino che nella barra (diametro 0.21em): in grande quello pieno pesa troppo.
+// Stessa geometria del logotipo della barra (src/lib/logoMark.ts).
+import { MARK, markViewBox } from '../lib/logoMark';
 import { centroid, polyPoints, shatter, type P } from '../lib/shatter';
 interface Props { label: string }
 const { label } = Astro.props;
 
-const W = 420;
-const H = 172;
-const BASE = 156; // linea di base del testo
-const DOT = { cx: 386, cy: BASE - 21, r: 21 };
-const { cells } = shatter(W, H, 9, 4);
-const mid: P = [W / 2, H / 2];
+const { x: X0, y: Y0, w: W, h: H } = MARK.viewBox;
+// cocci calcolati in [0,W]×[0,H] e spostati nell'area del viewBox
+const cells = shatter(W, H, 9, 4).cells.map((c) => c.map(([x, y]): P => [x + X0, y + Y0]));
+const mid: P = [X0 + W / 2, Y0 + H / 2];
 
 // Direzione di partenza di ogni coccio: si allontana dal centro del logo e ruota un poco.
 const shards = cells.map((cell, i) => {
@@ -32,21 +30,21 @@ const shards = cells.map((cell, i) => {
   };
 });
 ---
-<svg class="shattered" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label} data-shattered>
+<svg class="shattered" viewBox={markViewBox} role="img" aria-label={label} data-shattered>
   <defs>
     {shards.map((s) => <clipPath id={`sh-${s.i}`}><polygon points={s.points} /></clipPath>)}
-    <symbol id="sh-word" viewBox={`0 0 ${W} ${H}`}>
-      <text x="10" y={BASE} class="sh-text"><tspan class="sh-k">k</tspan><tspan class="sh-int">int</tspan></text>
-      <circle cx={DOT.cx} cy={DOT.cy} r={DOT.r} class="sh-dot" />
-    </symbol>
+    <g id="sh-word">
+      <text x="0" y={MARK.base} class="km-text"><tspan class="km-k">k</tspan><tspan class="km-int">int</tspan></text>
+      <circle cx={MARK.dot.cx} cy={MARK.dot.cy} r={MARK.dot.r} class="km-dot" />
+    </g>
   </defs>
   {shards.map((s) => (
     <g class="sh-drift" style={`--tx:${s.tx}px;--ty:${s.ty}px;--rot:${s.rot}deg;transform-origin:${s.origin}`}>
       <g class="sh-piece" style={`--i:${s.i};--tx:${s.tx}px;--ty:${s.ty}px;--rot:${s.rot}deg;transform-origin:${s.origin}`}>
-        <use href="#sh-word" width={W} height={H} clip-path={`url(#sh-${s.i})`} />
+        <use href="#sh-word" clip-path={`url(#sh-${s.i})`} />
       </g>
     </g>
   ))}
   <!-- Copia intera sopra i cocci appena arrivano: copre le sottili linee lasciate dai bordi dei ritagli. -->
-  <g class="sh-whole-out"><use class="sh-whole" href="#sh-word" width={W} height={H} /></g>
+  <g class="sh-whole-out"><use class="sh-whole" href="#sh-word" /></g>
 </svg>

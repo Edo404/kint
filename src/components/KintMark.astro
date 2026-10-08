@@ -1,0 +1,10 @@
+---
+// Logotipo "kint.": k e punto in oro, "int" chiaro; forme arrotondate (vedi src/lib/logoMark.ts).
+import { MARK, markViewBox } from '../lib/logoMark';
+interface Props { class?: string; label?: string }
+const { class: extra, label } = Astro.props;
+---
+<svg class:list={['kint-mark', extra]} viewBox={markViewBox} role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'}>
+  <text x="0" y={MARK.base} class="km-text"><tspan class="km-k">k</tspan><tspan class="km-int">int</tspan></text>
+  <circle cx={MARK.dot.cx} cy={MARK.dot.cy} r={MARK.dot.r} class="km-dot" />
+</svg>
