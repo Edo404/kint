@@ -14,22 +14,22 @@ same_as:   # profili social: JSON-LD (sameAs) e icone nel footer
 landings:
   - id: ristoranti
     url: https://kint-website.vercel.app/ristoratori
-    logo: /brand/ristokint-dark.png
+    logo: /brand/ristokint.svg
     logo_alt: RISTOkint
-    logo_width: 720
-    logo_height: 121
+    logo_width: 1099
+    logo_height: 199
     accent: "#FF0000" # bordo della scheda in hover
   - id: palestre
     url: https://kint-website.vercel.app/palestre
-    logo: /brand/gymkint-dark.png
+    logo: /brand/gymkint.svg
     logo_alt: GYMkint
-    logo_width: 720
-    logo_height: 135
+    logo_width: 991
+    logo_height: 200
     accent: "#FFA500" # bordo della scheda in hover
   - id: studi
     url: https://kint-website.vercel.app/studi
-    logo: /brand/studiokint-dark.png
+    logo: /brand/studiokint.svg
     logo_alt: STUDIOkint
-    logo_width: 720
-    logo_height: 104
+    logo_width: 1227
+    logo_height: 193
     accent: "#8B4513" # bordo della scheda in hover
