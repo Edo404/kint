@@ -34,7 +34,7 @@ const socials = site.same_as.flatMap((url) => {
     {socials.length > 0 && (
       <ul class="footer-social">
         {socials.map((s) => (
-          <li><a href={s.url} target="_blank" rel="noopener" aria-label={s.name}><span set:html={s.icon} /></a></li>
+          <li><a href={s.url} target="_blank" rel="noopener"><span class="social-icon" aria-hidden="true" set:html={s.icon} />{s.name}</a></li>
         ))}
       </ul>
     )}
