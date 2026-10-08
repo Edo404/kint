@@ -102,7 +102,6 @@
 }
 
 .opening { flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
-.logo { width: min(80vw, 34rem); height: auto; color: var(--gold); }
 /* Logo grande dell'apertura (ShatteredLogo): "kint." in cocci che si ricompongono. */
 .shattered { width: min(86vw, 46rem); height: auto; overflow: visible; }
 @media (prefers-reduced-motion: no-preference) {
@@ -163,8 +162,8 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
 .hp { position: absolute; left: -9999px; }
 
 
-#closing { min-height: 100svh; flex-direction: column; justify-content: flex-end; align-items: center; gap: 1rem; padding-bottom: 2rem; }
-#closing .logo { width: min(40vw, 12rem); }
+#closing { min-height: 100svh; flex-direction: column; justify-content: flex-end; align-items: center; gap: 1rem; padding-bottom: 1rem; }
+#closing .closing-mark { width: min(40vw, 8.5rem); height: auto; }
 .site-footer { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem; padding: 2rem 5vw; border-top: 1px solid rgb(245 243 238 / .15); background: rgb(10 10 10 / .7); backdrop-filter: blur(6px); }
 .site-footer ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; list-style: none; padding: 0; margin: 0; }
 .site-footer a { color: var(--white); }

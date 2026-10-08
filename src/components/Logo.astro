@@ -1,7 +1,0 @@
----
-interface Props { label?: string; class?: string }
-const { label, class: extra } = Astro.props;
----
-<svg class:list={['logo', extra]} viewBox="0 0 420 120" role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'} xmlns="http://www.w3.org/2000/svg">
-  <text x="210" y="88" text-anchor="middle" font-size="96" letter-spacing="14" fill="currentColor" font-family="system-ui, sans-serif">KINT</text>
-</svg>
