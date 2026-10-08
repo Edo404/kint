@@ -284,6 +284,7 @@ contact:
         a: "Hosting is in Switzerland. We comply with the Swiss FADP and the European GDPR."
 footer:
   nav_label: Sections
+  countries: Switzerland and Italy
   copyright: "© 2026 Kint · Lugano, Switzerland"
   privacy: "Privacy"
   hosting: "Hosting in Switzerland"

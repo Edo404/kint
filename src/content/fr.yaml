@@ -285,6 +285,7 @@ contact:
         a: "L'hébergement est en Suisse. Nous respectons la LPD suisse et le RGPD européen."
 footer:
   nav_label: Sections
+  countries: Suisse et Italie
   copyright: "© 2026 Kint · Lugano, Suisse"
   privacy: "Confidentialité"
   hosting: "Hébergement en Suisse"

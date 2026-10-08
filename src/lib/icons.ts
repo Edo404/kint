@@ -27,6 +27,7 @@ import instagramLogo from '@phosphor-icons/core/assets/fill/instagram-logo-fill.
 import linkedinLogo from '@phosphor-icons/core/assets/fill/linkedin-logo-fill.svg?raw';
 import dotsVertical from '@phosphor-icons/core/assets/bold/dots-three-vertical-bold.svg?raw';
 import caretDown from '@phosphor-icons/core/assets/regular/caret-down.svg?raw';
+import flagCh from 'flag-icons/flags/4x3/ch.svg?raw';
 import flagDe from 'flag-icons/flags/4x3/de.svg?raw';
 import flagFr from 'flag-icons/flags/4x3/fr.svg?raw';
 import flagGb from 'flag-icons/flags/4x3/gb.svg?raw';
@@ -74,3 +75,6 @@ export function socialFor(url: string): { name: string; icon: string } | null {
   const hit = SOCIAL.find(([re]) => re.test(host));
   return hit ? { name: hit[1], icon: hit[2] } : null;
 }
+
+// Paesi in cui lavora Kint (bandiere nel footer).
+export const countryFlags = [flagCh, flagIt].map((f) => f.replace(/\s+id="[^"]*"/, ''));

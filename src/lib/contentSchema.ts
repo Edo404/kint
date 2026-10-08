@@ -18,7 +18,7 @@ const REQUIRED_STRINGS = [
   'contact.form.name', 'contact.form.email', 'contact.form.phone', 'contact.form.company', 'contact.form.sector',
   'contact.form.sector_other', 'contact.form.message', 'contact.form.privacy_label', 'contact.form.submit',
   'contact.form.sent', 'contact.form.error',
-  'contact.faq.title', 'footer.nav_label', 'footer.copyright', 'footer.privacy', 'footer.hosting',
+  'contact.faq.title', 'footer.nav_label', 'footer.countries', 'footer.copyright', 'footer.privacy', 'footer.hosting',
   'privacy.title', 'privacy.intro', 'portfolio.title', 'portfolio.intro',
 ];
 
