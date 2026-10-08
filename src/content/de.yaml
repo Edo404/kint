@@ -73,7 +73,7 @@ sectors:
         - "Reels und Social-Media-Inhalte"
       linked_services:
         - siti
-        - google
+        - seo-geo
         - social
     - id: agroalimentare
       name: "Lebensmittelproduktion und Weinkellereien"
@@ -87,7 +87,6 @@ sectors:
       linked_services:
         - siti
         - brand
-        - gadget
     - id: artigiani-edilizia
       name: "Handwerk und Bau"
       for_whom: "Sanitärinstallateure, Elektriker, Fensterbauer, Bauunternehmen"
@@ -100,7 +99,7 @@ sectors:
       linked_services:
         - siti
         - ai-automazioni
-        - google
+        - seo-geo
     - id: studi-professionali
       name: "Freiberufliche Kanzleien und Büros"
       for_whom: "Treuhandbüros, Anwaltskanzleien, Buchhaltungen, Architekturbüros"
@@ -126,7 +125,7 @@ sectors:
       linked_services:
         - siti
         - ai-automazioni
-        - google
+        - seo-geo
     - id: negozi-retail
       name: "Geschäfte und Detailhandel"
       for_whom: "Boutiquen, Optiker, Juweliere, Quartierläden"
@@ -152,7 +151,6 @@ sectors:
       linked_services:
         - siti
         - pubblicita
-        - foto-video
     - id: industria-b2b
       name: "Industrie und B2B"
       for_whom: "Hersteller, Logistik, Familienunternehmen"
@@ -164,7 +162,7 @@ sectors:
         - "KI-Automatisierung von Abläufen"
       linked_services:
         - siti
-        - gadget
+        - brand
         - ai-automazioni
     - id: nuove-aperture
       name: "Neueröffnungen und Startups"
@@ -178,7 +176,6 @@ sectors:
       linked_services:
         - brand
         - siti
-        - gadget
         - social
 services:
   title: "Was wir tun"
@@ -190,49 +187,34 @@ services:
   items:
     - id: siti
       title: "Websites und E-Commerce"
-      description: "Visitenkarten-Websites, Online-Shops, Landingpages. Mehrsprachig in Italienisch, Deutsch und Französisch."
-      crack: "Ihre Website ist langsam und auf dem Handy nicht lesbar."
-      gold: "Eine schnelle, klare Website, die Anfragen bringt."
+      description: "Unternehmenswebsites, Onlineshops, Landingpages. Mehrsprachig: Italienisch, Deutsch, Französisch."
+      crack: "Viele Menschen möchten Sie erreichen, schaffen es aber nicht immer."
+      gold: "Eine klare, schnelle Website, die Besuche in Anfragen verwandelt."
     - id: brand
-      title: "Marke und Grafik"
-      description: "Logo, visuelle Identität, Kataloge, Verpackung, Beschriftungen, Drucksachen."
-      crack: "Logo, Visitenkarten und Beschriftung wirken, als gehörten sie zu verschiedenen Firmen."
-      gold: "Eine Identität, die überall wiedererkannt wird."
-    - id: gadget
-      title: "Werbeartikel"
-      description: "Arbeitskleidung, Messe-Sets, Firmengeschenke, Willkommens-Sets."
-      crack: "Firmengeschenke, an die sich niemand erinnert."
-      gold: "Gegenstände, die Ihre Kundschaft behält, benutzt und mit Ihnen verbindet."
+      title: "Marke und Merchandising"
+      description: "Logo, visuelle Identität, Verpackung, Drucksachen, Arbeitskleidung und Werbeartikel."
+      crack: "Was Sie tun, verdient es, auf den ersten Blick erkannt zu werden."
+      gold: "Ein einheitlicher Auftritt, von der Visitenkarte bis zum T-Shirt des Teams."
     - id: social
       title: "Social Media"
-      description: "Redaktionsplan, Beiträge, Reels, Community-Betreuung."
-      crack: "Ihr Profil steht seit Monaten still."
-      gold: "Regelmässige Inhalte und eine Community, die antwortet."
-    - id: pubblicita
-      title: "Bezahlte Werbung"
-      description: "Google Ads, Meta (Facebook und Instagram), LinkedIn, geolokalisierte Kampagnen."
-      crack: "Sie geben Geld für Werbung aus, ohne zu wissen, was sie bringt."
-      gold: "Gezielte Kampagnen mit gemessenen Ergebnissen."
+      description: "Redaktionsplan, Beiträge, Reels, Community-Management."
+      crack: "Regelmässig zu posten braucht Zeit, und Zeit ist immer knapp."
+      gold: "Regelmässige Inhalte, die Ihr Geschäft erzählen, während Sie sich um den Rest kümmern."
     - id: ai-automazioni
       title: "KI und Automatisierung"
       description: "Chatbots auf der Website, Antworten auf Bewertungen, automatische Offerten, automatisierte Abläufe."
-      crack: "Jeden Tag gehen Stunden für wiederkehrende Antworten und Offerten verloren."
-      gold: "Chatbots und Abläufe, die an Ihrer Stelle arbeiten."
-    - id: google
-      title: "Google und lokale Sichtbarkeit"
-      description: "Google-Unternehmensprofil, lokale SEO, Strategie für Bewertungen."
-      crack: "Niemand findet Sie bei Google."
-      gold: "Ein optimiertes Profil, fünf Sterne gut sichtbar."
-    - id: foto-video
-      title: "Foto und Video"
-      description: "Aufnahmen vor Ort: das Material für Website, Social Media und Werbung."
-      crack: "Handyfotos und verstreutes Material."
-      gold: "Ein professionelles Shooting in Ihrer Umgebung, überall verwendbar."
-    - id: ai-ready
-      title: "Sichtbarkeit bei KI"
-      description: "Strukturierte Daten, für KI lesbare Inhalte, Beobachtung, wie ChatGPT, Gemini, Claude und Perplexity über Sie sprechen."
-      crack: "KI-Assistenten zitieren Sie nicht oder sagen Falsches über Sie."
-      gold: "Korrekte, strukturierte und zitierbare Informationen."
+      crack: "Dieselben Fragen und dieselben Offerten kommen jeden Tag wieder."
+      gold: "Chatbots und automatische Abläufe, die für Sie antworten, auch ausserhalb der Öffnungszeiten."
+    - id: pubblicita
+      title: "Bezahlte Werbung"
+      description: "Google Ads, Meta (Facebook und Instagram), LinkedIn, geografisch ausgerichtete Kampagnen."
+      crack: "Werbung lohnt sich nur, wenn Sie wissen, was sie zurückbringt."
+      gold: "Kampagnen gezielt für Ihre Region, mit messbaren Ergebnissen."
+    - id: seo-geo
+      title: "SEO und GEO"
+      description: "Sichtbarkeit auf Google und bei KI-Assistenten: Google-Unternehmensprofil, lokales SEO, strukturierte Daten, Beobachtung, wie ChatGPT, Gemini, Claude und Perplexity über Sie sprechen."
+      crack: "Kunden fragen heute Google und ChatGPT: Es lohnt sich, in beiden präsent zu sein."
+      gold: "Klare, korrekte Informationen dort, wo Kunden suchen und wo KI antwortet."
   always_included:
     title: "Immer inbegriffen"
     items:

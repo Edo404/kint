@@ -3,17 +3,16 @@ import arrowRight from '@phosphor-icons/core/assets/regular/arrow-right.svg?raw'
 import briefcase from '@phosphor-icons/core/assets/regular/briefcase.svg?raw';
 import browser from '@phosphor-icons/core/assets/regular/browser.svg?raw';
 import calendarCheck from '@phosphor-icons/core/assets/regular/calendar-check.svg?raw';
-import camera from '@phosphor-icons/core/assets/regular/camera.svg?raw';
 import clock from '@phosphor-icons/core/assets/regular/clock.svg?raw';
 import chatsCircle from '@phosphor-icons/core/assets/regular/chats-circle.svg?raw';
 import check from '@phosphor-icons/core/assets/regular/check.svg?raw';
 import envelope from '@phosphor-icons/core/assets/regular/envelope-simple.svg?raw';
 import factory from '@phosphor-icons/core/assets/regular/factory.svg?raw';
 import forkKnife from '@phosphor-icons/core/assets/regular/fork-knife.svg?raw';
-import gift from '@phosphor-icons/core/assets/regular/gift.svg?raw';
 import heartbeat from '@phosphor-icons/core/assets/regular/heartbeat.svg?raw';
 import key from '@phosphor-icons/core/assets/regular/key.svg?raw';
 import mapPin from '@phosphor-icons/core/assets/regular/map-pin.svg?raw';
+import magnifyingGlass from '@phosphor-icons/core/assets/regular/magnifying-glass.svg?raw';
 import megaphone from '@phosphor-icons/core/assets/regular/megaphone.svg?raw';
 import phone from '@phosphor-icons/core/assets/regular/phone.svg?raw';
 import penNib from '@phosphor-icons/core/assets/regular/pen-nib.svg?raw';
@@ -44,13 +43,10 @@ const byId: Record<string, string> = {
   'nuove-aperture': rocketLaunch,
   siti: browser,
   brand: penNib,
-  gadget: gift,
   social: chatsCircle,
   pubblicita: megaphone,
   'ai-automazioni': robot,
-  google: mapPin,
-  'foto-video': camera,
-  'ai-ready': sparkle,
+  'seo-geo': magnifyingGlass,
 };
 
 export const ui = { arrowRight, calendarCheck, caretDown, check, clock, dotsVertical, envelope, mapPin, phone, plus, sparkle };

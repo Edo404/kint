@@ -2,7 +2,7 @@ projects:
   - slug: esempio-ristorante
     name: "Esempio Ristorante (fittizio)"
     client_sector: ristorazione
-    services: [siti, google]
+    services: [siti, seo-geo]
     year: 2026
     summary: "Progetto fittizio per lo sviluppo: menu digitale e prenotazioni dirette."
     results: []

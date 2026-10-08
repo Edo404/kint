@@ -72,7 +72,7 @@ sectors:
         - "Reels and social content"
       linked_services:
         - siti
-        - google
+        - seo-geo
         - social
     - id: agroalimentare
       name: "Food producers and wineries"
@@ -86,7 +86,6 @@ sectors:
       linked_services:
         - siti
         - brand
-        - gadget
     - id: artigiani-edilizia
       name: "Trades and construction"
       for_whom: "Plumbers, electricians, window fitters, building companies"
@@ -99,7 +98,7 @@ sectors:
       linked_services:
         - siti
         - ai-automazioni
-        - google
+        - seo-geo
     - id: studi-professionali
       name: "Professional firms"
       for_whom: "Fiduciary firms, lawyers, accountants, architects"
@@ -125,7 +124,7 @@ sectors:
       linked_services:
         - siti
         - ai-automazioni
-        - google
+        - seo-geo
     - id: negozi-retail
       name: "Shops and retail"
       for_whom: "Boutiques, opticians, jewellers, neighbourhood shops"
@@ -151,7 +150,6 @@ sectors:
       linked_services:
         - siti
         - pubblicita
-        - foto-video
     - id: industria-b2b
       name: "Industry and B2B"
       for_whom: "Manufacturers, logistics, family-owned companies"
@@ -163,7 +161,7 @@ sectors:
         - "AI automations for processes"
       linked_services:
         - siti
-        - gadget
+        - brand
         - ai-automazioni
     - id: nuove-aperture
       name: "New openings and startups"
@@ -177,7 +175,6 @@ sectors:
       linked_services:
         - brand
         - siti
-        - gadget
         - social
 services:
   title: "What we do"
@@ -189,49 +186,34 @@ services:
   items:
     - id: siti
       title: "Websites and e-commerce"
-      description: "Showcase sites, online shops, landing pages. Multilingual in Italian, German, French and English."
-      crack: "Your website is slow and unreadable on a phone."
-      gold: "A fast, clear website that brings enquiries."
+      description: "Showcase sites, online shops, landing pages. Multilingual: Italian, German, French."
+      crack: "Many people would like to reach you, but they don't always manage to."
+      gold: "A clear, fast website that turns visits into enquiries."
     - id: brand
-      title: "Brand and graphics"
-      description: "Logo, visual identity, catalogues, packaging, signage, print."
-      crack: "Logo, business cards and signage look like they belong to different companies."
-      gold: "An identity recognisable wherever people see you."
-    - id: gadget
-      title: "Merchandise"
-      description: "Workwear, trade-fair kits, corporate gifts, welcome kits."
-      crack: "Corporate gifts nobody remembers."
-      gold: "Objects your customers keep, use and associate with you."
+      title: "Brand and merchandise"
+      description: "Logo, visual identity, packaging, print, workwear and branded merchandise."
+      crack: "What you do deserves to be recognised at first glance."
+      gold: "A consistent identity, from the business card to the team's T-shirt."
     - id: social
       title: "Social media"
-      description: "Editorial plan, posts, reels, community management."
-      crack: "Your profile has been silent for months."
-      gold: "Regular content and a community that responds."
+      description: "Content plan, posts, reels, community management."
+      crack: "Posting consistently takes time, and there is never enough of it."
+      gold: "Regular content that tells your story while you focus on the rest."
+    - id: ai-automazioni
+      title: "AI and automation"
+      description: "Website chatbots, review replies, automated quotes, automated workflows."
+      crack: "The same questions and the same quotes come back every day."
+      gold: "Chatbots and automated workflows that answer for you, even after hours."
     - id: pubblicita
       title: "Paid advertising"
       description: "Google Ads, Meta (Facebook and Instagram), LinkedIn, geo-targeted campaigns."
-      crack: "You spend on advertising without knowing what pays off."
-      gold: "Targeted campaigns with measured results."
-    - id: ai-automazioni
-      title: "AI and automations"
-      description: "Website chatbots, replies to reviews, automatic quotes, automated workflows."
-      crack: "Hours lost every day on repetitive replies and quotes."
-      gold: "Chatbots and workflows that work in your place."
-    - id: google
-      title: "Google and local visibility"
-      description: "Google Business Profile, local SEO, review strategy."
-      crack: "Nobody finds you on Google."
-      gold: "An optimised profile, five stars in sight."
-    - id: foto-video
-      title: "Photo and video"
-      description: "On-site shoots: the material for your website, social media and advertising."
-      crack: "Phone photos and scattered material."
-      gold: "A professional shoot in your own setting, used everywhere."
-    - id: ai-ready
-      title: "Visibility on AI"
-      description: "Structured data, content readable by AI, monitoring how ChatGPT, Gemini, Claude and Perplexity talk about you."
-      crack: "AI assistants do not cite you, or say wrong things about you."
-      gold: "Correct, structured, citable information."
+      crack: "Advertising only makes sense if you know what it brings back."
+      gold: "Campaigns targeted to your area, with results you can measure."
+    - id: seo-geo
+      title: "SEO and GEO"
+      description: "Visibility on Google and on AI assistants: Google Business Profile, local SEO, structured data, monitoring how ChatGPT, Gemini, Claude and Perplexity talk about you."
+      crack: "Customers now ask both Google and ChatGPT: it pays to be found in both."
+      gold: "Clear, accurate information where customers search and where AI answers."
   always_included:
     title: "Always included"
     items:

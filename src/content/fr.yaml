@@ -73,7 +73,7 @@ sectors:
         - "Reels et contenus pour les réseaux sociaux"
       linked_services:
         - siti
-        - google
+        - seo-geo
         - social
     - id: agroalimentare
       name: "Agroalimentaire et caves"
@@ -87,7 +87,6 @@ sectors:
       linked_services:
         - siti
         - brand
-        - gadget
     - id: artigiani-edilizia
       name: "Artisans et bâtiment"
       for_whom: "Plombiers, électriciens, menuisiers, entreprises du bâtiment"
@@ -100,7 +99,7 @@ sectors:
       linked_services:
         - siti
         - ai-automazioni
-        - google
+        - seo-geo
     - id: studi-professionali
       name: "Cabinets professionnels"
       for_whom: "Fiduciaires, avocats, experts-comptables, architectes"
@@ -126,7 +125,7 @@ sectors:
       linked_services:
         - siti
         - ai-automazioni
-        - google
+        - seo-geo
     - id: negozi-retail
       name: "Commerces et retail"
       for_whom: "Boutiques, opticiens, bijouteries, commerces de quartier"
@@ -152,7 +151,6 @@ sectors:
       linked_services:
         - siti
         - pubblicita
-        - foto-video
     - id: industria-b2b
       name: "Industrie et B2B"
       for_whom: "Fabricants, logistique, entreprises familiales"
@@ -164,7 +162,7 @@ sectors:
         - "Automatisations IA sur les processus"
       linked_services:
         - siti
-        - gadget
+        - brand
         - ai-automazioni
     - id: nuove-aperture
       name: "Nouvelles ouvertures et startups"
@@ -178,7 +176,6 @@ sectors:
       linked_services:
         - brand
         - siti
-        - gadget
         - social
 services:
   title: "Ce que nous faisons"
@@ -190,49 +187,34 @@ services:
   items:
     - id: siti
       title: "Sites et e-commerce"
-      description: "Sites vitrines, boutiques en ligne, pages d'atterrissage. Multilingues : italien, allemand, français."
-      crack: "Votre site est lent et illisible sur téléphone."
-      gold: "Un site rapide et clair qui apporte des demandes."
+      description: "Sites vitrines, boutiques en ligne, landing pages. Multilingue : italien, allemand, français."
+      crack: "Beaucoup de personnes aimeraient vous joindre, mais n'y arrivent pas toujours."
+      gold: "Un site clair et rapide qui transforme les visites en demandes."
     - id: brand
-      title: "Marque et graphisme"
-      description: "Logo, identité visuelle, catalogues, packaging, enseignes, imprimés."
-      crack: "Logo, cartes de visite et enseigne semblent venir d'entreprises différentes."
-      gold: "Une identité reconnaissable partout où l'on vous voit."
-    - id: gadget
-      title: "Objets promotionnels"
-      description: "Vêtements de travail, kits pour foires, cadeaux d'entreprise, kits de bienvenue."
-      crack: "Des cadeaux d'entreprise dont personne ne se souvient."
-      gold: "Des objets que le client garde, utilise et associe à vous."
+      title: "Marque et merchandising"
+      description: "Logo, identité visuelle, packaging, imprimés, vêtements de travail et objets publicitaires."
+      crack: "Ce que vous faites mérite d’être reconnu au premier coup d’œil."
+      gold: "Une identité cohérente, de la carte de visite au t-shirt de l’équipe."
     - id: social
       title: "Réseaux sociaux"
-      description: "Plan éditorial, publications, reels, animation de la communauté."
-      crack: "Votre profil est à l'arrêt depuis des mois."
-      gold: "Des contenus réguliers et une communauté qui répond."
+      description: "Plan éditorial, publications, reels, gestion de la communauté."
+      crack: "Publier régulièrement demande du temps, et le temps manque toujours."
+      gold: "Des contenus réguliers qui racontent votre activité pendant que vous vous occupez du reste."
+    - id: ai-automazioni
+      title: "IA et automatisations"
+      description: "Chatbot sur le site, réponses aux avis, devis automatiques, flux automatisés."
+      crack: "Les mêmes questions et les mêmes devis reviennent chaque jour."
+      gold: "Des chatbots et des flux automatiques qui répondent pour vous, même hors horaires."
     - id: pubblicita
       title: "Publicité payante"
       description: "Google Ads, Meta (Facebook et Instagram), LinkedIn, campagnes géolocalisées."
-      crack: "Vous dépensez en publicité sans savoir ce que cela rapporte."
-      gold: "Des campagnes ciblées avec des résultats mesurés."
-    - id: ai-automazioni
-      title: "IA et automatisations"
-      description: "Chatbots sur le site, réponses aux avis, devis automatiques, flux automatisés."
-      crack: "Des heures perdues chaque jour en réponses et devis répétitifs."
-      gold: "Des chatbots et des flux qui travaillent à votre place."
-    - id: google
-      title: "Google et visibilité locale"
-      description: "Fiche Google Business, SEO local, stratégie pour les avis."
-      crack: "Personne ne vous trouve sur Google."
-      gold: "Une fiche optimisée, cinq étoiles bien en vue."
-    - id: foto-video
-      title: "Photo et vidéo"
-      description: "Tournage sur place : le matériel pour le site, les réseaux sociaux et la publicité."
-      crack: "Des photos prises au téléphone et du matériel dispersé."
-      gold: "Un tournage professionnel dans votre environnement, utilisé partout."
-    - id: ai-ready
-      title: "Visibilité sur les IA"
-      description: "Données structurées, contenus lisibles par les IA, suivi de la façon dont ChatGPT, Gemini, Claude et Perplexity parlent de vous."
-      crack: "Les assistants IA ne vous citent pas, ou disent des choses fausses à votre sujet."
-      gold: "Des informations correctes, structurées et citables."
+      crack: "Investir dans la publicité n’a de sens que si vous savez ce qu’elle rapporte."
+      gold: "Des campagnes ciblées sur votre région, avec des résultats mesurables."
+    - id: seo-geo
+      title: "SEO et GEO"
+      description: "Visibilité sur Google et sur les assistants IA : fiche Google Business, SEO local, données structurées, suivi de ce que ChatGPT, Gemini, Claude et Perplexity disent de vous."
+      crack: "Aujourd’hui, les clients interrogent Google et ChatGPT : mieux vaut être présent dans les deux."
+      gold: "Des informations claires et exactes, là où les clients cherchent et là où l’IA répond."
   always_included:
     title: "Toujours inclus"
     items:
