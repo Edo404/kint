@@ -7,7 +7,7 @@ import KintMark from './KintMark.astro';
 import type { Content, SiteData } from '../lib/content.types';
 import { pathFor, type Lang } from '../lib/i18n';
 import { edgePath, jaggedEdge, shardClip } from '../lib/shard';
-import { countryFlags, socialFor, ui } from '../lib/icons';
+import { socialFor, ui } from '../lib/icons';
 interface Props { c: Content; lang: Lang; site: SiteData; showPortfolio?: boolean }
 const { c, lang, site, showPortfolio = false } = Astro.props;
 const home = pathFor(lang);
@@ -52,9 +52,6 @@ const socials = site.same_as.flatMap((url) => {
           ))}
         </ul>
       )}
-      <div class="footer-flags footer-flags-desk" role="img" aria-label={c.footer.countries}>
-        {countryFlags.map((f) => <span class="flag" aria-hidden="true" set:html={f} />)}
-      </div>
       <!-- "#top" porta in cima anche senza JavaScript; con Lenis lo scorrimento è morbido -->
       <a class="footer-top" href="#top" aria-label={c.footer.to_top} title={c.footer.to_top}><span aria-hidden="true" set:html={ui.arrowUp} /></a>
     </div>
@@ -66,9 +63,5 @@ const socials = site.same_as.flatMap((url) => {
       <li>{c.footer.hosting}</li>
       <li><a href={pathFor(lang, 'privacy')}>{c.footer.privacy}</a></li>
     </ul>
-  </div>
-  <!-- su mobile le bandiere sono l'ultima cosa; su desktop si vedono quelle sotto i social -->
-  <div class="footer-flags footer-flags-mob" role="img" aria-label={c.footer.countries}>
-    {countryFlags.map((f) => <span class="flag" aria-hidden="true" set:html={f} />)}
   </div>
 </footer>

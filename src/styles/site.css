@@ -208,17 +208,13 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
 .footer-social .social-icon svg { width: 100%; height: 100%; fill: currentColor; display: block; }
 .footer-social a:hover { border-color: color-mix(in oklab, var(--gold) 70%, transparent); background: color-mix(in oklab, var(--gold) 10%, transparent); }
 .footer-base {
-  display: flex; flex-direction: column; align-items: center; gap: 0.6rem; margin-top: clamp(2.25rem, 5vw, 3rem); padding-top: 1.5rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem; margin-top: 1.25rem; padding-top: 1.5rem;
   border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; text-align: center;
 }
 .footer-base p { margin: 0; }
 .footer-base ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.5rem; }
 .footer-base ul { align-items: center; }
 .footer-aside { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-.footer-flags { display: flex; justify-content: center; gap: 0.45rem; }
-.footer-flags .flag { width: 1.3rem; height: 0.95rem; border-radius: 1.5px; }
-.footer-flags-desk { display: none; }
-.footer-flags-mob { width: min(100%, 70rem); margin: 1.25rem auto 0; }
 /* torna su: freccia in un cerchio, come i bottoni social */
 .footer-top {
   display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line-strong);
@@ -243,10 +239,8 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
   .footer-aside { justify-self: end; }
   .footer-base { flex-direction: row; justify-content: space-between; text-align: left; }
   .footer-base ul { justify-content: flex-end; }
-  /* colonna destra alta quanto le sezioni: social, sotto le bandiere, in fondo il torna su */
+  /* colonna destra alta quanto le sezioni: social in alto, in fondo il torna su */
   .footer-aside { align-self: stretch; align-items: flex-end; gap: 0; }
-  .footer-flags-desk { display: flex; margin-top: 0.9rem; }
-  .footer-flags-mob { display: none; }
   .footer-top { margin-top: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
