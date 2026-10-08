@@ -170,7 +170,6 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
 
 
 #closing { min-height: 100svh; flex-direction: column; justify-content: flex-end; align-items: center; gap: 1rem; padding-bottom: 1rem; }
-#closing .closing-mark { width: min(40vw, 8.5rem); height: auto; }
 /* Footer: cucitura d'oro spezzata in testa, poi logo | sezioni | social, e una riga di servizio sotto. */
 .site-footer {
   position: relative; z-index: 1; padding: clamp(3.5rem, 7vw, 5rem) 1.5rem 1.75rem;
