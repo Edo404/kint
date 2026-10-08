@@ -103,7 +103,7 @@
 
 .opening { flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
 /* Logo grande dell'apertura (ShatteredLogo): "kint." in cocci che si ricompongono. */
-.shattered { width: min(86vw, 46rem); height: auto; overflow: visible; }
+.shattered { width: min(64vw, 30rem); height: auto; overflow: visible; }
 @media (prefers-reduced-motion: no-preference) {
   .js .sh-piece { animation: sh-in 1.6s cubic-bezier(.16, 1, .3, 1) both; animation-delay: calc(0.2s + var(--i) * 70ms); }
   /* la copia intera compare quando l'ultimo coccio è arrivato (0.2s + 8 × 70ms + 1.6s) */
