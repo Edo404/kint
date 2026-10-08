@@ -65,23 +65,5 @@ export function shatter(w: number, h: number, pieces: number, seed: number): Sha
   return { cells, cracks };
 }
 
-// Crepa con piccoli scarti perpendicolari: la cucitura d'oro non è mai una riga dritta.
-export function jaggedCrack([a, b]: [P, P], seed: number, steps = 4, amp = 3): P[] {
-  const rand = rng(seed);
-  const dx = b[0] - a[0];
-  const dy = b[1] - a[1];
-  const len = Math.hypot(dx, dy) || 1;
-  const nx = -dy / len;
-  const ny = dx / len;
-  const pts: P[] = [a];
-  for (let i = 1; i < steps; i++) {
-    const t = i / steps;
-    const j = (rand() - 0.5) * 2 * amp;
-    pts.push([a[0] + dx * t + nx * j, a[1] + dy * t + ny * j]);
-  }
-  pts.push(b);
-  return pts;
-}
-
 export const polyPoints = (poly: P[]) => poly.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
 export const polyArea = area;

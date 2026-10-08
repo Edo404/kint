@@ -1,10 +1,10 @@
 ---
 // Logo grande dell'apertura: il logotipo "kint." spezzato in cocci come il vaso.
-// All'arrivo i cocci entrano da fuori e si ricompongono, poi le crepe si riempiono d'oro.
+// All'arrivo i cocci entrano da fuori e si ricompongono: il logo torna intero, senza giunture.
 // Scorrendo verso il basso il logo si riapre un poco (CSS scroll-driven, dove supportato).
 // Geometria: Manrope 800 a 200px, spaziatura -0.06em ("kint" largo ~338 unità, misurato nel browser).
 // Il punto è un po' più piccolo e vicino che nella barra (diametro 0.21em): in grande quello pieno pesa troppo.
-import { centroid, jaggedCrack, polyPoints, shatter, type P } from '../lib/shatter';
+import { centroid, polyPoints, shatter, type P } from '../lib/shatter';
 interface Props { label: string }
 const { label } = Astro.props;
 
@@ -12,7 +12,7 @@ const W = 420;
 const H = 172;
 const BASE = 156; // linea di base del testo
 const DOT = { cx: 386, cy: BASE - 21, r: 21 };
-const { cells, cracks } = shatter(W, H, 9, 4);
+const { cells } = shatter(W, H, 9, 4);
 const mid: P = [W / 2, H / 2];
 
 // Direzione di partenza di ogni coccio: si allontana dal centro del logo e ruota un poco.
@@ -31,7 +31,6 @@ const shards = cells.map((cell, i) => {
     rot: (((i * 53) % 34) - 17).toFixed(1),
   };
 });
-const seams = cracks.map((c, i) => polyPoints(jaggedCrack(c, 100 + i, 5, 2.5)));
 ---
 <svg class="shattered" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label} data-shattered>
   <defs>
@@ -40,11 +39,6 @@ const seams = cracks.map((c, i) => polyPoints(jaggedCrack(c, 100 + i, 5, 2.5)));
       <text x="10" y={BASE} class="sh-text"><tspan class="sh-k">k</tspan><tspan class="sh-int">int</tspan></text>
       <circle cx={DOT.cx} cy={DOT.cy} r={DOT.r} class="sh-dot" />
     </symbol>
-    <mask id="sh-ink" maskUnits="userSpaceOnUse" x="0" y="0" width={W} height={H}>
-      <!-- l'oro si vede solo sulle lettere: copia bianca del logo (le regole CSS non entrano nei <use>) -->
-      <text x="10" y={BASE} class="sh-text" fill="#fff" stroke="#fff" stroke-width="3">kint</text>
-      <circle cx={DOT.cx} cy={DOT.cy} r={DOT.r + 1.5} fill="#fff" />
-    </mask>
   </defs>
   {shards.map((s) => (
     <g class="sh-drift" style={`--tx:${s.tx}px;--ty:${s.ty}px;--rot:${s.rot}deg;transform-origin:${s.origin}`}>
@@ -53,7 +47,6 @@ const seams = cracks.map((c, i) => polyPoints(jaggedCrack(c, 100 + i, 5, 2.5)));
       </g>
     </g>
   ))}
-  <g class="sh-seams" mask="url(#sh-ink)">
-    {seams.map((pts, i) => <polyline points={pts} pathLength="1" style={`--i:${i}`} />)}
-  </g>
+  <!-- Copia intera sopra i cocci appena arrivano: copre le sottili linee lasciate dai bordi dei ritagli. -->
+  <g class="sh-whole-out"><use class="sh-whole" href="#sh-word" width={W} height={H} /></g>
 </svg>
