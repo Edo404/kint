@@ -58,9 +58,10 @@ const socials = site.same_as.flatMap((url) => {
       <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
       <li>{c.footer.hosting}</li>
       <li><a href={pathFor(lang, 'privacy')}>{c.footer.privacy}</a></li>
-      <li class="footer-flags" role="img" aria-label={c.footer.countries}>
-        {countryFlags.map((f) => <span class="flag" aria-hidden="true" set:html={f} />)}
-      </li>
     </ul>
+  </div>
+  <!-- ultime su mobile; su desktop salgono sotto i social (order in site.css) -->
+  <div class="footer-flags" role="img" aria-label={c.footer.countries}>
+    {countryFlags.map((f) => <span class="flag" aria-hidden="true" set:html={f} />)}
   </div>
 </footer>

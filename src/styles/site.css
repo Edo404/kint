@@ -168,7 +168,7 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
 #closing { min-height: 100svh; flex-direction: column; justify-content: flex-end; align-items: center; gap: 1rem; padding-bottom: 1rem; }
 /* Footer: cucitura d'oro spezzata in testa, poi logo | sezioni | social, e una riga di servizio sotto. */
 .site-footer {
-  position: relative; z-index: 1; padding: clamp(3.5rem, 7vw, 5rem) 1.5rem 1.75rem;
+  position: relative; z-index: 1; display: flex; flex-direction: column; padding: clamp(3.5rem, 7vw, 5rem) 1.5rem 1.75rem;
 }
 /* sfondo su un livello a parte, tagliato lungo la cucitura (--footer-clip): la linea e il suo alone restano interi */
 .site-footer::before {
@@ -214,8 +214,8 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
 .footer-base p { margin: 0; }
 .footer-base ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.5rem; }
 .footer-base ul { align-items: center; }
-.footer-flags { display: inline-flex; gap: 0.4rem; }
-.footer-flags .flag { width: 1.2rem; height: 0.9rem; }
+.footer-flags { display: flex; justify-content: center; gap: 0.45rem; width: min(100%, 70rem); margin: 1.25rem auto 0; }
+.footer-flags .flag { width: 1.3rem; height: 0.95rem; border-radius: 1.5px; }
 @media (min-width: 900px) {
   .footer-main { grid-template-columns: 1fr auto 1fr; align-items: start; }
   .footer-brand, .footer-social { align-self: start; }
@@ -231,7 +231,10 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
   .footer-sub a:hover { transform: translateX(3px); }
   .footer-brand { justify-self: start; }
   .footer-social { justify-self: end; }
-  .footer-base { flex-direction: row; justify-content: space-between; text-align: left; }
+  .footer-base { flex-direction: row; justify-content: space-between; text-align: left; order: 2; margin-top: 1.75rem; }
+  .footer-base ul { justify-content: flex-end; }
+  /* bandiere a destra, sotto i social e sopra la riga di servizio */
+  .footer-flags { order: 1; justify-content: flex-end; margin-top: 1.75rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .footer-seam path, .footer-social a, .footer-sub a { transition: none; }
