@@ -1,6 +1,5 @@
 ---
 import Faq from './Faq.astro';
-import Seam from './Seam.astro';
 import { leadNumber, splitEmphasis } from '../lib/emphasis';
 import { ui } from '../lib/icons';
 import type { Content, SiteData } from '../lib/content.types';
@@ -16,7 +15,6 @@ const t = splitEmphasis(c.contact.title);
 const minutes = leadNumber(c.contact.call.title);
 ---
 <section id="contatti" class="block" aria-labelledby="contatti-title">
-  <Seam at="48%" />
   <div class="wrap">
     <div class="panel cta-panel" data-inview>
       <span class="panel-rule" aria-hidden="true"></span>

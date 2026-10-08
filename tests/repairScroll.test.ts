@@ -18,11 +18,18 @@ describe('repair-scroll', () => {
     expect(pinProgress(-5000, 140, 900)).toBe(1);
     expect(pinProgress(600, 140, 900)).toBe(0);
   });
-  it('cardProgress: la linea si riempie mentre la scheda sale dal 90% al 50% dello schermo', () => {
-    expect(cardProgress(900, 1000)).toBe(0);
-    expect(cardProgress(700, 1000)).toBe(0.5);
-    expect(cardProgress(500, 1000)).toBe(1);
-    expect(cardProgress(-300, 1000)).toBe(1);
+  it('cardProgress: parte con la scheda tutta nello schermo, piena col centro a metà schermo', () => {
+    // scheda alta 300 in uno schermo di 800: parte con top 500, piena con top 250
+    expect(cardProgress(600, 300, 800)).toBe(0);
+    expect(cardProgress(500, 300, 800)).toBe(0);
+    expect(cardProgress(375, 300, 800)).toBe(0.5);
+    expect(cardProgress(250, 300, 800)).toBe(1);
+    expect(cardProgress(-300, 300, 800)).toBe(1);
+  });
+  it('cardProgress: scheda più alta dello schermo, nessuna divisione per zero', () => {
+    const p = cardProgress(0, 900, 800);
+    expect(p).toBeGreaterThanOrEqual(0);
+    expect(p).toBeLessThanOrEqual(1);
   });
   it("l'oro arriva prima della fine del tratto, per lasciare il tempo di leggere", () => {
     expect(LINE_END).toBeGreaterThan(0.5);

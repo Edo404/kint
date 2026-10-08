@@ -2,7 +2,8 @@
 // (variabile --p da 0 a 1) e quando è piena il testo passa da Crepa a Oro; risalendo torna indietro.
 // - 3 colonne e griglia che sta nello schermo: titolo e griglia restano fermi (position: sticky) per un tratto
 //   di scroll in più, e tutte le schede si riparano insieme.
-// - Altrimenti (tablet, mobile, schermi bassi): ogni scheda si ripara da sola mentre sale verso metà schermo.
+// - Altrimenti (tablet, mobile, schermi bassi): ogni scheda si ripara da sola: la linea parte quando la scheda è
+//   tutta nello schermo ed è piena quando il centro della scheda arriva a metà schermo.
 // Con "riduci movimento" o senza JavaScript si vede subito l'oro.
 const NAV = 80; // spazio della barra in alto (la pillola finisce a ~68px)
 const EDGE = 16; // margine dal fondo quando il titolo non ci sta
@@ -21,8 +22,13 @@ export function pinLayout({ width, vh, pinH, gridH }: { width: number; vh: numbe
 /** Avanzamento dello stop: `trackTop` è il bordo alto del contenitore, `extra` il tratto in più. */
 export const pinProgress = (trackTop: number, top: number, extra: number) => clamp01((top - trackTop) / extra);
 
-/** Avanzamento di una scheda: dal 90% al 50% dell'altezza dello schermo. */
-export const cardProgress = (cardTop: number, vh: number) => clamp01((0.9 * vh - cardTop) / (0.4 * vh));
+/** Avanzamento di una scheda: da "fondo della scheda al fondo dello schermo" a "centro della scheda a metà schermo". */
+export const cardProgress = (cardTop: number, cardH: number, vh: number) => {
+  const center = cardTop + cardH / 2;
+  const start = vh - cardH / 2;
+  const end = vh / 2;
+  return clamp01((start - center) / Math.max(start - end, vh * 0.2));
+};
 
 export function initRepairScroll(): void {
   const track = document.querySelector<HTMLElement>('[data-repair-track]');
@@ -59,7 +65,10 @@ export function initRepairScroll(): void {
       cards.forEach((c) => paint(c, line));
     } else {
       const vh = window.innerHeight;
-      cards.forEach((c) => paint(c, cardProgress(c.getBoundingClientRect().top, vh)));
+      cards.forEach((c) => {
+        const r = c.getBoundingClientRect();
+        paint(c, cardProgress(r.top, r.height, vh));
+      });
     }
   };
 

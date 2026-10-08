@@ -1,0 +1,32 @@
+---
+// "Tre modi di lavorare insieme": riparazione, ricomposizione, oro continuo.
+// Tolto dai Servizi, conservato per riusarlo altrove. I testi restano in services.packages (usati anche da llms.txt).
+import type { Content } from '../lib/content.types';
+interface Props { c: Content }
+const { c } = Astro.props;
+const s = c.services;
+// Icone dei tre modi di lavorare: un coccio, i cocci, il vaso intero cucito d'oro.
+const STEPS = [
+  '<path d="M14 30 L26 14 L40 22 L34 38 Z" /><path class="g" d="M26 14 L32 26 L40 22" />',
+  '<path d="M8 20 L20 10 L26 22 Z" /><path d="M30 12 L44 16 L38 28 Z" /><path d="M14 30 L28 28 L24 42 Z" /><path d="M32 32 L42 34 L36 44 Z" />',
+  '<path d="M18 8 h12 M20 8 v6 q-10 6 -10 16 q0 12 14 14 q14 -2 14 -14 q0 -10 -10 -16 v-6" /><path class="g" d="M13 26 L20 24 L24 30 L31 27 L37 31 M22 36 L27 33 L30 39" />',
+];
+---
+<div class="wrap">
+  <div class="packages" data-inview>
+    <h3>{s.packages.title}</h3>
+    <ol class="steps">
+      {s.packages.items.map((p, i) => (
+        <li class:list={['step', { 'is-gold': i === s.packages.items.length - 1 }]} style={`--i:${i}`}>
+          <span class="step-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" set:html={STEPS[i % STEPS.length]} />
+          </span>
+          <span class="step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <p class="package-name">{p.name}</p>
+          <p>{p.text}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="note">{s.packages.note}</p>
+  </div>
+</div>

@@ -112,6 +112,12 @@
     .js .sh-drift { animation: sh-out linear both; animation-timeline: scroll(root); animation-range: 0 85vh; }
     .js .sh-whole-out { animation: sh-whole-out linear both; animation-timeline: scroll(root); animation-range: 0 6vh; }
   }
+  /* senza scroll-driven animations (shatter-scroll.ts imposta --sh e --shw) */
+  .sh-js .sh-drift {
+    transform: translate(calc(var(--tx) * 0.5 * var(--sh, 0)), calc(var(--ty) * 0.5 * var(--sh, 0))) rotate(calc(var(--rot) * 0.6 * var(--sh, 0)));
+    opacity: calc(1 - 0.65 * var(--sh, 0));
+  }
+  .sh-js .sh-whole-out { opacity: calc(1 - var(--shw, 0)); }
 }
 @keyframes sh-in {
   from { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)); opacity: 0; }
