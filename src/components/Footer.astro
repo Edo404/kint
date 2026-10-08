@@ -5,19 +5,22 @@
 import KintMark from './KintMark.astro';
 import type { Content, SiteData } from '../lib/content.types';
 import { pathFor, type Lang } from '../lib/i18n';
-import { edgePath, jaggedEdge } from '../lib/shard';
+import { edgePath, jaggedEdge, shardClip } from '../lib/shard';
 import { socialFor } from '../lib/icons';
 interface Props { c: Content; lang: Lang; site: SiteData; showPortfolio?: boolean }
 const { c, lang, site, showPortfolio = false } = Astro.props;
 const home = pathFor(lang);
 const EDGE = 22;
-const seam = edgePath(jaggedEdge(47, EDGE), EDGE);
+const edge = jaggedEdge(47, EDGE);
+const seam = edgePath(edge, EDGE);
+// lo sfondo parte dalla cucitura: sopra la linea si vede ancora il vaso
+const clip = shardClip(edge, [{ x: 0, y: 0 }, { x: 100, y: 0 }]);
 const socials = site.same_as.flatMap((url) => {
   const s = socialFor(url);
   return s ? [{ url, ...s }] : [];
 });
 ---
-<footer class="site-footer">
+<footer class="site-footer" style={`--footer-clip:${clip}`}>
   <svg class="footer-seam" viewBox={`0 0 1440 ${EDGE}`} preserveAspectRatio="none" aria-hidden="true" data-inview>
     <path d={seam} pathLength="1" />
   </svg>
