@@ -1,6 +1,7 @@
 ---
 // Footer: cucitura d'oro spezzata in testa (stessa geometria dei bordi delle sezioni coperte, si disegna
-// quando entra in vista), poi logo, sezioni e social su una riga; sotto, copyright, email, hosting e privacy.
+// quando entra in vista), poi logo, sezioni e social; sotto, copyright, email, hosting e privacy.
+// Su desktop le sezioni sono due colonne: Settori con i loghi delle sotto-landing a ramo, poi le altre voci.
 // I social sono i profili in site.yaml → same_as (gli stessi del JSON-LD).
 import KintMark from './KintMark.astro';
 import type { Content, SiteData } from '../lib/content.types';
@@ -15,8 +16,8 @@ const edge = jaggedEdge(47, EDGE);
 const seam = edgePath(edge, EDGE);
 // lo sfondo parte dalla cucitura: sopra la linea si vede ancora il vaso
 const clip = shardClip(edge, [{ x: 0, y: 0 }, { x: 100, y: 0 }]);
-// sotto-landing sotto Settori, scritte come i loro loghi: prefisso nel colore della sotto-landing + "kint"
-const subs = site.landings.map((l) => ({ url: l.url, accent: l.accent, pre: l.logo_alt.replace(/kint$/, '') }));
+// sotto-landing sotto Settori, con i loro loghi (site.yaml → landings)
+const subs = site.landings;
 const socials = site.same_as.flatMap((url) => {
   const s = socialFor(url);
   return s ? [{ url, ...s }] : [];
@@ -34,7 +35,7 @@ const socials = site.same_as.flatMap((url) => {
           <a href={`${home}#settori`}>{c.nav.sectors}</a>
           <ul class="footer-sub">
             {subs.map((l) => (
-              <li><a href={l.url} style={`--accent:${l.accent}`}><span class="sub-pre">{l.pre}</span>kint</a></li>
+              <li><a href={l.url} style={`--accent:${l.accent}`}><img src={l.logo} alt={l.logo_alt} width={l.logo_width} height={l.logo_height} loading="lazy" decoding="async" /></a></li>
             ))}
           </ul>
         </li>
