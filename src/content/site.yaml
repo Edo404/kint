@@ -18,18 +18,18 @@ landings:
     logo_alt: RISTOkint
     logo_width: 720
     logo_height: 121
-    accent: "#e0703a" # bordo della scheda in hover
+    accent: "#FF0000" # bordo della scheda in hover
   - id: palestre
     url: https://kint-website.vercel.app/palestre
     logo: /brand/gymkint-dark.png
     logo_alt: GYMkint
     logo_width: 720
     logo_height: 135
-    accent: "#c24a8a" # bordo della scheda in hover
+    accent: "#FFA500" # bordo della scheda in hover
   - id: studi
     url: https://kint-website.vercel.app/studi
     logo: /brand/studiokint-dark.png
     logo_alt: STUDIOkint
     logo_width: 720
     logo_height: 104
-    accent: "#4a78c2" # bordo della scheda in hover
+    accent: "#8B4513" # bordo della scheda in hover
