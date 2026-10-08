@@ -109,6 +109,7 @@ export interface Landing {
   logo_alt: string;
   logo_width: number;
   logo_height: number;
+  accent: string; // colore del bordo in hover
 }
 
 export interface Project {

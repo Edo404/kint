@@ -118,7 +118,8 @@
   transition: border-color 0.3s, transform 0.4s var(--ease-out);
 }
 .landing > :not(.card-glow) { position: relative; }
-.landing:hover { border-color: color-mix(in oklab, var(--gold) 60%, transparent); transform: translateY(-3px); }
+/* ogni sotto-landing ha il suo colore (accent in site.yaml) */
+.landing:hover { border-color: var(--accent, color-mix(in oklab, var(--gold) 60%, transparent)); transform: translateY(-3px); }
 @media (hover: hover) and (pointer: fine) { .landing:hover .card-glow { opacity: 1; } }
 .landing-logo { height: clamp(2.4rem, 4.4vw, 3rem); width: auto; max-width: 100%; object-fit: contain; margin-bottom: 1rem; }
 .landing-name { margin: 0; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }

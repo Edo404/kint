@@ -22,7 +22,7 @@ const cards = c.sectors.landings.map((t) => {
     <ul class="landings">
       {cards.map((l, i) => (
         <li data-inview style={`--i:${i}`}>
-          <a id={`settori-${l.id}`} class="landing" href={l.url} data-spotlight>
+          <a id={`settori-${l.id}`} class="landing" href={l.url} style={`--accent:${l.accent}`} data-spotlight>
             <span class="card-glow" aria-hidden="true"></span>
             <img class="landing-logo" src={l.logo} alt={l.logo_alt} width={l.logo_width} height={l.logo_height} loading="lazy" decoding="async" />
             <h3 class="landing-name">{l.name}</h3>
