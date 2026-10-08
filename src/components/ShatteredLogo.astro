@@ -34,7 +34,7 @@ const shards = cells.map((cell, i) => {
   <defs>
     {shards.map((s) => <clipPath id={`sh-${s.i}`}><polygon points={s.points} /></clipPath>)}
     <g id="sh-word">
-      <text x="0" y={MARK.base} class="km-text"><tspan class="km-k">k</tspan><tspan class="km-int">int</tspan></text>
+      <text x="0" y={MARK.base} class="km-text"><tspan class="km-k">k</tspan><tspan class="km-int" dx={MARK.gapK}>int</tspan></text>
       <circle cx={MARK.dot.cx} cy={MARK.dot.cy} r={MARK.dot.r} class="km-dot" />
     </g>
   </defs>
