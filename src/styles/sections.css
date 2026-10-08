@@ -115,12 +115,15 @@
   padding: clamp(2.25rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 2.5rem) clamp(1.75rem, 4vw, 2.5rem);
   background: color-mix(in oklab, var(--surface) 95%, transparent); border: 1px solid var(--line); border-radius: var(--radius-panel);
   color: var(--ink); text-decoration: none; text-align: center;
-  transition: border-color 0.3s, transform 0.4s var(--ease-out);
+  transition: border-color 0.3s, box-shadow 0.4s, transform 0.4s var(--ease-out);
 }
 .landing > :not(.card-glow) { position: relative; }
 /* ogni sotto-landing ha il suo colore (accent in site.yaml) */
 .landing:hover { border-color: var(--accent, color-mix(in oklab, var(--gold) 60%, transparent)); transform: translateY(-3px); }
 @media (hover: hover) and (pointer: fine) { .landing:hover .card-glow { opacity: 1; } }
+/* luce che segue il mouse e alone dietro la scheda nel colore della sotto-landing */
+.landing .card-glow { background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--accent, var(--gold)) 22%, transparent), transparent 45%); }
+.landing:hover { box-shadow: 0 24px 60px -24px color-mix(in oklab, var(--accent, var(--gold)) 70%, transparent), 0 0 40px -12px color-mix(in oklab, var(--accent, var(--gold)) 45%, transparent); }
 .landing-logo { height: clamp(2.4rem, 4.4vw, 3rem); width: auto; max-width: 100%; object-fit: contain; margin-bottom: 1rem; }
 .landing-name { margin: 0; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
 .landing-line { max-width: 24rem; color: var(--muted); font-size: 0.98rem; }
