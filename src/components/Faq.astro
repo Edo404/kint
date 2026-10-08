@@ -1,5 +1,6 @@
 ---
-// Domande frequenti: fisarmonica numerata su due colonne. Le risposte restano nell'HTML (details).
+// Domande frequenti: fisarmonica numerata su due colonne. Le risposte restano nell'HTML (details);
+// apertura e chiusura morbide in src/scripts/faq.ts.
 import { ui } from '../lib/icons';
 import type { Content } from '../lib/content.types';
 interface Props { c: Content }
@@ -16,7 +17,7 @@ const cols = [items.slice(0, half), items.slice(half)];
         {col.map((f) => (
           <details>
             <summary><span class="faq-num" aria-hidden="true">{f.n}</span><span class="faq-q">{f.q}</span><span class="faq-icon" aria-hidden="true" set:html={ui.plus} /></summary>
-            <p>{f.a}</p>
+            <div class="faq-a"><p>{f.a}</p></div>
           </details>
         ))}
       </div>
