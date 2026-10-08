@@ -1,7 +1,6 @@
 ---
 import SectionTitle from './SectionTitle.astro';
-import Seam from './Seam.astro';
-import { iconFor, ui } from '../lib/icons';
+import { iconFor } from '../lib/icons';
 import { edgePath, jaggedEdge, shardClip, veinTile } from '../lib/shard';
 import type { Content } from '../lib/content.types';
 interface Props { c: Content }
@@ -39,32 +38,6 @@ const STEPS = [
   <div class="wrap">
     <SectionTitle id="servizi-title" text={s.title} intro={s.intro} index={2} chapter={c.nav.services} />
 
-    <article id="servizi-featured" class="panel featured" data-inview aria-labelledby="servizi-featured-title">
-      <span class="panel-rule" aria-hidden="true"></span>
-      <div class="panel-glow" aria-hidden="true"></div>
-      <div class="featured-copy">
-        <p class="label">{c.ui.featured}</p>
-        <h3 id="servizi-featured-title">{s.featured.title}</h3>
-        <p>{s.featured.text}</p>
-      </div>
-      <div class="layers" aria-hidden="true">
-        <div class="layer layer-code">
-          <span class="dots"><i></i><i></i><i></i></span>
-          <code><b>&lt;script</b> type=<em>"application/ld+json"</em><b>&gt;</b></code>
-          <code>&nbsp;&nbsp;"@type": <em>"ProfessionalService"</em>,</code>
-          <code>&nbsp;&nbsp;"areaServed": <em>["CH", "IT"]</em>,</code>
-          <code>&nbsp;&nbsp;"hasOfferCatalog": <em>{"{ … }"}</em></code>
-          <code><b>&lt;/script&gt;</b></code>
-        </div>
-        <div class="layer layer-ui">
-          <span class="ui-bar"></span>
-          <span class="ui-title"></span>
-          <span class="ui-line"></span>
-          <span class="ui-line short"></span>
-          <span class="ui-btn"></span>
-        </div>
-      </div>
-    </article>
 
     <div class="repair-toggle" role="group" aria-label={`${c.ui.crack} / ${c.ui.gold}`} data-repair-toggle>
       <button type="button" data-repair="crack" aria-pressed="false">{c.ui.crack}</button>
@@ -100,16 +73,6 @@ const STEPS = [
           </div>
         </article>
       ))}
-    </div>
-  </div>
-
-  <div class="band" data-inview>
-    <Seam at="22%" />
-    <h3 class="band-title">{s.always_included.title}</h3>
-    <div class="marquee" data-marquee>
-      <ul class="marquee-track">
-        {s.always_included.items.map((x) => <li><span class="tick" aria-hidden="true" set:html={ui.check} />{x}</li>)}
-      </ul>
     </div>
   </div>
 

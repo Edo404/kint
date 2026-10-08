@@ -1,0 +1,18 @@
+---
+// Fascia a tutta larghezza con un elenco che scorre (marquee.ts la duplica e la anima; senza JS resta ferma).
+// Era "Sempre inclusi" nei Servizi; tolta il 2026-10-08 per riusarla, per esempio con l'elenco dei clienti:
+// <Marquee title="..." items={[...]} />. Va messa fuori dal .wrap della sezione (è a tutta larghezza).
+import Seam from './Seam.astro';
+import { ui } from '../lib/icons';
+interface Props { title: string; items: string[] }
+const { title, items } = Astro.props;
+---
+<div class="band" data-inview>
+  <Seam at="22%" />
+  <h3 class="band-title">{title}</h3>
+  <div class="marquee" data-marquee>
+    <ul class="marquee-track">
+      {items.map((x) => <li><span class="tick" aria-hidden="true" set:html={ui.check} />{x}</li>)}
+    </ul>
+  </div>
+</div>

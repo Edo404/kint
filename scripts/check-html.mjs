@@ -47,7 +47,7 @@ for (const lang of langs) {
   }
 
   const must = [
-    c.presentation.h1, c.presentation.subtitle, c.services.featured.title, c.contact.details.email,
+    c.presentation.h1, c.presentation.subtitle, c.contact.details.email,
     ...c.sectors.landings.map((l) => l.name),
     ...c.services.items.map((s) => s.title),
     ...c.contact.faq.items.map((f) => f.q),

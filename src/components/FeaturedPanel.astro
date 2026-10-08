@@ -1,0 +1,34 @@
+---
+// Pannello "in evidenza" a due strati (design sopra, dati strutturati sotto).
+// Tolto dai Servizi il 2026-10-08: pronto da rimettere in un'altra sezione con <FeaturedPanel c={c} />.
+import type { Content } from '../lib/content.types';
+interface Props { c: Content }
+const { c } = Astro.props;
+const f = c.services.featured;
+---
+<article id="servizi-featured" class="panel featured" data-inview aria-labelledby="servizi-featured-title">
+  <span class="panel-rule" aria-hidden="true"></span>
+  <div class="panel-glow" aria-hidden="true"></div>
+  <div class="featured-copy">
+    <p class="label">{c.ui.featured}</p>
+    <h3 id="servizi-featured-title">{f.title}</h3>
+    <p>{f.text}</p>
+  </div>
+  <div class="layers" aria-hidden="true">
+    <div class="layer layer-code">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <code><b>&lt;script</b> type=<em>"application/ld+json"</em><b>&gt;</b></code>
+      <code>&nbsp;&nbsp;"@type": <em>"ProfessionalService"</em>,</code>
+      <code>&nbsp;&nbsp;"areaServed": <em>["CH", "IT"]</em>,</code>
+      <code>&nbsp;&nbsp;"hasOfferCatalog": <em>{"{ … }"}</em></code>
+      <code><b>&lt;/script&gt;</b></code>
+    </div>
+    <div class="layer layer-ui">
+      <span class="ui-bar"></span>
+      <span class="ui-title"></span>
+      <span class="ui-line"></span>
+      <span class="ui-line short"></span>
+      <span class="ui-btn"></span>
+    </div>
+  </div>
+</article>
