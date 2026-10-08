@@ -100,8 +100,16 @@
 .closing-link a:hover .arrow, .aside-call:hover .arrow { transform: translateX(4px); }
 
 /* ---------- settori: una scheda per sotto-landing ---------- */
-.landings { list-style: none; margin: 0 auto; padding: 0; display: grid; gap: 1rem; max-width: 60rem; }
-@media (min-width: 760px) { .landings { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; } }
+.landings { list-style: none; margin: 0 auto; padding: 0; display: grid; gap: 1rem; max-width: 70rem; }
+@media (min-width: 760px) {
+  .landings { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  /* con 2 colonne l'ultima scheda dispari prende tutta la riga */
+  .landings > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .landings { grid-template-columns: repeat(3, 1fr); }
+  .landings > li:last-child:nth-child(odd) { grid-column: auto; }
+}
 .landing {
   position: relative; overflow: hidden; display: grid; justify-items: center; gap: 0.6rem; height: 100%;
   padding: clamp(2.25rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 2.5rem) clamp(1.75rem, 4vw, 2.5rem);

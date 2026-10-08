@@ -61,6 +61,9 @@ sectors:
     - id: palestre
       name: "Fitnessstudios"
       line: "Fitnessstudios, Fitnesscenter und Trainingsstudios"
+    - id: studi
+      name: "Kanzleien und Büros"
+      line: "Buchhalter, Treuhandbüros, Anwälte und Berater"
   items:
     - id: ristorazione
       name: "Gastronomie und Hotellerie"

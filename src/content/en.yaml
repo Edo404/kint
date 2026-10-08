@@ -60,6 +60,9 @@ sectors:
     - id: palestre
       name: "Gyms"
       line: "Gyms, fitness centres and training studios"
+    - id: studi
+      name: "Professional firms"
+      line: "Accountants, fiduciary firms, lawyers and consultants"
   items:
     - id: ristorazione
       name: "Restaurants and hospitality"

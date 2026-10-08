@@ -22,3 +22,9 @@ landings:
     logo_alt: GYMkint
     logo_width: 720
     logo_height: 135
+  - id: studi
+    url: https://kint-website.vercel.app/studi
+    logo: /brand/studiokint-dark.png
+    logo_alt: STUDIOkint
+    logo_width: 720
+    logo_height: 104
