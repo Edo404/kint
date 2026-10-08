@@ -44,6 +44,7 @@ export interface Content {
     crack: string;
     gold: string;
     featured: string;
+    discover: string;
   };
   nav: { sectors: string; services: string; contact: string; contact_cta: string; portfolio: string };
   opening: { logo_label: string };
@@ -57,6 +58,7 @@ export interface Content {
     values: Card[];
   };
   sectors: {
+    landings: { id: string; name: string; line: string }[];
     title: string;
     intro: string;
     closing: { text: string };
@@ -97,6 +99,16 @@ export interface SiteData {
   areas_served: string[];
   call_url?: string;
   same_as: string[];
+  landings: Landing[];
+}
+
+export interface Landing {
+  id: string;
+  url: string;
+  logo: string;
+  logo_alt: string;
+  logo_width: number;
+  logo_height: number;
 }
 
 export interface Project {

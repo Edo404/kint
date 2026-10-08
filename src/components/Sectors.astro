@@ -1,75 +1,37 @@
 ---
+// Settori: una scheda per ogni sotto-landing di settore (logo, a chi si rivolge, link).
+// Indirizzi e loghi in site.yaml, testi nei file di lingua; si collegano per id.
+// I 9 settori dettagliati restano nei dati (modulo contatti, portfolio, JSON-LD, llms) ma non qui.
 import SectionTitle from './SectionTitle.astro';
 import Seam from './Seam.astro';
-import { iconFor, ui } from '../lib/icons';
-import type { Content } from '../lib/content.types';
-interface Props { c: Content }
-const { c } = Astro.props;
-const byId = new Map(c.services.items.map((s) => [s.id, s]));
-const num = (i: number) => String(i + 1).padStart(2, '0');
-// Lista dei settori a sinistra, scheda del settore scelto a destra (sector-explorer.ts).
-// Senza JavaScript i link della lista portano alle schede, che sono tutte visibili una sotto l'altra.
+import { ui } from '../lib/icons';
+import type { Content, SiteData } from '../lib/content.types';
+interface Props { c: Content; site: SiteData }
+const { c, site } = Astro.props;
+const byId = new Map(site.landings.map((l) => [l.id, l]));
+const cards = c.sectors.landings.map((t) => {
+  const l = byId.get(t.id);
+  if (!l) throw new Error(`site.yaml: manca la sotto-landing "${t.id}"`);
+  return { ...t, ...l };
+});
 ---
 <section id="settori" class="block" aria-labelledby="settori-title">
   <Seam at="34%" />
   <div class="wrap">
     <SectionTitle id="settori-title" text={c.sectors.title} intro={c.sectors.intro} index={1} chapter={c.nav.sectors} />
-    <div class="explorer" data-explorer data-inview>
-      <ol class="explorer-list" data-explorer-list>
-        {c.sectors.items.map((s, i) => (
-          <li>
-            <a href={`#settori-${s.id}`} id={`settori-tab-${s.id}`} data-explorer-tab={s.id}>
-              <span class="explorer-num" aria-hidden="true">{num(i)}</span>
-              <span class="explorer-icon" aria-hidden="true" set:html={iconFor(s.id)} />
-              <span class="explorer-name">{s.name}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
-      <div class="explorer-panels">
-        {c.sectors.items.map((s, i) => (
-          <article
-            id={`settori-${s.id}`}
-            class="sector-panel"
-            data-sector={s.id}
-            data-linked={s.linked_services.join(' ')}
-            data-spotlight
-            aria-labelledby={`settori-${s.id}-title`}
-          >
-            <div class="card-glow" aria-hidden="true"></div>
-            <header class="sector-head">
-              <span class="icon-tile" aria-hidden="true" set:html={iconFor(s.id)} />
-              <div>
-                <h3 id={`settori-${s.id}-title`}>{s.name}</h3>
-                <p class="for-whom"><span class="visually-hidden">{c.ui.for_whom}: </span>{s.for_whom}</p>
-              </div>
-            </header>
-            <div class="sector-split">
-              <div class="sector-crack">
-                <p class="label">{c.ui.typical_problem}</p>
-                <p class="problem">{s.problem}</p>
-              </div>
-              <svg class="split-seam" viewBox="0 0 20 100" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M10 0 L6 18 L13 34 L7 52 L14 70 L8 86 L11 100" pathLength="1" />
-              </svg>
-              <div class="sector-gold">
-                <p class="label">{c.ui.what_we_do}</p>
-                <p class="what">{s.what_we_do}</p>
-                <ul class="ticks" aria-label={c.ui.key_services}>
-                  {s.key_services.map((k) => <li><span class="tick" aria-hidden="true" set:html={ui.check} />{k}</li>)}
-                </ul>
-                <p class="label">{c.ui.linked_services}</p>
-                <ul class="chips">
-                  {s.linked_services.map((id) => (
-                    <li><a href={`#servizi-${id}`} data-service-link={id}>{byId.get(id)?.title ?? id}</a></li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
+    <ul class="landings">
+      {cards.map((l, i) => (
+        <li data-inview style={`--i:${i}`}>
+          <a id={`settori-${l.id}`} class="landing" href={l.url} data-spotlight>
+            <span class="card-glow" aria-hidden="true"></span>
+            <img class="landing-logo" src={l.logo} alt={l.logo_alt} width={l.logo_width} height={l.logo_height} loading="lazy" decoding="async" />
+            <h3 class="landing-name">{l.name}</h3>
+            <span class="landing-line">{l.line}</span>
+            <span class="landing-cta">{c.ui.discover}<span class="arrow" aria-hidden="true" set:html={ui.arrowRight} /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
     <p class="closing-link" data-inview>
       <a href="#contatti">{c.sectors.closing.text}<span class="arrow" aria-hidden="true" set:html={ui.arrowRight} /></a>
     </p>

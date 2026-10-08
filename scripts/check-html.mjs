@@ -5,6 +5,7 @@ import { parse } from 'yaml';
 const noindex = process.env.NOINDEX === 'true';
 const portfolioOn = process.env.PORTFOLIO_PUBLISHED === 'true';
 const ALL = ['it', 'en', 'fr', 'de'];
+const site = parse(readFileSync('src/content/site.yaml', 'utf8'));
 const langs = ALL.filter((l) => existsSync(`src/content/${l}.yaml`));
 const errors = [];
 const fail = (m) => errors.push(m);
@@ -47,12 +48,16 @@ for (const lang of langs) {
 
   const must = [
     c.presentation.h1, c.presentation.subtitle, c.services.featured.title, c.contact.details.email,
-    ...c.sectors.items.map((s) => s.name),
+    ...c.sectors.landings.map((l) => l.name),
     ...c.services.items.map((s) => s.title),
     ...c.contact.faq.items.map((f) => f.q),
   ];
   for (const m of must) if (!text.includes(m)) fail(tag(`testo assente dall'HTML: "${m}"`));
-  for (const s of c.sectors.items) if (!html.includes(`id="settori-${s.id}"`)) fail(tag(`ancora mancante: settori-${s.id}`));
+  for (const l of c.sectors.landings) {
+    if (!html.includes(`id="settori-${l.id}"`)) fail(tag(`ancora mancante: settori-${l.id}`));
+    const url = site.landings?.find((x) => x.id === l.id)?.url;
+    if (!url || !html.includes(`href="${url}"`)) fail(tag(`link alla sotto-landing mancante: ${l.id}`));
+  }
   for (const s of c.services.items) if (!html.includes(`id="servizi-${s.id}"`)) fail(tag(`ancora mancante: servizi-${s.id}`));
   for (const id of ['kint', 'settori', 'servizi', 'contatti']) if (!html.includes(`id="${id}"`)) fail(tag(`ancora mancante: ${id}`));
 

@@ -7,7 +7,7 @@ function make(lang: string, over: (c: any) => void = () => {}) {
     meta: { title: 't', description: 'd', og_locale: 'it_IT', portfolio_title: 'p', portfolio_description: 'pd' },
     ui: {
       skip_to_content: 'a', nav_label: 'a', lang_label: 'a', scroll_hint: 'a', for_whom: 'a',
-      typical_problem: 'a', what_we_do: 'a', key_services: 'a', linked_services: 'a', crack: 'a', gold: 'a', featured: 'a',
+      typical_problem: 'a', what_we_do: 'a', key_services: 'a', linked_services: 'a', crack: 'a', gold: 'a', featured: 'a', discover: 'a',
     },
     nav: { sectors: 'a', services: 'a', contact: 'a', contact_cta: 'a', portfolio: 'a' },
     opening: { logo_label: 'a' },
@@ -19,6 +19,7 @@ function make(lang: string, over: (c: any) => void = () => {}) {
     },
     sectors: {
       title: 'a', intro: 'a', closing: { text: 'a' },
+      landings: [{ id: 'l1', name: 'a', line: 'a' }],
       items: [{ id: 's1', name: 'a', for_whom: 'a', problem: 'a', what_we_do: 'a', key_services: ['x', 'y', 'z'], linked_services: ['v1'] }],
     },
     services: {

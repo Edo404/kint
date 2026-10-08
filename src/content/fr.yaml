@@ -20,6 +20,7 @@ ui:
   crack: "Fissure"
   gold: "Or"
   featured: "À la une"
+  discover: "Découvrir"
 nav:
   sectors: "Secteurs"
   services: "Services"
@@ -52,6 +53,14 @@ sectors:
   intro: "Chaque secteur a ses problèmes typiques et des solutions déjà pensées. Trouvez le vôtre."
   closing:
     text: "Vous ne vous reconnaissez pas ? Écrivez-nous un mot."
+  # Sotto-landing per settore: indirizzo e logo in site.yaml (stesso id)
+  landings:
+    - id: ristoranti
+      name: "Restaurants"
+      line: "Restaurants, bars, grotti (auberges tessinoises), B&B, petits hôtels, agritourismes"
+    - id: palestre
+      name: "Salles de sport"
+      line: "Salles de sport, centres de fitness et studios d'entraînement"
   items:
     - id: ristorazione
       name: "Restauration et hôtellerie"

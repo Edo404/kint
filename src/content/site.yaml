@@ -8,3 +8,17 @@ country_code: CH
 areas_served: [IT, CH]
 # call_url: link Cal.com (assente: la CTA della call porta al modulo di contatto)
 same_as: []   # profili social e LinkedIn: si aggiungono quando arrivano
+# Sotto-landing per settore (sezione Settori della home). L'indirizzo si cambia solo qui.
+landings:
+  - id: ristoranti
+    url: https://kint-website.vercel.app/ristoratori
+    logo: /brand/ristokint-dark.png
+    logo_alt: RISTOkint
+    logo_width: 720
+    logo_height: 121
+  - id: palestre
+    url: https://kint-website.vercel.app/palestre
+    logo: /brand/gymkint-dark.png
+    logo_alt: GYMkint
+    logo_width: 720
+    logo_height: 135

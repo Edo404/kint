@@ -35,7 +35,7 @@ const jsonld = buildJsonLd({ content: c, site, lang });
     <GoldThread />
     <Opening c={c} />
     <Presentation c={c} />
-    <Sectors c={c} />
+    <Sectors c={c} site={site} />
     <Services c={c} />
     <Contact c={c} lang={lang} site={site} />
     <Closing />
@@ -45,7 +45,6 @@ const jsonld = buildJsonLd({ content: c, site, lang });
     import { boot } from '../../gl/boot';
     import { initNavReveal } from '../../scripts/nav-reveal';
     import { initFormStatus } from '../../scripts/form-status';
-    import { initSectorExplorer } from '../../scripts/sector-explorer';
     import { initRepairToggle } from '../../scripts/repair-toggle';
     import { initChapterRail } from '../../scripts/chapter-rail';
     import { initMarquee } from '../../scripts/marquee';
@@ -57,7 +56,6 @@ const jsonld = buildJsonLd({ content: c, site, lang });
     boot();
     initNavReveal();
     initFormStatus();
-    initSectorExplorer();
     initRepairToggle();
     initChapterRail();
     initMarquee();

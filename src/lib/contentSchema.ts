@@ -3,7 +3,7 @@ import { LANGS, type Lang } from './i18n';
 const REQUIRED_STRINGS = [
   'meta.title', 'meta.description', 'meta.og_locale', 'meta.portfolio_title', 'meta.portfolio_description',
   'ui.skip_to_content', 'ui.nav_label', 'ui.lang_label', 'ui.scroll_hint', 'ui.for_whom', 'ui.typical_problem',
-  'ui.what_we_do', 'ui.key_services', 'ui.linked_services', 'ui.crack', 'ui.gold', 'ui.featured',
+  'ui.what_we_do', 'ui.key_services', 'ui.linked_services', 'ui.crack', 'ui.gold', 'ui.featured', 'ui.discover',
   'nav.sectors', 'nav.services', 'nav.contact', 'nav.contact_cta', 'nav.portfolio',
   'opening.logo_label',
   'presentation.h1', 'presentation.subtitle', 'presentation.paragraph',
@@ -23,7 +23,7 @@ const REQUIRED_STRINGS = [
 ];
 
 const REQUIRED_ARRAYS = [
-  'presentation.values', 'sectors.items', 'services.items', 'services.always_included.items',
+  'presentation.values', 'sectors.items', 'sectors.landings', 'services.items', 'services.always_included.items',
   'services.packages.items', 'contact.faq.items', 'privacy.body',
 ];
 
@@ -35,6 +35,7 @@ const comparable = (paths: string[]): string[] =>
 const ITEM_FIELDS: Record<string, string[]> = {
   'presentation.values': ['title', 'text'],
   'sectors.items': ['id', 'name', 'for_whom', 'problem', 'what_we_do'],
+  'sectors.landings': ['id', 'name', 'line'],
   'services.items': ['id', 'title', 'description', 'crack', 'gold'],
   'services.packages.items': ['name', 'text'],
   'contact.faq.items': ['q', 'a'],
@@ -132,6 +133,7 @@ export function validateContent(all: Partial<Record<Lang, unknown>>): string[] {
     if (!c || lang === 'it') continue;
 
     if (ids(c, 'sectors.items') !== ids(source, 'sectors.items')) errors.push(`${lang}: gli id dei settori non coincidono con quelli di it`);
+    if (ids(c, 'sectors.landings') !== ids(source, 'sectors.landings')) errors.push(`${lang}: le sotto-landing non coincidono con quelle di it`);
     if (ids(c, 'services.items') !== ids(source, 'services.items')) errors.push(`${lang}: gli id dei servizi non coincidono con quelli di it`);
 
     const mine = new Set(comparable(structure(c)));

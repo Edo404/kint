@@ -19,6 +19,7 @@ ui:
   crack: "Crack"
   gold: "Gold"
   featured: "Featured"
+  discover: "Discover"
 nav:
   sectors: "Sectors"
   services: "Services"
@@ -51,6 +52,14 @@ sectors:
   intro: "Every sector has its typical problems and ready-made solutions. Find yours."
   closing:
     text: "Don't see yourself here? Drop us a line."
+  # Sotto-landing per settore: indirizzo e logo in site.yaml (stesso id)
+  landings:
+    - id: ristoranti
+      name: "Restaurants"
+      line: "Restaurants, bars, grotti (Ticino taverns), B&Bs, small hotels, farm stays"
+    - id: palestre
+      name: "Gyms"
+      line: "Gyms, fitness centres and training studios"
   items:
     - id: ristorazione
       name: "Restaurants and hospitality"
