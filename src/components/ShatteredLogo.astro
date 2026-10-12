@@ -1,7 +1,7 @@
 ---
 // Logo grande dell'apertura: il logotipo "kint." spezzato in cocci come il vaso.
 // All'arrivo i cocci entrano da fuori e si ricompongono: il logo torna intero, senza giunture.
-// Scorrendo verso il basso il logo si riapre un poco (CSS scroll-driven; dove manca, src/scripts/shatter-scroll.ts).
+// Poi resta intero: scorrendo non si riapre.
 // Stesse forme del logo ufficiale della barra (src/lib/kintLogo.ts).
 import { LOGO, LOGO_SHAPES } from '../lib/kintLogo';
 import { centroid, polyPoints, shatter, type P } from '../lib/shatter';
@@ -43,12 +43,10 @@ const shards = cells.map((cell, i) => {
     </g>
   </defs>
   {shards.map((s) => (
-    <g class="sh-drift" style={`--tx:${s.tx}px;--ty:${s.ty}px;--rot:${s.rot}deg;transform-origin:${s.origin}`}>
-      <g class="sh-piece" style={`--i:${s.i};--tx:${s.tx}px;--ty:${s.ty}px;--rot:${s.rot}deg;transform-origin:${s.origin}`}>
-        <use href="#sh-word" clip-path={`url(#sh-${s.i})`} />
-      </g>
+    <g class="sh-piece" style={`--i:${s.i};--tx:${s.tx}px;--ty:${s.ty}px;--rot:${s.rot}deg;transform-origin:${s.origin}`}>
+      <use href="#sh-word" clip-path={`url(#sh-${s.i})`} />
     </g>
   ))}
   <!-- Copia intera sopra i cocci appena arrivano: copre le sottili linee lasciate dai bordi dei ritagli. -->
-  <g class="sh-whole-out"><use class="sh-whole" href="#sh-word" /></g>
+  <use class="sh-whole" href="#sh-word" />
 </svg>

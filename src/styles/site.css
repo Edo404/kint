@@ -104,17 +104,6 @@
   .js .sh-piece { animation: sh-in 1.6s cubic-bezier(.16, 1, .3, 1) both; animation-delay: calc(0.2s + var(--i) * 70ms); }
   /* la copia intera compare quando l'ultimo coccio è arrivato (0.2s + 8 × 70ms + 1.6s) */
   .js .sh-whole { animation: sh-whole-in 0.15s linear 2.35s both; }
-  @supports (animation-timeline: scroll()) {
-    /* Proprietà separate, niente "animation:": il minificatore unirebbe la timeline nella scorciatoia, che Chrome scarta. */
-    .js .sh-drift { animation-name: sh-out; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); animation-range: 0 85vh; }
-    .js .sh-whole-out { animation-name: sh-whole-out; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); animation-range: 0 6vh; }
-  }
-  /* senza scroll-driven animations (shatter-scroll.ts imposta --sh e --shw) */
-  .sh-js .sh-drift {
-    transform: translate(calc(var(--tx) * 0.5 * var(--sh, 0)), calc(var(--ty) * 0.5 * var(--sh, 0))) rotate(calc(var(--rot) * 0.6 * var(--sh, 0)));
-    opacity: calc(1 - 0.65 * var(--sh, 0));
-  }
-  .sh-js .sh-whole-out { opacity: calc(1 - var(--shw, 0)); }
 }
 @keyframes sh-in {
   from { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)); opacity: 0; }
@@ -122,8 +111,6 @@
   to { transform: none; opacity: 1; }
 }
 @keyframes sh-whole-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes sh-whole-out { to { opacity: 0; } }
-@keyframes sh-out { to { transform: translate(calc(var(--tx) * 0.5), calc(var(--ty) * 0.5)) rotate(calc(var(--rot) * 0.6)); opacity: 0.35; } }
 
 .wrap { width: min(100%, 70rem); margin-inline: auto; text-align: center; }
 
