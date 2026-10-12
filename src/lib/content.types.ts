@@ -25,6 +25,7 @@ export interface Content {
   lang: Lang;
   meta: {
     title: string;
+    og_image_alt: string;
     description: string;
     og_locale: string;
     og_locale_alternate?: string;

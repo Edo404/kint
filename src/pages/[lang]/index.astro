@@ -26,7 +26,7 @@ const site = loadSite();
 const showPortfolio = portfolioPublished(buildEnv());
 const jsonld = buildJsonLd({ content: c, site, lang });
 ---
-<Base lang={lang} path="" title={c.meta.title} description={c.meta.description} ogLocale={c.meta.og_locale} ogLocaleAlternate={c.meta.og_locale_alternate} jsonld={jsonld}>
+<Base lang={lang} path="" title={c.meta.title} description={c.meta.description} ogLocale={c.meta.og_locale} ogImageAlt={c.meta.og_image_alt} ogLocaleAlternate={c.meta.og_locale_alternate} jsonld={jsonld}>
   <a class="skip-link" href="#kint">{c.ui.skip_to_content}</a>
   <canvas id="canvas" aria-hidden="true"></canvas>
   <Nav c={c} lang={lang} available={available} showPortfolio={showPortfolio} />

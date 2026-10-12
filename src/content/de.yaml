@@ -2,7 +2,8 @@
 lang: de
 meta:
   title: "Kint — Digitaler Partner für kleine Unternehmen in Italien und der Schweiz"
-  description: "Websites, Marke, Social Media, Google und KI-Automatisierung für kleine Unternehmen in Italien und der Schweiz. Schön für Menschen, lesbar für KI."
+  og_image_alt: "Kint, das Logo mit dem k und dem Punkt in Gold"
+  description: "Kint, Digitalagentur in Lugano: Websites, Marke, Social Media, Werbung, SEO und KI-Automatisierung für kleine Unternehmen in Italien und der Schweiz."
   og_locale: de_CH
   og_locale_alternate: de_DE
   portfolio_title: "Projekte — Kint"
@@ -32,7 +33,7 @@ opening:
 presentation:
   h1: "Der digitale Partner für kleine Unternehmen."
   subtitle: "Von der Website bis zur Sichtbarkeit: alles, was es braucht, um gewählt zu werden."
-  paragraph: "Website, Marke, Social Media, Google und Automatisierungen für kleine Unternehmen in Italien und der Schweiz. Gemacht für Ihre Kundschaft und lesbar für ChatGPT, Gemini und Claude."
+  paragraph: "Kint ist eine Digitalagentur in Lugano für kleine Unternehmen in Italien und der Schweiz: Website, Marke, Social Media, Werbung, SEO und KI-Automatisierung. Jedes Projekt ist für Ihre Kundschaft gemacht und lesbar für ChatGPT, Gemini und Claude."
   cta_primary:
     label: "Kontakt"
     href: "#contatti"

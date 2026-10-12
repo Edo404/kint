@@ -20,7 +20,7 @@ const projects = publishable(loadPortfolio());
 const sectorName = new Map(c.sectors.items.map((s) => [s.id, s.name]));
 const serviceName = new Map(c.services.items.map((s) => [s.id, s.title]));
 ---
-<Base lang={lang} path="portfolio" title={c.meta.portfolio_title} description={c.meta.portfolio_description} ogLocale={c.meta.og_locale} ogLocaleAlternate={c.meta.og_locale_alternate} jsonld={buildPortfolioJsonLd({ content: c, lang, projects })}>
+<Base lang={lang} path="portfolio" title={c.meta.portfolio_title} description={c.meta.portfolio_description} ogLocale={c.meta.og_locale} ogImageAlt={c.meta.og_image_alt} ogLocaleAlternate={c.meta.og_locale_alternate} jsonld={buildPortfolioJsonLd({ content: c, lang, projects })}>
   <a class="skip-link" href="#progetti">{c.ui.skip_to_content}</a>
   <Nav c={c} lang={lang} available={available} path="portfolio" showPortfolio={true} />
   <main class="page">

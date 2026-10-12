@@ -45,6 +45,8 @@ export function buildJsonLd({ content, site, lang }: Input): object[] {
     email: site.email,
     foundingDate: String(site.founding_year),
     description: content.meta.description,
+    logo: { '@type': 'ImageObject', url: absoluteUrl('/logo.png'), width: 512, height: 512 },
+    image: absoluteUrl('/og.png'),
     address: {
       '@type': 'PostalAddress',
       addressLocality: site.city,

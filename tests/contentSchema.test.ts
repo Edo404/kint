@@ -4,7 +4,7 @@ import { validateContent } from '../src/lib/contentSchema';
 function make(lang: string, over: (c: any) => void = () => {}) {
   const c: any = {
     lang,
-    meta: { title: 't', description: 'd', og_locale: 'it_IT', portfolio_title: 'p', portfolio_description: 'pd' },
+    meta: { title: 't', og_image_alt: 'o', description: 'd', og_locale: 'it_IT', portfolio_title: 'p', portfolio_description: 'pd' },
     ui: {
       skip_to_content: 'a', nav_label: 'a', lang_label: 'a', scroll_hint: 'a', for_whom: 'a',
       typical_problem: 'a', what_we_do: 'a', key_services: 'a', linked_services: 'a', crack: 'a', gold: 'a', featured: 'a', discover: 'a',

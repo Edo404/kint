@@ -99,7 +99,7 @@ export function buildLlmsTxt({ available, site, portfolio }: LlmsInput & { portf
   const lines = [
     `# ${site.name}`,
     '',
-    `> ${site.name} is a web agency based in ${site.city}, ${site.region}, Switzerland, serving small businesses in Italy and Switzerland: websites, brand, social media, Google visibility and AI automations. Websites that are beautiful for people and readable by AI assistants.`,
+    `> ${site.name} is a web agency based in ${site.city}, ${site.region}, Switzerland, serving small businesses in Italy and Switzerland: websites, brand, social media, advertising, SEO and AI automations. Every project is built for customers and readable by AI assistants such as ChatGPT, Gemini and Claude.`,
     '',
     '## Pages',
     '',

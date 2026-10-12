@@ -1,7 +1,8 @@
 lang: it
 meta:
   title: Kint — Partner digitale per piccole imprese in Italia e Svizzera
-  description: Siti, brand, social, Google e automazioni AI per piccole imprese in Italia e Svizzera. Siti belli per le persone, leggibili da ChatGPT, Gemini e Claude.
+  og_image_alt: "Kint, il logo con la k e il punto in oro"
+  description: "Kint, agenzia digitale di Lugano: siti, brand, social, pubblicità, SEO e automazioni AI per piccole imprese in Italia e Svizzera."
   og_locale: it_IT
   og_locale_alternate: it_CH
   portfolio_title: Progetti — Kint
@@ -31,7 +32,7 @@ opening:
 presentation:
   h1: Il partner digitale delle piccole imprese.
   subtitle: "Dal sito alla visibilità: tutto ciò che serve per farsi scegliere."
-  paragraph: "Sito, brand, social, Google e automazioni per piccole imprese in Italia e Svizzera. Progettati per i clienti e leggibili da ChatGPT, Gemini e Claude."
+  paragraph: "Kint è un'agenzia digitale di Lugano per piccole imprese in Italia e Svizzera: sito, brand, social, pubblicità, SEO e automazioni AI. Ogni progetto è pensato per i clienti e leggibile da ChatGPT, Gemini e Claude."
   cta_primary:
     label: Contattaci
     href: "#contatti"
