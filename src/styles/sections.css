@@ -429,6 +429,8 @@
 .thread path { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .thread-glow { stroke: var(--gold); stroke-width: 7; opacity: 0.12; }
 .thread-core { stroke: var(--gold-2); stroke-width: 1.6; opacity: 0.85; }
+.thread-branch { stroke: var(--gold); stroke-width: 1.1; opacity: 0.65; transition: stroke-dashoffset 1s var(--ease-out); }
+.thread-branch.is-lit { stroke-dashoffset: 0; }
 .thread-head { opacity: 0; transition: opacity 0.4s; }
 
 /* ---------- sezione coperta: un coccio scuro che passa sopra il vaso ---------- */
@@ -476,7 +478,7 @@
   .contact-form .btn[aria-busy='true']::after { animation: none; }
   .js .repair-faces > p { transition: none; transform: none; }
   .gold-text, .marquee { animation: none; }
-  .cover-edge path, .section-head .wi, .section-head .stitch { transition: none !important; }
+  .thread-branch, .cover-edge path, .section-head .wi, .section-head .stitch { transition: none !important; }
   .js .section-head:not(.is-in) .wi, .js .section-head:not(.is-in) .stitch { transform: none; }
   .card, .btn, .closing-link .arrow, .faq-icon, .landing, .landing-cta, .landing-cta .arrow { transition: none; }
 }
