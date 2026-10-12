@@ -18,7 +18,7 @@ landings:
     logo_alt: RISTOkint
     logo_width: 1099
     logo_height: 199
-    accent: "#FF0000" # bordo della scheda in hover
+    accent: "#EA4312" # bordo della scheda in hover
   - id: palestre
     url: https://kint-website.vercel.app/palestre
     logo: /brand/gymkint.svg
