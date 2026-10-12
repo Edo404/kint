@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { edgePath, jaggedEdge, shardClip, veinTile } from '../src/lib/shard';
+import { edgePath, jaggedEdge, shardClip, flakeTile } from '../src/lib/shard';
 
 describe('jaggedEdge', () => {
   const e = jaggedEdge(3, 28);
@@ -22,10 +22,11 @@ describe('shardClip / edgePath', () => {
   });
 });
 
-describe('veinTile', () => {
+describe('flakeTile', () => {
   it('produce un url SVG codificato', () => {
-    const v = veinTile(1);
+    const v = flakeTile(1);
     expect(v.startsWith('url("data:image/svg+xml,')).toBe(true);
     expect(decodeURIComponent(v)).toContain('<path');
+    expect(flakeTile(1)).toBe(v);
   });
 });

@@ -1,4 +1,4 @@
-// Sezioni coperte: una luce d'oro accende le venature dove passa il puntatore.
+// Sezioni coperte: una luce d'oro accende la polvere d'oro dove passa il puntatore.
 // Su telefono (o prima che il mouse entri) la luce segue lo scroll: scende col centro dello schermo
 // e ondeggia di lato. Si muove solo un riquadro con transform, non tutta la sezione.
 export function initCoverGlow(): void {

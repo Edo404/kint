@@ -1,4 +1,4 @@
-// Forme per le sezioni "coperte": bordo frastagliato come un coccio rotto e trama di venature d'oro.
+// Forme per le sezioni "coperte": bordo frastagliato come un coccio rotto e polvere d'oro sulla lacca.
 // Tutto è deterministico (seme fisso): stessa forma a ogni build, niente differenze tra lingue.
 
 export function rng(seed: number) {
@@ -39,25 +39,27 @@ export function edgePath(pts: EdgePt[], depth: number, flip = false, w = 1440): 
   return pts.map((p, i) => `${i ? 'L' : 'M'}${r((p.x * w) / 100)} ${r(flip ? depth - p.y : p.y)}`).join(' ');
 }
 
-// Trama di venature d'oro (immagine SVG da usare come sfondo ripetuto, colore e opacità dal CSS).
-export function veinTile(seed: number, size = 900): string {
+// Lacca nera con polvere d'oro (nashiji): scaglie minuscole e irregolari sparse, un po' più fitte a nuvole.
+// Immagine SVG da usare come sfondo ripetuto; colore e opacità dal CSS.
+export function flakeTile(seed: number, size = 640): string {
   const rand = rng(seed);
-  const paths: string[] = [];
-  for (let k = 0; k < 9; k++) {
+  const flakes: string[] = [];
+  // tre "nuvole" dove la polvere si addensa, il resto è sparso
+  const clouds = [0, 1, 2].map(() => ({ x: rand() * size, y: rand() * size }));
+  for (let k = 0; k < 300; k++) {
     let x = rand() * size;
     let y = rand() * size;
-    let a = rand() * Math.PI * 2;
-    const d: string[] = [`M${x.toFixed(0)} ${y.toFixed(0)}`];
-    const steps = 6 + Math.floor(rand() * 8);
-    for (let s = 0; s < steps; s++) {
-      a += (rand() - 0.5) * 1.1;
-      const len = 20 + rand() * 60;
-      x += Math.cos(a) * len;
-      y += Math.sin(a) * len;
-      d.push(`L${x.toFixed(0)} ${y.toFixed(0)}`);
+    if (k % 3 === 0) {
+      const c = clouds[k % clouds.length];
+      x = (c.x + (rand() - 0.5) * size * 0.35 + size) % size;
+      y = (c.y + (rand() - 0.5) * size * 0.35 + size) % size;
     }
-    paths.push(`<path d="${d.join('')}" stroke-width="${(0.6 + rand() * 1.1).toFixed(1)}"/>`);
+    const r = 0.5 + rand() * rand() * 2.2;
+    const a = rand() * Math.PI * 2;
+    // scaglia: quadrilatero schiacciato e ruotato
+    const pt = (t: number, k2: number) => `${(x + Math.cos(a + t) * r * k2).toFixed(1)} ${(y + Math.sin(a + t) * r * k2).toFixed(1)}`;
+    flakes.push(`<path d="M${pt(0, 1)}L${pt(1.9, 0.55)}L${pt(Math.PI, 0.9)}L${pt(4.6, 0.5)}Z" fill-opacity="${(0.3 + rand() * 0.7).toFixed(1)}"/>`);
   }
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><g fill="none" stroke="#e5be62" stroke-linecap="round" stroke-linejoin="round">${paths.join('')}</g></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><g fill="#e5be62">${flakes.join('')}</g></svg>`;
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }

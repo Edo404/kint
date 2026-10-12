@@ -339,6 +339,34 @@
 .select option { background: var(--surface-2); color: var(--ink); }
 .select-caret { position: absolute; right: 0; top: 50%; display: grid; width: 1rem; height: 1rem; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
 .select-caret svg { width: 100%; height: 100%; fill: currentColor; }
+/* Tendina dei settori nel tema del sito dove il browser lo permette (select personalizzabile);
+   altrove resta quella di sistema, con i colori delle opzioni qui sopra. */
+.select-caret { transition: transform 0.25s var(--ease-out), color 0.2s; }
+@supports (appearance: base-select) {
+  .select select, .select select::picker(select) { appearance: base-select; }
+  .select select { display: flex; align-items: center; }
+  .select select::picker-icon { display: none; }
+  .select:has(select:open) .select-caret { transform: translateY(-50%) rotate(180deg); color: var(--gold-2); }
+  .select select::picker(select) {
+    margin-top: 0.5rem; padding: 0.35rem; max-height: min(22rem, 60vh); overflow-y: auto;
+    background: #15110e; border: 1px solid var(--line-strong); border-radius: var(--radius-field);
+    box-shadow: 0 24px 48px -16px rgb(0 0 0 / 0.7), 0 0 0 1px rgb(0 0 0 / 0.4);
+    scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent;
+    opacity: 0; transform: translateY(-6px);
+    transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out), overlay 0.18s allow-discrete, display 0.18s allow-discrete;
+  }
+  .select select:open::picker(select) { opacity: 1; transform: none; }
+  @starting-style { .select select:open::picker(select) { opacity: 0; transform: translateY(-6px); } }
+  .select option {
+    display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.75rem; border-radius: calc(var(--radius-field) - 0.3rem);
+    background: transparent; color: var(--muted); font-size: 0.95rem; cursor: pointer; transition: background-color 0.15s, color 0.15s;
+  }
+  .select option:hover, .select option:focus-visible { background: color-mix(in oklab, var(--gold) 13%, transparent); color: var(--ink); outline: none; }
+  .select option:checked { color: var(--gold-2); }
+  .select option::checkmark { order: 1; margin-left: auto; color: var(--gold-2); }
+  .select option[value=''] { color: color-mix(in oklab, var(--muted) 75%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .select select::picker(select), .select-caret { transition: none; } }
 .check { display: flex; align-items: center; gap: 0.7rem; font-size: 0.9rem; }
 .check input {
   appearance: none; -webkit-appearance: none; flex: none; width: 1.15rem; height: 1.15rem; margin: 0; cursor: pointer;
@@ -434,15 +462,22 @@
 .thread-head { opacity: 0; transition: opacity 0.4s; }
 
 /* ---------- sezione coperta: un coccio scuro che passa sopra il vaso ---------- */
-.cover { isolation: isolate; background: #0d0b0a; padding-block: clamp(7rem, 13vw, 11rem); }
-.cover-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
-.cover-veins { position: absolute; inset: 0; background-image: var(--veins); background-size: 900px 900px; opacity: 0.07; }
-/* Riquadro di luce: si sposta con transform; lo sfondo si sposta al contrario e resta allineato alle venature. */
+.cover { isolation: isolate; background: #0a0807; padding-block: clamp(7rem, 13vw, 11rem); }
+.cover-bg {
+  position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+  /* lacca: un riflesso largo e obliquo e un alone caldo dall'alto, niente di più */
+  background:
+    linear-gradient(112deg, transparent 22%, rgb(255 232 196 / 0.035) 38%, rgb(255 232 196 / 0.012) 46%, transparent 60%),
+    radial-gradient(130% 70% at 50% 0%, #17110c, transparent 72%),
+    radial-gradient(90% 60% at 85% 100%, #120d09, transparent 70%);
+}
+.cover-flakes { position: absolute; inset: 0; background-image: var(--flakes); background-size: 640px 640px; opacity: 0.16; }
+/* Riquadro di luce: si sposta con transform; lo sfondo si sposta al contrario e resta allineato alla polvere d'oro. */
 .cover-lit {
   position: absolute; left: 0; top: 0; width: 704px; height: 704px; margin: -352px 0 0 -352px;
   transform: translate3d(var(--gx, 50vw), var(--gy, 40vh), 0);
-  background-image: radial-gradient(closest-side, color-mix(in oklab, var(--gold) 16%, transparent), transparent), var(--veins);
-  background-size: 100% 100%, 900px 900px;
+  background-image: radial-gradient(closest-side, color-mix(in oklab, var(--gold) 12%, transparent), transparent), var(--flakes);
+  background-size: 100% 100%, 640px 640px;
   background-position: 0 0, calc(352px - var(--gx, 50vw)) calc(352px - var(--gy, 40vh));
   -webkit-mask-image: radial-gradient(closest-side, #000 15%, transparent);
   mask-image: radial-gradient(closest-side, #000 15%, transparent);
