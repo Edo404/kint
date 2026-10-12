@@ -1,5 +1,5 @@
 // Filo d'oro: una giuntura irregolare che scende dall'apertura al vaso nella chiusura e si disegna
-// con lo scroll, con un punto luminoso in testa. Dove passa la testa si aprono piccole crepe laterali.
+// con lo scroll, con un punto luminoso in testa.
 // Il tracciato è spezzato in tratti: a ogni frame cambia solo il tratto sotto la testa (ridisegno piccolo).
 // Con "riduci movimento" il filo è già tutto disegnato e fermo.
 
@@ -10,7 +10,6 @@ const NS = 'http://www.w3.org/2000/svg';
 
 interface Pt { x: number; y: number }
 interface Chunk { y0: number; y1: number; paths: SVGPathElement[]; drawn: number }
-interface Branch { y: number; el: SVGPathElement; lit: boolean }
 
 const toD = (pts: Pt[]) => pts.map((p, i) => `${i ? 'L' : 'M'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join('');
 
@@ -59,16 +58,14 @@ export function initGoldThread(): void {
   const svg = document.querySelector<SVGSVGElement>('[data-thread]');
   const main = svg?.parentElement;
   const chunksG = svg?.querySelector<SVGGElement>('[data-thread-chunks]');
-  const branchesG = svg?.querySelector<SVGGElement>('[data-thread-branches]');
   const head = svg?.querySelector<SVGGElement>('[data-thread-head]');
   const start = document.getElementById('kint');
   const end = document.getElementById('closing');
-  if (!svg || !main || !chunksG || !branchesG || !head || !start || !end) return;
+  if (!svg || !main || !chunksG || !head || !start || !end) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let pts: Pt[] = [];
   let chunks: Chunk[] = [];
-  let branches: Branch[] = [];
   let mainTop = 0;
   let builtW = 0;
   let builtH = 0;
@@ -97,36 +94,6 @@ export function initGoldThread(): void {
       chunks.push({ y0: seg[0].y, y1: seg[seg.length - 1].y, paths, drawn: -1 });
     }
 
-    // Crepe laterali: all'inizio di ogni sezione e ogni tanto lungo il filo.
-    const rand = rng(11);
-    branchesG.replaceChildren();
-    branches = [];
-    const origins: number[] = [];
-    for (const id of ['kint', 'settori', 'servizi', 'contatti']) {
-      const s = document.getElementById(id);
-      if (s) origins.push(topOf(s) + 120);
-    }
-    for (let oy = y0 + 420; oy < y1 - 500; oy += 520 + rand() * 380) origins.push(oy);
-    const small = W < 700;
-    for (const oy of origins) {
-      const o = pointAt(pts, oy);
-      if (!o) continue;
-      const n = 2 + Math.floor(rand() * 2);
-      for (let k = 0; k < n; k++) {
-        const dir = k % 2 ? 1 : -1;
-        const len = (small ? 50 : 90) + rand() * (small ? 60 : 130);
-        const steps = 3 + Math.floor(rand() * 2);
-        const seg: Pt[] = [o];
-        let p = o;
-        for (let s = 0; s < steps; s++) {
-          p = { x: p.x + dir * (len / steps) * (0.6 + rand() * 0.8), y: p.y + (rand() - 0.35) * (len / steps) };
-          seg.push(p);
-        }
-        const el = makePath('thread-branch', seg);
-        branchesG.append(el);
-        branches.push({ y: oy, el, lit: false });
-      }
-    }
     update(true);
   };
 
@@ -142,13 +109,6 @@ export function initGoldThread(): void {
       if (q === c.drawn && !force) continue;
       c.drawn = q;
       c.paths.forEach((p) => p.style.setProperty('stroke-dashoffset', String(1 - q)));
-    }
-    for (const b of branches) {
-      const on = hy > b.y;
-      if (on !== b.lit || force) {
-        b.lit = on;
-        b.el.classList.toggle('is-lit', on);
-      }
     }
     const h = !reduce && hy > pts[0].y && hy < last + 240 ? pointAt(pts, Math.min(hy, last)) : null;
     head.style.opacity = h ? '1' : '0';
