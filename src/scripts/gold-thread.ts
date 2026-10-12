@@ -8,6 +8,10 @@ import { rng } from '../lib/shard';
 const NS = 'http://www.w3.org/2000/svg';
 // rng ha un seme fisso: il filo ha sempre la stessa forma.
 
+// Distanza minima dalle cuciture delle sezioni e punto più in basso dove si sposta una crepa troppo vicina.
+const SEAM_CLEAR = 180;
+const SEAM_DROP = 240;
+
 interface Pt { x: number; y: number }
 interface Chunk { y0: number; y1: number; paths: SVGPathElement[]; drawn: number }
 interface Branch { y: number; el: SVGPathElement; lit: boolean }
@@ -106,7 +110,16 @@ export function initGoldThread(): void {
       const s = document.getElementById(id);
       if (s) origins.push(topOf(s) + 120);
     }
-    for (let oy = y0 + 420; oy < y1 - 500; oy += 520 + rand() * 380) origins.push(oy);
+    // Lungo il filo le crepe non devono toccare le cuciture d'oro in cima alle sezioni: se ci cadono vicino,
+    // scendono sotto la cucitura (la forma resta la stessa, cambia solo il punto di partenza).
+    const seams = ['settori', 'servizi', 'contatti', 'closing'].flatMap((id) => {
+      const s = document.getElementById(id);
+      return s ? [topOf(s)] : [];
+    });
+    for (let oy = y0 + 420; oy < y1 - 500; oy += 520 + rand() * 380) {
+      const near = seams.find((t) => Math.abs(oy - t) < SEAM_CLEAR);
+      origins.push(near === undefined ? oy : near + SEAM_DROP);
+    }
     const small = W < 700;
     // Le crepe delle origini 1 (inizio Settori) e 4 (la prima lungo il filo) non si disegnano: la forma delle altre resta uguale.
     const SKIPPED = new Set([1, 4]);
