@@ -33,7 +33,7 @@ function make(lang: string, over: (c: any) => void = () => {}) {
       title: 'a', intro: 'a',
       call: { title: 'a', text: 'a', cta_label: 'a' },
       details: { email: 'info@kint.ch', address: 'a', labels: { email: 'a', address: 'a', phone: 'a', hours: 'a' } },
-      form: { name: 'a', email: 'a', phone: 'a', company: 'a', sector: 'a', sector_other: 'a', message: 'a', privacy_label: 'a', submit: 'a', sent: 'a', error: 'a' },
+      form: { name: 'a', email: 'a', phone: 'a', company: 'a', sector: 'a', sector_other: 'a', sector_pick: 'a', title: 'a', optional: 'a', message: 'a', privacy_label: 'a', submit: 'a', sent: 'a', error: 'a' },
       faq: { title: 'a', items: [{ q: 'a', a: 'a' }] },
     },
     footer: { nav_label: 'a', to_top: 'a', copyright: 'a', privacy: 'a', hosting: 'a' },

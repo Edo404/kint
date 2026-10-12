@@ -33,7 +33,7 @@ presentation:
   subtitle: Siti belli per le persone. Leggibili dalle AI.
   paragraph: "Kint costruisce la presenza digitale di piccole imprese in Italia e in Svizzera: sito, brand, social, Google e automazioni. Ogni sito è progettato per essere usato dai clienti e letto da ChatGPT, Gemini, Claude e dagli altri assistenti AI che oggi guidano le scelte di acquisto."
   cta_primary:
-    label: Scrivici due righe
+    label: Contattaci
     href: "#contatti"
   kintsugi:
     title: Perché Kint
@@ -51,7 +51,7 @@ sectors:
   title: Parliamo la lingua del tuo mestiere.
   intro: Ogni settore ha problemi tipici e soluzioni già pensate. Trova il tuo.
   closing:
-    text: Non ti riconosci? Scrivici due righe.
+    text: Non ti riconosci? Parliamone.
   # Sotto-landing per settore: indirizzo e logo in site.yaml (stesso id)
   landings:
     - id: ristoranti
@@ -235,7 +235,7 @@ services:
         text: "Abbonamento mensile: manutenzione, contenuti e miglioramenti nel tempo."
     note: Prezzo chiaro in call, nessuna sorpresa.
 contact:
-  title: Scrivici due righe.
+  title: Parliamo del tuo progetto.
   intro: Raccontaci la tua attività. Ti rispondiamo con una proposta chiara.
   call:
     title: "Prima call: 20 minuti online"
@@ -256,9 +256,12 @@ contact:
     company: Azienda
     sector: Settore
     sector_other: Altro
+    title: Oppure scrivici
+    optional: facoltativo
+    sector_pick: Scegli il settore
     message: Messaggio
     privacy_label: Ho letto l'informativa privacy
-    submit: Invia
+    submit: Invia messaggio
     sent: Grazie, ti rispondiamo presto.
     error: Invio non riuscito. Scrivici a info@kint.ch.
   faq:

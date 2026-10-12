@@ -78,7 +78,7 @@ export interface Content {
     call: { title: string; text: string; cta_label: string };
     details: { email: string; address: string; phone?: string; hours?: string; labels: { email: string; address: string; phone: string; hours: string } };
     form: {
-      name: string; email: string; phone: string; company: string; sector: string; sector_other: string;
+      name: string; email: string; phone: string; company: string; sector: string; sector_other: string; sector_pick: string; title: string; optional: string;
       message: string; privacy_label: string; submit: string; sent: string; error: string;
     };
     faq: { title: string; items: Array<{ q: string; a: string }> };

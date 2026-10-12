@@ -33,7 +33,7 @@ presentation:
   subtitle: "Websites that look great to people. Readable by AI."
   paragraph: "Kint builds the digital presence of small businesses in Italy and Switzerland: website, brand, social media, Google and automations. Every site is designed to be used by customers and read by ChatGPT, Gemini, Claude and the other AI assistants that now guide buying decisions."
   cta_primary:
-    label: "Drop us a line"
+    label: "Contact us"
     href: "#contatti"
   kintsugi:
     title: "Why Kint"
@@ -51,7 +51,7 @@ sectors:
   title: "We speak the language of your trade."
   intro: "Every sector has its typical problems and ready-made solutions. Find yours."
   closing:
-    text: "Don't see yourself here? Drop us a line."
+    text: "Don't see yourself here? Let's talk."
   # Sotto-landing per settore: indirizzo e logo in site.yaml (stesso id)
   landings:
     - id: ristoranti
@@ -235,7 +235,7 @@ services:
         text: "Monthly subscription: maintenance, content and improvements over time."
     note: "Clear pricing on the call, no surprises."
 contact:
-  title: "Drop us a line."
+  title: "Let's talk about your project."
   intro: "Tell us about your business. We will reply with a clear proposal."
   call:
     title: "First call: 20 minutes online"
@@ -256,9 +256,12 @@ contact:
     company: "Company"
     sector: "Sector"
     sector_other: "Other"
+    title: "Or write to us"
+    optional: "optional"
+    sector_pick: "Choose your sector"
     message: "Message"
     privacy_label: "I have read the privacy notice"
-    submit: "Send"
+    submit: "Send message"
     sent: "Thank you, we will reply shortly."
     error: "Sending failed. Please write to info@kint.ch."
   faq:

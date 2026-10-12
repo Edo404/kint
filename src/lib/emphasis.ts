@@ -5,10 +5,13 @@ export function splitEmphasis(title: string): { lead: string; word: string; tail
   return { lead: m[1], word: m[2], tail: m[3] };
 }
 
+// Frasi di un testo, in ordine (si divide dopo . ! ? seguiti da spazio).
+export const sentences = (text: string): string[] => text.trim().split(/(?<=[.!?])\s+/).filter(Boolean);
+
 // Divide un testo in frasi e mette in risalto la seconda come citazione: [apertura, citazione, resto].
 // Con meno di due frasi non c'è citazione e il testo resta intero.
 export function splitQuote(text: string): { intro: string; quote: string; rest: string } {
-  const s = text.trim().split(/(?<=[.!?])\s+/);
+  const s = sentences(text);
   if (s.length < 2) return { intro: text.trim(), quote: '', rest: '' };
   return { intro: s[0], quote: s[1], rest: s.slice(2).join(' ') };
 }

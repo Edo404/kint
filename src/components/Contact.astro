@@ -1,7 +1,11 @@
 ---
+// Contatti: un pannello con titolo e due strade, parlare (la call) e scrivere (il modulo), separate da una crepa d'oro
+// spezzata come quelle del resto del sito. I nomi dei campi sono quelli letti da functions/api/contact.ts.
 import Faq from './Faq.astro';
-import { leadNumber, splitEmphasis } from '../lib/emphasis';
+import SectionTitle from './SectionTitle.astro';
+import { leadNumber, sentences } from '../lib/emphasis';
 import { ui } from '../lib/icons';
+import { edgePath, jaggedEdge } from '../lib/shard';
 import type { Content, SiteData } from '../lib/content.types';
 import { pathFor, type Lang } from '../lib/i18n';
 interface Props { c: Content; lang: Lang; site: SiteData }
@@ -10,89 +14,91 @@ const f = c.contact.form;
 const d = c.contact.details;
 // Senza link di prenotazione, la CTA porta al modulo.
 const callHref = site.call_url ?? '#contatti-form';
-const t = splitEmphasis(c.contact.title);
 // Durata della prima call in grande ("20" da "Prima call: 20 minuti online"), solo decorativa.
 const minutes = leadNumber(c.contact.call.title);
+// Il testo della call, una frase per riga con la spunta.
+const points = sentences(c.contact.call.text);
+// Crepa tra le due metà: orizzontale su telefono (viewBox 1440×24), verticale da 900px (viewBox 24×600).
+const SEAM = 24;
+const seamPts = jaggedEdge(31, SEAM);
+const seamH = edgePath(seamPts, SEAM);
+const seamV = seamPts.map((p, i) => `${i ? 'L' : 'M'}${p.y.toFixed(1)} ${(p.x * 6).toFixed(1)}`).join(' ');
+const details = [
+  { label: d.labels.email, value: d.email, href: `mailto:${d.email}` },
+  { label: d.labels.address, value: d.address },
+  d.phone && { label: d.labels.phone, value: d.phone, href: `tel:${d.phone.replace(/\s/g, '')}` },
+  d.hours && { label: d.labels.hours, value: d.hours },
+].filter(Boolean) as Array<{ label: string; value: string; href?: string }>;
 ---
 <section id="contatti" class="block" aria-labelledby="contatti-title">
   <div class="wrap">
-    <div class="panel cta-panel" data-inview>
+    <div class="panel contact-panel" data-inview>
       <span class="panel-rule" aria-hidden="true"></span>
       <div class="panel-glow" aria-hidden="true"></div>
-      <p class="chapter" aria-hidden="true"><span class="chapter-num">03</span><span class="chapter-line"></span>{c.nav.contact}</p>
-      <h2 id="contatti-title">{t.lead}<span class="gold-text">{t.word}</span>{t.tail}</h2>
-      <p class="intro">{c.contact.intro}</p>
-      <div class="call">
-        {minutes && <span class="call-time" aria-hidden="true">{minutes}<span>′</span></span>}
-        <div>
+      <SectionTitle id="contatti-title" text={c.contact.title} intro={c.contact.intro} index={3} chapter={c.nav.contact} />
+
+      <div class="contact-call">
+        <div class="call-head">
+          {minutes && <span class="call-time" aria-hidden="true">{minutes}<span>′</span></span>}
           <h3 id="call-title">{c.contact.call.title}</h3>
-          <p>{c.contact.call.text}</p>
         </div>
-      </div>
-      <div class="cta-row">
+        <ul class="call-points">
+          {points.map((p) => <li><span class="point-icon" aria-hidden="true" set:html={ui.check} />{p}</li>)}
+        </ul>
         <a class="btn btn-gold" href={callHref}><span class="btn-icon" aria-hidden="true" set:html={ui.calendarCheck} />{c.contact.call.cta_label}</a>
-        <a class="btn btn-ghost" href={`mailto:${d.email}`}><span class="btn-icon" aria-hidden="true" set:html={ui.envelope} />{d.email}</a>
-      </div>
-    </div>
-
-    <div class="contact-grid">
-      <form id="contatti-form" class="card contact-form" method="post" action="/api/contact" data-inview style="--i:0">
-        <input type="hidden" name="lang" value={lang} />
-        <p class="hp" aria-hidden="true">
-          <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
-        </p>
-        <div class="field-row">
-          <label class="field">{f.name}<input name="name" type="text" autocomplete="name" required /></label>
-          <label class="field">{f.email}<input name="email" type="email" autocomplete="email" required /></label>
-        </div>
-        <div class="field-row">
-          <label class="field">{f.phone}<input name="phone" type="tel" autocomplete="tel" /></label>
-          <label class="field">{f.company}<input name="company" type="text" autocomplete="organization" /></label>
-        </div>
-        <label class="field">{f.sector}
-          <select name="sector">
-            {c.sectors.items.map((s) => <option value={s.id}>{s.name}</option>)}
-            <option value="other">{f.sector_other}</option>
-          </select>
-        </label>
-        <label class="field">{f.message}<textarea name="message" rows="5" required></textarea></label>
-        <label class="check"><input type="checkbox" name="privacy" required /> <a href={pathFor(lang, 'privacy')}>{f.privacy_label}</a></label>
-        <button class="btn btn-gold" type="submit">{f.submit}</button>
-        <p class="form-status" role="status" data-form-sent hidden>{f.sent}</p>
-        <p class="form-status" role="alert" data-form-error hidden>{f.error}</p>
-      </form>
-
-      <aside class="contact-aside" data-inview style="--i:1">
-        <address class="details">
+        <address class="contact-details">
           <ul>
-            <li>
-              <span class="details-icon" aria-hidden="true" set:html={ui.envelope} />
-              <span><span class="details-label">{d.labels.email}</span><a href={`mailto:${d.email}`}>{d.email}</a></span>
-            </li>
-            <li>
-              <span class="details-icon" aria-hidden="true" set:html={ui.mapPin} />
-              <span><span class="details-label">{d.labels.address}</span>{d.address}</span>
-            </li>
-            {d.phone && (
+            {details.map((x) => (
               <li>
-                <span class="details-icon" aria-hidden="true" set:html={ui.phone} />
-                <span><span class="details-label">{d.labels.phone}</span><a href={`tel:${d.phone.replace(/\s/g, '')}`}>{d.phone}</a></span>
+                <span class="details-label">{x.label}</span>
+                {x.href ? <a href={x.href}>{x.value}</a> : <span>{x.value}</span>}
               </li>
-            )}
-            {d.hours && (
-              <li>
-                <span class="details-icon" aria-hidden="true" set:html={ui.clock} />
-                <span><span class="details-label">{d.labels.hours}</span>{d.hours}</span>
-              </li>
-            )}
+            ))}
           </ul>
         </address>
-        <a class="aside-call" href={callHref}>
-          <span class="details-icon" aria-hidden="true" set:html={ui.calendarCheck} />
-          <span>{c.contact.call.cta_label}</span>
-          <span class="arrow" aria-hidden="true" set:html={ui.arrowRight} />
-        </a>
-      </aside>
+      </div>
+
+      <div class="contact-seam" aria-hidden="true">
+        <svg class="seam-h" viewBox={`0 0 1440 ${SEAM}`} preserveAspectRatio="none"><path d={seamH} pathLength="1" /></svg>
+        <svg class="seam-v" viewBox={`0 0 ${SEAM} 600`} preserveAspectRatio="none"><path d={seamV} pathLength="1" /></svg>
+      </div>
+
+      <form id="contatti-form" class="contact-form" method="post" action="/api/contact" aria-labelledby="form-title" data-contact-form>
+        <div class="form-body">
+          <h3 id="form-title">{f.title}</h3>
+          <input type="hidden" name="lang" value={lang} />
+          <p class="hp" aria-hidden="true">
+            <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+          </p>
+          <div class="field-row">
+            <label class="field"><span class="field-label">{f.name}</span><input name="name" type="text" autocomplete="name" required /></label>
+            <label class="field"><span class="field-label">{f.email}</span><input name="email" type="email" autocomplete="email" required /></label>
+          </div>
+          <div class="field-row">
+            <label class="field"><span class="field-label">{f.phone}<em>{f.optional}</em></span><input name="phone" type="tel" autocomplete="tel" /></label>
+            <label class="field"><span class="field-label">{f.company}<em>{f.optional}</em></span><input name="company" type="text" autocomplete="organization" /></label>
+          </div>
+          <label class="field">
+            <span class="field-label">{f.sector}<em>{f.optional}</em></span>
+            <span class="select">
+              <select name="sector">
+                <option value="" selected>{f.sector_pick}</option>
+                {c.sectors.items.map((s) => <option value={s.id}>{s.name}</option>)}
+                <option value="other">{f.sector_other}</option>
+              </select>
+              <span class="select-caret" aria-hidden="true" set:html={ui.caretDown} />
+            </span>
+          </label>
+          <label class="field"><span class="field-label">{f.message}</span><textarea name="message" rows="4" required></textarea></label>
+          <label class="check"><input type="checkbox" name="privacy" required /><a href={pathFor(lang, 'privacy')}>{f.privacy_label}</a></label>
+          <p class="form-error" role="alert" data-form-error hidden>{f.error}</p>
+          <button class="btn btn-gold" type="submit">{f.submit}<span class="btn-icon" aria-hidden="true" set:html={ui.arrowRight} /></button>
+        </div>
+        <div class="form-done" role="status" tabindex="-1" data-form-sent>
+          <span class="done-icon" aria-hidden="true" set:html={ui.checkCircle} />
+          <p>{f.sent}</p>
+        </div>
+      </form>
     </div>
 
     <Faq c={c} />

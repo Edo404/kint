@@ -96,6 +96,12 @@
   .nav-pill { gap: 0.4rem; padding-left: 0.8rem; }
   .nav-main .nav-cta { padding-inline: 0.8rem; font-size: .85rem; }
 }
+/* 340px e meno (es. 320 in francese, dove "Contactez-nous" è lungo): senza questo il selettore lingua esce dalla barra. */
+@media (max-width: 340px) {
+  .nav-pill { gap: 0.3rem; padding-left: 0.65rem; }
+  .nav-main .nav-cta { padding-inline: 0.6rem; font-size: 0.76rem; }
+  .brand .kint-mark { height: 1.2rem; }
+}
 
 .opening { flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
 /* Logo grande dell'apertura (ShatteredLogo): "kint." in cocci che si ricompongono. */

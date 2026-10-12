@@ -34,7 +34,7 @@ presentation:
   subtitle: "Des sites beaux pour les gens. Lisibles par les IA."
   paragraph: "Kint construit la présence digitale des petites entreprises en Italie et en Suisse : site, marque, réseaux sociaux, Google et automatisations. Chaque site est conçu pour être utilisé par vos clients et lu par ChatGPT, Gemini, Claude et les autres assistants IA qui orientent aujourd'hui les décisions d'achat."
   cta_primary:
-    label: "Écrivez-nous un mot"
+    label: "Contactez-nous"
     href: "#contatti"
   kintsugi:
     title: "Pourquoi Kint"
@@ -52,7 +52,7 @@ sectors:
   title: "Nous parlons la langue de votre métier."
   intro: "Chaque secteur a ses problèmes typiques et des solutions déjà pensées. Trouvez le vôtre."
   closing:
-    text: "Vous ne vous reconnaissez pas ? Écrivez-nous un mot."
+    text: "Vous ne vous reconnaissez pas ? Parlons-en."
   # Sotto-landing per settore: indirizzo e logo in site.yaml (stesso id)
   landings:
     - id: ristoranti
@@ -236,7 +236,7 @@ services:
         text: "Abonnement mensuel : maintenance, contenus et améliorations dans la durée."
     note: "Prix clair lors de l'appel, sans surprise."
 contact:
-  title: "Écrivez-nous un mot."
+  title: "Parlons de votre projet."
   intro: "Racontez-nous votre activité. Nous vous répondons avec une proposition claire."
   call:
     title: "Premier appel : 20 minutes en ligne"
@@ -257,9 +257,12 @@ contact:
     company: "Entreprise"
     sector: "Secteur"
     sector_other: "Autre"
+    title: "Ou écrivez-nous"
+    optional: "facultatif"
+    sector_pick: "Choisissez votre secteur"
     message: "Message"
     privacy_label: "J'ai lu la politique de confidentialité"
-    submit: "Envoyer"
+    submit: "Envoyer le message"
     sent: "Merci, nous vous répondons rapidement."
     error: "Envoi impossible. Écrivez-nous à info@kint.ch."
   faq:

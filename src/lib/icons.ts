@@ -7,6 +7,7 @@ import calendarCheck from '@phosphor-icons/core/assets/regular/calendar-check.sv
 import clock from '@phosphor-icons/core/assets/regular/clock.svg?raw';
 import chatsCircle from '@phosphor-icons/core/assets/regular/chats-circle.svg?raw';
 import check from '@phosphor-icons/core/assets/regular/check.svg?raw';
+import checkCircle from '@phosphor-icons/core/assets/regular/check-circle.svg?raw';
 import envelope from '@phosphor-icons/core/assets/regular/envelope-simple.svg?raw';
 import factory from '@phosphor-icons/core/assets/regular/factory.svg?raw';
 import forkKnife from '@phosphor-icons/core/assets/regular/fork-knife.svg?raw';
@@ -52,7 +53,7 @@ const byId: Record<string, string> = {
   'seo-geo': magnifyingGlass,
 };
 
-export const ui = { arrowRight, arrowUp, calendarCheck, caretDown, check, clock, dotsVertical, envelope, mapPin, phone, plus, sparkle };
+export const ui = { arrowRight, arrowUp, calendarCheck, caretDown, check, checkCircle, clock, dotsVertical, envelope, mapPin, phone, plus, sparkle };
 
 export function iconFor(id: string): string {
   return byId[id] ?? sparkle;
