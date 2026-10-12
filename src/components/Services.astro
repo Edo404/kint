@@ -32,7 +32,7 @@ const CRACKS = [
   <div class="wrap">
     <div class="repair-track" data-repair-track>
       <div class="repair-pin" data-repair-pin>
-        <SectionTitle id="servizi-title" text={s.title} intro={s.intro} index={2} chapter={c.nav.services} />
+        <SectionTitle id="servizi-title" text={s.title} intro={s.intro} />
 
         <div class="service-grid" data-repair-grid>
           {s.items.map((item, i) => (
@@ -47,7 +47,6 @@ const CRACKS = [
               <div class="card-glow" aria-hidden="true"></div>
               <div class="service-top">
                 <span class="icon-tile" aria-hidden="true" set:html={iconFor(item.id)} />
-                <span class="service-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               </div>
               <h3>{item.title}</h3>
               <p class="desc">{item.description}</p>

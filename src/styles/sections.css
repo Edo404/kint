@@ -14,12 +14,11 @@
 
 /* Numero di capitolo: "01 —— Settori". */
 .chapter { display: inline-flex; align-items: center; gap: 0.8rem; margin: 0 0 1.4rem; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
-.chapter-num { color: var(--gold-2); font-size: 0.85rem; letter-spacing: 0.08em; }
 .chapter-line { display: inline-block; width: 2.75rem; height: 1px; background: linear-gradient(90deg, var(--gold-deep), var(--gold-2)); transform-origin: left center; transition: transform 1s var(--ease-out) 0.2s; }
 .js [data-inview]:not(.is-in) .chapter-line { transform: scaleX(0); }
 
 /* Parola in oro con sottolineatura che si cuce da sinistra quando il titolo entra in vista. */
-.stitch { position: relative; display: inline-block; font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--gold-2); letter-spacing: -0.01em; padding-inline: 0.04em; }
+.stitch { position: relative; display: inline-block; color: var(--gold-2); padding-inline: 0.02em; }
 .stitch::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: 0.02em; height: 2px; border-radius: 999px;
   background: linear-gradient(90deg, var(--gold-deep), var(--gold-2), var(--gold));
@@ -44,15 +43,8 @@
 .seam-run { position: absolute; top: 0.75px; height: 1.5px; }
 .seam-l { left: 0; width: var(--seam-x); transform-origin: right center; background: linear-gradient(90deg, transparent, var(--gold) 70%, var(--gold-2)); }
 .seam-r { left: var(--seam-x); right: 0; transform-origin: left center; background: linear-gradient(90deg, var(--gold-2), var(--gold) 30%, transparent); }
-.seam-mark {
-  position: absolute; top: 0; left: var(--seam-x); width: 18px; height: 3px; border-radius: 999px;
-  background: linear-gradient(90deg, var(--gold-deep), var(--gold-2), var(--gold));
-  box-shadow: 0 0 12px -2px var(--glow); transform: translateX(-50%);
-}
 .js .seam .seam-run { transform: scaleX(0); transition: transform 1.3s var(--ease-out) 0.12s; }
-.js .seam .seam-mark { opacity: 0; transform: translateX(-50%) scaleX(0.6); transition: opacity 0.26s var(--ease-out), transform 0.26s var(--ease-out); }
 .js .seam.is-in .seam-run { transform: scaleX(1); }
-.js .seam.is-in .seam-mark { opacity: 1; transform: translateX(-50%) scaleX(1); }
 
 /* ---------- schede ---------- */
 .card {
@@ -74,13 +66,8 @@
 }
 @media (hover: hover) and (pointer: fine) { .card:hover .card-glow { opacity: 1; } }
 
-.icon-tile {
-  display: grid; place-items: center; flex: none; width: 2.75rem; height: 2.75rem;
-  border: 1px solid var(--line); border-radius: 0.9rem; background: var(--surface-2); color: var(--ink);
-  transition: border-color 0.3s, color 0.3s;
-}
-.icon-tile svg { width: 1.4rem; height: 1.4rem; fill: currentColor; }
-.card:hover .icon-tile { border-color: var(--gold); color: var(--gold-2); }
+.icon-tile { display: grid; place-items: center; flex: none; width: 1.75rem; height: 1.75rem; color: var(--gold-2); }
+.icon-tile svg { width: 100%; height: 100%; fill: currentColor; }
 
 .marquee-track li { display: flex; gap: 0.6rem; align-items: flex-start; }
 .tick { flex: none; display: grid; place-items: center; width: 1.1rem; height: 1.1rem; margin-top: 0.2em; color: var(--gold-2); }
@@ -125,7 +112,7 @@
 .landing .card-glow { background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--accent, var(--gold)) 22%, transparent), transparent 45%); }
 .landing:hover { box-shadow: 0 24px 60px -24px color-mix(in oklab, var(--accent, var(--gold)) 70%, transparent), 0 0 40px -12px color-mix(in oklab, var(--accent, var(--gold)) 45%, transparent); }
 .landing-logo { height: clamp(2.4rem, 4.4vw, 3rem); width: auto; max-width: 100%; object-fit: contain; margin-bottom: 1rem; }
-.landing-name { margin: 0; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.landing-name { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .landing-line { max-width: 24rem; color: var(--muted); font-size: 0.98rem; }
 .landing-cta {
   display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; padding: 0.7rem 1.3rem; border-radius: 999px;
@@ -199,7 +186,6 @@
   .service-grid { gap: 0.85rem; }
   .service { padding: 1.15rem 1.5rem; }
   .service h3 { margin-top: 0.8rem; }
-  .service .icon-tile { width: 2.4rem; height: 2.4rem; }
   .service .repair { padding-top: 0.8rem; }
   .service .crack-line { margin-bottom: 0.6rem; }
 }
@@ -209,7 +195,6 @@
 @media (min-width: 1024px) { .service-grid { grid-template-columns: repeat(3, 1fr); } }
 .service { display: flex; flex-direction: column; }
 .service-top { display: flex; justify-content: space-between; align-items: center; }
-.service-num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
 .service .desc { color: var(--muted); font-size: 0.9rem; }
 .service::after {
   content: ''; position: absolute; top: 0; left: 1.5rem; right: 1.5rem; height: 1px;
@@ -239,7 +224,7 @@
 .band-title { margin: 0 0 1.25rem; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
 .marquee { display: flex; justify-content: center; }
 .marquee-track { list-style: none; margin: 0; padding: 0 1.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 3rem; }
-.marquee-track li { align-items: center; font-family: var(--font-serif); font-style: italic; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.2; white-space: nowrap; }
+.marquee-track li { align-items: center; font-weight: 500; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.2; white-space: nowrap; }
 .marquee-track .tick { width: 1.2rem; height: 1.2rem; margin: 0; }
 .marquee[data-running] { justify-content: flex-start; width: max-content; animation: marquee var(--marquee-dur, 30s) linear infinite; }
 .marquee[data-running] .marquee-track { flex-wrap: nowrap; padding: 0 3rem 0 0; }
@@ -261,7 +246,7 @@
 .step-mark .g { stroke: var(--gold-2); }
 .step.is-gold .step-mark { border-color: var(--gold); color: var(--ink); box-shadow: 0 0 36px -8px var(--glow); }
 .step-num { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--muted); }
-.package-name { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.1; color: var(--gold-2) !important; margin-bottom: 0.3rem !important; }
+.package-name { font-weight: 500; font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.1; color: var(--gold-2) !important; margin-bottom: 0.3rem !important; }
 .js .packages:not(.is-in) .step-mark { transform: scale(0.6); }
 .packages .step-mark { transition-delay: calc(var(--i, 0) * 0.25s + 0.2s); }
 @media (min-width: 768px) {
@@ -299,7 +284,7 @@
 /* Parlare */
 .contact-call { display: flex; flex-direction: column; align-items: flex-start; }
 .call-head { display: flex; align-items: center; gap: 1.1rem; }
-.call-time { flex: none; font-family: var(--font-serif); font-style: italic; font-size: clamp(3.6rem, 7vw, 4.8rem); line-height: 0.9; color: var(--gold-2); }
+.call-time { flex: none; font-weight: 300; letter-spacing: -0.04em; font-size: clamp(3.6rem, 7vw, 4.8rem); line-height: 0.9; color: var(--gold-2); }
 .call-time span { font-size: 0.6em; }
 .call-head h3 { margin: 0; font-size: 1.15rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; color: var(--ink); text-wrap: balance; }
 .call-points { list-style: none; margin: 1.6rem 0 2rem; padding: 0; display: grid; gap: 0.75rem; }
@@ -378,8 +363,8 @@
 }
 @keyframes sending { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
 .form-error {
-  margin: 0; padding: 0.75rem 1rem; font-size: 0.92rem; border-left: 2px solid var(--error);
-  background: color-mix(in oklab, var(--error) 10%, transparent); border-radius: 0 var(--radius-field) var(--radius-field) 0;
+  margin: 0; padding: 0.75rem 1rem; font-size: 0.92rem; color: var(--ink); border: 1px solid color-mix(in oklab, var(--error) 55%, transparent);
+  background: color-mix(in oklab, var(--error) 10%, transparent); border-radius: var(--radius-field);
 }
 /* Inviato: la conferma prende il posto dei campi. */
 .form-done { display: none; }
@@ -391,7 +376,6 @@
 .form-done p { margin: 0; max-width: 20ch; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.025em; color: var(--ink); text-wrap: balance; }
 
 .gold-text {
-  font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em;
   background: linear-gradient(100deg, var(--gold-deep), var(--gold-2) 40%, var(--gold) 60%, var(--gold-deep));
   background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
   animation: shimmer 7s ease-in-out infinite;
@@ -490,7 +474,7 @@
 @media (prefers-reduced-motion: reduce) {
   .js [data-inview] { transform: none; transition: opacity 0.3s linear; transition-delay: 0s; }
   .stitch::after, .panel .panel-rule, .chapter-line, .js .seam .seam-run, .layer, .step-mark, .steps::before,
-  .service::after, .kintsugi-seam path, .contact-seam path { transition-duration: 0s !important; transition-delay: 0s !important; }
+  .service::after, .values-seam path, .contact-seam path { transition-duration: 0s !important; transition-delay: 0s !important; }
   .contact-form .btn[aria-busy='true']::after { animation: none; }
   .js .repair-faces > p { transition: none; transform: none; }
   .gold-text, .marquee { animation: none; }

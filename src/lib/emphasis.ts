@@ -8,14 +8,6 @@ export function splitEmphasis(title: string): { lead: string; word: string; tail
 // Frasi di un testo, in ordine (si divide dopo . ! ? seguiti da spazio).
 export const sentences = (text: string): string[] => text.trim().split(/(?<=[.!?])\s+/).filter(Boolean);
 
-// Divide un testo in frasi e mette in risalto la seconda come citazione: [apertura, citazione, resto].
-// Con meno di due frasi non c'è citazione e il testo resta intero.
-export function splitQuote(text: string): { intro: string; quote: string; rest: string } {
-  const s = sentences(text);
-  if (s.length < 2) return { intro: text.trim(), quote: '', rest: '' };
-  return { intro: s[0], quote: s[1], rest: s.slice(2).join(' ') };
-}
-
 // Primo numero in un testo ("Prima call: 20 minuti" → "20"), per mostrarlo in grande come decorazione.
 export function leadNumber(text: string): string | null {
   return text.match(/\d+/)?.[0] ?? null;

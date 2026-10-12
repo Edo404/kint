@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { leadNumber, sentences, splitEmphasis, splitQuote } from '../src/lib/emphasis';
+import { leadNumber, sentences, splitEmphasis } from '../src/lib/emphasis';
 
 describe('splitEmphasis', () => {
   it("separa l'ultima parola dalla punteggiatura finale", () => {
@@ -15,17 +15,6 @@ describe('splitEmphasis', () => {
   });
   it('con una sola parola evidenzia quella', () => {
     expect(splitEmphasis('Kontakt')).toEqual({ lead: '', word: 'Kontakt', tail: '' });
-  });
-});
-
-describe('splitQuote', () => {
-  it('mette in risalto la seconda frase', () => {
-    expect(splitQuote('Prima frase. Non nasconde la frattura: la valorizza. Terza. Quarta!')).toEqual({
-      intro: 'Prima frase.', quote: 'Non nasconde la frattura: la valorizza.', rest: 'Terza. Quarta!',
-    });
-  });
-  it('con una sola frase non crea citazioni', () => {
-    expect(splitQuote('Una frase sola.')).toEqual({ intro: 'Una frase sola.', quote: '', rest: '' });
   });
 });
 

@@ -30,23 +30,23 @@ opening:
   logo_label: Kint — partner digitale delle piccole imprese
 presentation:
   h1: Il partner digitale delle piccole imprese.
-  subtitle: Siti belli per le persone. Leggibili dalle AI.
-  paragraph: "Kint costruisce la presenza digitale di piccole imprese in Italia e in Svizzera: sito, brand, social, Google e automazioni. Ogni sito è progettato per essere usato dai clienti e letto da ChatGPT, Gemini, Claude e dagli altri assistenti AI che oggi guidano le scelte di acquisto."
+  subtitle: "Dal sito alla visibilità: tutto ciò che serve per farsi scegliere."
+  paragraph: "Sito, brand, social, Google e automazioni per piccole imprese in Italia e Svizzera. Progettati per i clienti e leggibili da ChatGPT, Gemini e Claude."
   cta_primary:
     label: Contattaci
     href: "#contatti"
   kintsugi:
     title: Perché Kint
-    text: "Kint viene dal kintsugi, l'arte giapponese di riparare la ceramica rotta con l'oro. Non nasconde la frattura: la valorizza. Facciamo lo stesso con la tua presenza online. Un sito vecchio, zero prenotazioni, recensioni senza risposta: per noi sono crepe. Le ripariamo e le rendiamo la parte migliore."
+    text: "Il nome viene dal kintsugi, l'arte giapponese di riparare la ceramica rotta con l'oro. Facciamo lo stesso con la tua presenza online: le crepe diventano la parte migliore."
   values:
     - title: Trasparenza
-      text: Opzioni e costi chiari fin dalla prima call. Vogliamo rendere competitiva la tua impresa, non renderti dipendente da noi.
+      text: "Costi chiari dalla prima call. Non ti rendiamo dipendente da noi."
     - title: Rapidità
-      text: Lavoriamo per obiettivi, non per ore. Ricevi anteprime e bozze durante tutto il progetto.
+      text: "Lavoriamo per obiettivi, non per ore. Anteprime durante tutto il progetto."
     - title: Responsabilità
-      text: Ci prendiamo carico del problema. Se non possiamo risolverlo direttamente, troviamo il professionista giusto.
+      text: "Ci prendiamo carico del problema. Se serve, troviamo il professionista giusto."
     - title: Qualità
-      text: Non puntiamo al prezzo più basso. Puntiamo a risultati che nel tempo fanno risparmiare.
+      text: "Non il prezzo più basso: risultati che nel tempo fanno risparmiare."
 sectors:
   title: Parliamo la lingua del tuo mestiere.
   intro: Ogni settore ha problemi tipici e soluzioni già pensate. Trova il tuo.

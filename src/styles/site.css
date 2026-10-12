@@ -128,29 +128,34 @@ section { padding-block: 6rem; align-items: flex-start; justify-content: center;
 
 .cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-block: 1.5rem; }
 
-/* Presentazione: titolo grande, citazione sul kintsugi, quattro valori numerati. */
+/* Presentazione: titolo grande, testo breve con il perché del nome, quattro valori sulla cucitura d'oro. */
 .hero-title { font-size: clamp(2.7rem, 8vw, 6rem); font-weight: 700; line-height: 0.98; letter-spacing: -0.045em; margin: 0 auto 1.25rem; max-width: 15ch; text-wrap: balance; }
-#kint .subtitle { margin: 0 0 1.25rem; font-family: var(--font-serif); font-style: italic; font-size: clamp(1.4rem, 2.6vw, 2rem); color: var(--gold-2); }
+#kint .subtitle { margin: 0 0 1.25rem; font-weight: 500; letter-spacing: -0.015em; font-size: clamp(1.4rem, 2.6vw, 2rem); color: var(--gold-2); }
 .hero-text { max-width: 38rem; margin: 0 auto; color: var(--muted); font-size: clamp(1rem, 1.3vw, 1.12rem); }
+/* Perché il nome Kint: una riga sotto il testo, più piccola e più sommessa. */
+.hero-name { max-width: 34rem; margin: 1rem auto 0; color: color-mix(in oklab, var(--muted) 82%, transparent); font-size: 0.95rem; }
 #kint .cta-row { margin-block: 2rem 0; }
+.values-wrap { margin-top: clamp(4.5rem, 9vw, 7rem); }
 
-.kintsugi { max-width: 52rem; margin: clamp(6rem, 12vw, 9rem) auto clamp(4rem, 8vw, 6rem); }
-.kintsugi h2.chapter { font-size: 0.72rem; margin-bottom: 1.5rem; }
-.kintsugi-intro { max-width: 34rem; margin: 0 auto; color: var(--muted); }
-.kintsugi-quote { margin: 1.5rem 0; }
-.kintsugi-quote p { margin: 0; font-family: var(--font-serif); font-style: italic; font-size: clamp(2.1rem, 5.6vw, 4.2rem); line-height: 1.08; letter-spacing: -0.015em; color: var(--ink); text-wrap: balance; }
-.kintsugi-rest { max-width: 36rem; margin: 0 auto; color: var(--muted); }
-.kintsugi-seam { display: block; width: min(100%, 26rem); height: 18px; margin: 2rem auto 0; overflow: visible; }
-.kintsugi-seam path { fill: none; stroke: var(--gold-2); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; filter: drop-shadow(0 0 4px var(--glow)); transition: stroke-dashoffset 1.6s var(--ease-out) 0.4s; }
-.js .kintsugi:not(.is-in) .kintsugi-seam path { stroke-dashoffset: 1; }
 
-.values { display: grid; grid-template-columns: 1fr; gap: 0 2rem; list-style: none; padding: 0; margin: 0; text-align: left; }
-.values li { padding: 1.5rem 0; border-top: 1px solid var(--line-strong); }
-.value-num { display: block; margin-bottom: 0.6rem; font-size: clamp(2.6rem, 4vw, 3.4rem); font-weight: 700; line-height: 1; letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 1px var(--gold); }
-.values h3 { margin: 0 0 0.4rem; font-size: 1.2rem; color: var(--ink); }
-.values p { margin: 0; color: var(--muted); font-size: 0.93rem; }
-@media (min-width: 640px) { .values { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .values { grid-template-columns: repeat(4, 1fr); } }
+.values-wrap { position: relative; }
+.values-seam { display: none; width: 100%; height: 16px; overflow: visible; }
+.values-seam path { fill: none; stroke: var(--gold-2); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; filter: drop-shadow(0 0 4px var(--glow)); transition: stroke-dashoffset 1.8s var(--ease-out) 0.2s; }
+.js .values-wrap:not(.is-in) .values-seam path { stroke-dashoffset: 1; }
+/* Telefono: la cucitura corre in verticale a sinistra, un punto d'oro per valore. */
+.values { position: relative; display: grid; gap: 1.75rem; list-style: none; padding: 0 0 0 1.6rem; margin: 0; text-align: left; }
+.values::before { content: ''; position: absolute; left: 0.3rem; top: 0.5rem; bottom: 0.5rem; width: 1px; background: linear-gradient(var(--gold-deep), var(--gold-2) 50%, var(--gold-deep)); }
+.values li { position: relative; }
+.values li::before { content: ''; position: absolute; left: -1.6rem; top: 0.55rem; width: 0.62rem; height: 0.62rem; border-radius: 50%; background: var(--gold-2); box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--glow); }
+.values h3 { margin: 0 0 0.3rem; font-size: 1.25rem; letter-spacing: -0.02em; color: var(--ink); }
+.values p { margin: 0; max-width: 24ch; color: var(--muted); font-size: 0.95rem; }
+@media (min-width: 1024px) {
+  .values-seam { display: block; }
+  .values { grid-template-columns: repeat(4, 1fr); gap: 2.5rem; padding: 0; margin-top: -16px; }
+  .values::before { display: none; }
+  .values li { padding-top: 2.2rem; }
+  .values li::before { left: 0; top: 3px; }
+}
 
 
 

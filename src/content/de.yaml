@@ -31,23 +31,23 @@ opening:
   logo_label: "Kint — der digitale Partner für kleine Unternehmen"
 presentation:
   h1: "Der digitale Partner für kleine Unternehmen."
-  subtitle: "Websites, die Menschen begeistern. Lesbar für KI."
-  paragraph: "Kint baut die digitale Präsenz kleiner Unternehmen in Italien und der Schweiz auf: Website, Marke, Social Media, Google und Automatisierungen. Jede Website ist so gestaltet, dass Ihre Kundinnen und Kunden sie nutzen und ChatGPT, Gemini, Claude und die anderen KI-Assistenten sie lesen können, die heute Kaufentscheidungen lenken."
+  subtitle: "Von der Website bis zur Sichtbarkeit: alles, was es braucht, um gewählt zu werden."
+  paragraph: "Website, Marke, Social Media, Google und Automatisierungen für kleine Unternehmen in Italien und der Schweiz. Gemacht für Ihre Kundschaft und lesbar für ChatGPT, Gemini und Claude."
   cta_primary:
     label: "Kontakt"
     href: "#contatti"
   kintsugi:
     title: "Warum Kint"
-    text: "Kint stammt von Kintsugi, der japanischen Kunst, zerbrochene Keramik mit Gold zu reparieren. Sie versteckt den Bruch nicht, sie bringt ihn zur Geltung. Dasselbe tun wir mit Ihrer Online-Präsenz. Eine veraltete Website, keine Reservationen, unbeantwortete Bewertungen: für uns sind das Risse. Wir reparieren sie und machen sie zu Ihrem besten Merkmal."
+    text: "Der Name stammt von Kintsugi, der japanischen Kunst, zerbrochene Keramik mit Gold zu reparieren. Dasselbe tun wir mit Ihrer Online-Präsenz: Aus Rissen wird Ihr bestes Merkmal."
   values:
     - title: "Transparenz"
-      text: "Klare Optionen und Kosten ab dem ersten Gespräch. Wir wollen Ihr Unternehmen wettbewerbsfähig machen, nicht von uns abhängig."
+      text: "Klare Kosten ab dem ersten Gespräch. Wir machen Sie nie von uns abhängig."
     - title: "Schnelligkeit"
-      text: "Wir arbeiten zielorientiert, nicht nach Stunden. Sie erhalten während des ganzen Projekts Vorschauen und Entwürfe."
+      text: "Wir arbeiten zielorientiert, nicht nach Stunden. Vorschauen während des ganzen Projekts."
     - title: "Verantwortung"
-      text: "Wir übernehmen das Problem. Wenn wir es nicht selbst lösen können, finden wir die passende Fachperson."
+      text: "Wir übernehmen das Problem. Bei Bedarf finden wir die passende Fachperson."
     - title: "Qualität"
-      text: "Wir streben nicht den tiefsten Preis an, sondern Ergebnisse, die sich mit der Zeit auszahlen."
+      text: "Nicht der tiefste Preis, sondern Ergebnisse, die sich mit der Zeit auszahlen."
 sectors:
   title: "Wir sprechen die Sprache Ihres Handwerks."
   intro: "Jede Branche hat typische Probleme und bereits durchdachte Lösungen. Finden Sie Ihre."

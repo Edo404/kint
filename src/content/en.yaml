@@ -30,23 +30,23 @@ opening:
   logo_label: "Kint — the digital partner for small businesses"
 presentation:
   h1: "The digital partner for small businesses."
-  subtitle: "Websites that look great to people. Readable by AI."
-  paragraph: "Kint builds the digital presence of small businesses in Italy and Switzerland: website, brand, social media, Google and automations. Every site is designed to be used by customers and read by ChatGPT, Gemini, Claude and the other AI assistants that now guide buying decisions."
+  subtitle: "From website to visibility: everything you need to be chosen."
+  paragraph: "Website, brand, social media, Google and automations for small businesses in Italy and Switzerland. Built for customers and readable by ChatGPT, Gemini and Claude."
   cta_primary:
     label: "Contact us"
     href: "#contatti"
   kintsugi:
     title: "Why Kint"
-    text: "Kint comes from kintsugi, the Japanese art of repairing broken ceramics with gold. It does not hide the break: it celebrates it. We do the same with your online presence. An outdated website, no bookings, reviews left unanswered: to us, these are cracks. We repair them and turn them into your best feature."
+    text: "The name comes from kintsugi, the Japanese art of repairing broken ceramics with gold. We do the same with your online presence: cracks become your best feature."
   values:
     - title: "Transparency"
-      text: "Clear options and costs from the very first call. We want to make your business competitive, not dependent on us."
+      text: "Clear costs from the first call. We never make you dependent on us."
     - title: "Speed"
-      text: "We work towards goals, not hours. You receive previews and drafts throughout the project."
+      text: "We work towards goals, not hours. Previews throughout the project."
     - title: "Responsibility"
-      text: "We take ownership of the problem. If we cannot solve it ourselves, we find the right professional."
+      text: "We own the problem. If needed, we find the right professional."
     - title: "Quality"
-      text: "We do not aim for the lowest price. We aim for results that save you money over time."
+      text: "Not the lowest price: results that save you money over time."
 sectors:
   title: "We speak the language of your trade."
   intro: "Every sector has its typical problems and ready-made solutions. Find yours."
