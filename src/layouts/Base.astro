@@ -1,58 +1,19 @@
 ---
+// Layout del sito completo: stili e font di tutte le sezioni.
 import '@fontsource-variable/geist/wght.css';
 import '@fontsource/jetbrains-mono/latin-400.css';
 import 'lenis/dist/lenis.css';
 import '../styles/global.css';
 import '../styles/site.css';
 import '../styles/sections.css';
-import { absoluteUrl, alternatesFor, pathFor, type Lang } from '../lib/i18n';
-import { buildEnv, noindex } from '../lib/flags';
-import { loadAll } from '../lib/content';
-
-interface Props {
-  lang: Lang;
-  path: string;
-  title: string;
-  description: string;
-  ogImageAlt: string;
-  /** Pagina a cui punta il canonical, se diversa da `path` (la vista Machine punta alla home). */
-  canonicalPath?: string;
-  ogLocale: string;
-  ogLocaleAlternate?: string;
-  jsonld?: object[];
-}
-const { lang, path, title, description, ogImageAlt, canonicalPath, ogLocale, ogLocaleAlternate, jsonld = [] } = Astro.props;
-const { available } = loadAll();
-const alternates = alternatesFor(available, path);
-const canonical = absoluteUrl(pathFor(lang, canonicalPath ?? path));
-const robots = noindex(buildEnv()) ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
+import SeoHead from '../components/SeoHead.astro';
+import type { ComponentProps } from 'astro/types';
+type Props = ComponentProps<typeof SeoHead>;
 ---
 <!doctype html>
-<html lang={lang} data-mode="webgl">
+<html lang={Astro.props.lang} data-mode="webgl">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>document.documentElement.classList.add('js');</script>
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="robots" content={robots} />
-    <link rel="canonical" href={canonical} />
-    {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Kint" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:locale" content={ogLocale} />
-    {ogLocaleAlternate && <meta property="og:locale:alternate" content={ogLocaleAlternate} />}
-    <meta property="og:image" content={absoluteUrl('/og.png')} />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={ogImageAlt} />
-    <meta name="twitter:card" content="summary_large_image" />
-    {jsonld.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
+    <SeoHead {...Astro.props} />
   </head>
   <body>
     <slot />

@@ -7,9 +7,14 @@ export function isLang(x: string): x is Lang {
   return (LANGS as readonly string[]).includes(x);
 }
 
+// Estensioni servite come file: solo queste restano senza barra finale (un punto in uno slug non basta).
+const FILE_EXT = /\.(?:md|txt|xml|json)$/i;
+
 export function pathFor(lang: Lang, path = ''): string {
   const clean = path.replace(/^\/+|\/+$/g, '');
-  return clean ? `/${lang}/${clean}` : `/${lang}/`;
+  if (!clean) return `/${lang}/`;
+  // pagine con la barra finale (la forma servita da Cloudflare Pages, senza reindirizzamento); i file (index.md) senza
+  return FILE_EXT.test(clean) ? `/${lang}/${clean}` : `/${lang}/${clean}/`;
 }
 
 export function absoluteUrl(path: string): string {

@@ -107,7 +107,7 @@ export function buildLlmsTxt({ available, site, portfolio }: LlmsInput & { portf
   for (const lang of available) {
     lines.push(`- [${LANG_NAMES[lang]}](${absoluteUrl(pathFor(lang))}): main page`);
     lines.push(`- [${LANG_NAMES[lang]} (markdown)](${absoluteUrl(pathFor(lang, 'index.md'))}): full content as markdown`);
-    lines.push(`- [${LANG_NAMES[lang]} (machine view)](${absoluteUrl(`${pathFor(lang, 'machine')}/`)}): plain-text page for agents and crawlers`);
+    lines.push(`- [${LANG_NAMES[lang]} (machine view)](${absoluteUrl(pathFor(lang, 'machine'))}): plain-text page for agents and crawlers`);
     lines.push(`- [${LANG_NAMES[lang]} privacy](${absoluteUrl(pathFor(lang, 'privacy'))}): privacy notice`);
     if (portfolio) lines.push(`- [${LANG_NAMES[lang]} portfolio](${absoluteUrl(pathFor(lang, 'portfolio'))}): projects`);
   }

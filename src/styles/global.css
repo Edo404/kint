@@ -1,6 +1,8 @@
 @import './tokens.css';
 
 * { box-sizing: border-box; }
+.skip-link { position: absolute; left: -999px; top: 0; background: var(--gold); color: var(--black); padding: .5rem 1rem; z-index: 20; }
+.skip-link:focus { left: 0; }
 html { color-scheme: dark; }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-sans); line-height: 1.55; -webkit-font-smoothing: antialiased; }
 

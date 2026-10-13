@@ -1,10 +1,11 @@
 ---
 // Vista Machine: lo stesso contenuto della home in solo testo, stile terminale. Il canonical punta alla home
 // (non è un doppione da indicizzare) e la pagina non è nella sitemap; llms.txt la collega.
-import Base from '../../layouts/Base.astro';
+import Plain from '../../layouts/Plain.astro';
 import ModeSwitch from '../../components/ModeSwitch.astro';
 import { loadAll, loadSite } from '../../lib/content';
-import { KINT_ASCII, dotLabel, hostOf } from '../../lib/machine';
+import { KINT_ASCII, dotLabel } from '../../lib/machine';
+import { handleOf } from '../../lib/icons';
 import { pathFor, type Lang } from '../../lib/i18n';
 import '../../styles/machine.css';
 
@@ -26,14 +27,14 @@ const sections = [
   { id: 'm-contatti', label: c.nav.contact },
   { id: 'm-file', label: m.files },
 ];
-const about: Array<{ label: string; value: string; href?: string }[]> = [
-  [{ label: m.labels.name, value: site.name }],
-  [{ label: m.labels.description, value: c.meta.description }],
-  [{ label: m.labels.location, value: c.contact.details.address }],
-  [{ label: m.labels.founded, value: String(site.founding_year) }],
-  [{ label: m.labels.services, value: c.services.items.map((s) => s.title).join(', ') }],
-  [{ label: m.labels.email, value: site.email, href: `mailto:${site.email}` }],
-  site.same_as.map((u) => ({ label: m.labels.social, value: hostOf(u), href: u })),
+const about: Array<{ label: string; value: string; href?: string }> = [
+  { label: m.labels.name, value: site.name },
+  { label: m.labels.description, value: c.meta.description },
+  { label: m.labels.location, value: c.contact.details.address },
+  { label: m.labels.founded, value: String(site.founding_year) },
+  { label: m.labels.services, value: c.services.items.map((s) => s.title).join(', ') },
+  { label: m.labels.email, value: site.email, href: `mailto:${site.email}` },
+  ...site.same_as.map((u) => ({ label: m.labels.social, value: handleOf(u), href: u })),
 ];
 const files = [
   { label: `/${lang}/index.md`, href: pathFor(lang, 'index.md') },
@@ -42,7 +43,7 @@ const files = [
   { label: '/sitemap.xml', href: '/sitemap.xml' },
 ];
 ---
-<Base lang={lang} path="machine" canonicalPath="" title={m.title} description={m.intro} ogLocale={c.meta.og_locale} ogImageAlt={c.meta.og_image_alt} ogLocaleAlternate={c.meta.og_locale_alternate}>
+<Plain lang={lang} path="machine" canonicalPath="" title={m.title} description={m.intro} ogLocale={c.meta.og_locale} ogImageAlt={c.meta.og_image_alt} ogLocaleAlternate={c.meta.og_locale_alternate}>
   <a class="skip-link" href="#machine">{c.ui.skip_to_content}</a>
   <main id="machine" class="machine">
     <pre class="m-logo" role="img" aria-label="kint.">{KINT_ASCII.map((l) => <><span class="m-gold">{l.k}</span>{l.int}<span class="m-gold">{l.dot}</span>{'\n'}</>)}</pre>
@@ -52,7 +53,7 @@ const files = [
       <a href={pathFor(lang)}>{m.human} ↗</a>
     </nav>
     <nav class="m-paths m-langs" aria-label={c.ui.lang_label}>
-      {available.map((l) => <a href={`${pathFor(l, 'machine')}/`} hreflang={l} lang={l} aria-current={l === lang ? 'page' : undefined}>[{l}]</a>)}
+      {available.map((l) => <a href={pathFor(l, 'machine')} hreflang={l} lang={l} aria-current={l === lang ? 'page' : undefined}>[{l}]</a>)}
     </nav>
 
     <h1>{m.heading}</h1>
@@ -61,7 +62,7 @@ const files = [
     <section aria-labelledby="m-about">
       <h2 id="m-about">{m.about}</h2>
       <dl class="m-table">
-        {about.flat().map((r) => (
+        {about.map((r) => (
           <div><dt>{dotLabel(r.label)}</dt><dd>{r.href ? <a href={r.href}>{r.value}</a> : r.value}</dd></div>
         ))}
       </dl>
@@ -122,4 +123,4 @@ const files = [
     </section>
   </main>
   <ModeSwitch c={c} lang={lang} mode="machine" />
-</Base>
+</Plain>

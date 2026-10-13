@@ -105,13 +105,22 @@ if (!portfolioOn) {
 }
 if (noindex ? !robots.includes('Disallow: /') : robots.includes('Disallow: /\n') && !robots.includes('Allow: /')) fail('robots.txt incoerente con NOINDEX');
 
+// Le pagine si linkano con la barra finale: senza, Cloudflare Pages risponde 308 (link, canonical, hreflang, sitemap).
+const FILE_EXT = /\.[a-z0-9]+$/i;
+const redirects = (path) => path !== '/' && !path.endsWith('/') && !FILE_EXT.test(path.split('/').pop());
+for (const m of sitemap.matchAll(/(?:<loc>|href=")https:\/\/kint\.ch(\/[^<"]*)/g)) if (redirects(m[1])) fail(`URL senza barra finale nella sitemap: ${m[1]}`);
+
 // Link interni senza 404
 for (const file of walk('dist')) {
   if (!file.endsWith('.html')) continue;
   const html = read(file);
+  for (const m of html.matchAll(/<link rel="(?:canonical|alternate)"[^>]*href="https:\/\/kint\.ch(\/[^"]*)"/g)) {
+    if (redirects(m[1])) fail(`canonical/hreflang senza barra finale in ${file.replace(/\\/g, '/')}: ${m[1]}`);
+  }
   for (const m of html.matchAll(/(?:href|src)="(\/[^"#?]*)/g)) {
     const p = m[1];
     if (p.startsWith('//') || p === '/api/contact') continue;
+    if (redirects(p)) fail(`link interno senza barra finale in ${file.replace(/\\/g, '/')}: ${p}`);
     if (!(existsSync(`dist${p}`) && statSync(`dist${p}`).isFile()) && !existsSync(`dist${p.replace(/\/$/, '')}/index.html`)) {
       fail(`link interno rotto in ${file.replace(/\\/g, '/')}: ${p}`);
     }

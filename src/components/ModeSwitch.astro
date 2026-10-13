@@ -7,7 +7,7 @@ interface Props { c: Content; lang: Lang; mode: 'human' | 'machine' }
 const { c, lang, mode } = Astro.props;
 const items = [
   { id: 'human', label: c.machine.human, href: pathFor(lang) },
-  { id: 'machine', label: c.machine.machine, href: `${pathFor(lang, 'machine')}/` },
+  { id: 'machine', label: c.machine.machine, href: pathFor(lang, 'machine') },
 ];
 ---
 <nav class="mode-switch" aria-label={c.machine.switch_label}>
@@ -15,3 +15,25 @@ const items = [
     <a class:list={['mode-opt', { on: i.id === mode }]} href={i.href} aria-current={i.id === mode ? 'page' : undefined}>{i.label}</a>
   ))}
 </nav>
+<style is:global>
+  /* pillola fissa in basso al centro, sopra i contenuti e sotto la barra (z-index 10) */
+  .mode-switch {
+    position: fixed; left: 50%; bottom: max(1rem, env(safe-area-inset-bottom)); z-index: 9; transform: translateX(-50%);
+    display: flex; gap: 2px; padding: 4px; border-radius: 999px;
+    background: rgb(11 10 9 / 0.78); border: 1px solid rgb(243 239 231 / 0.1);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    box-shadow: 0 16px 36px -18px rgb(0 0 0 / 0.9);
+  }
+  .mode-opt {
+    padding: 0.45rem 0.95rem; border-radius: 999px;
+    font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+    color: var(--muted); transition: color 0.3s, background-color 0.4s var(--ease-soft);
+  }
+  .mode-opt:hover { color: var(--ink); }
+  .mode-opt.on { color: var(--gold-2); background: rgb(229 190 98 / 0.1); box-shadow: inset 0 0 0 1px rgb(229 190 98 / 0.28); }
+  .mode-opt:focus-visible { outline: 1px solid var(--gold-2); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { .mode-opt { transition: none; } }
+  /* Sotto i 900px l'ultima riga del footer è centrata e finirebbe sotto la pillola: le si lascia spazio.
+     (Da 900px la riga va ai due lati e il centro è libero.) Questo stile c'è solo nelle pagine con il selettore. */
+  @media (max-width: 899px) { .site-footer { padding-bottom: calc(1.75rem + 3.75rem); } }
+</style>

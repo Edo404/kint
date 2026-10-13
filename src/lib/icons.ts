@@ -74,14 +74,19 @@ export function flagFor(lang: Lang): string {
   return FLAGS[lang].replace(/\s+id="[^"]*"/, '');
 }
 
+// Profilo leggibile di qualsiasi URL: senza protocollo, "www." e barra finale ("linkedin.com/company/kint-ch").
+export function handleOf(url: string): string {
+  const u = new URL(url);
+  return `${u.hostname.replace(/^www\./, '')}${u.pathname}`.replace(/\/$/, '');
+}
+
 // Profili social (site.yaml → same_as): nome e icona scelti dal dominio; null se il dominio non è noto.
 const SOCIAL: Array<[RegExp, string, string]> = [
   [/(^|\.)linkedin\.com$/, 'LinkedIn', linkedinLogo],
   [/(^|\.)instagram\.com$/, 'Instagram', instagramLogo],
 ];
 export function socialFor(url: string): { name: string; icon: string } | null {
-  const host = new URL(url).hostname;
-  const hit = SOCIAL.find(([re]) => re.test(host));
+  const hit = SOCIAL.find(([re]) => re.test(new URL(url).hostname));
   return hit ? { name: hit[1], icon: hit[2] } : null;
 }
 

@@ -10,8 +10,12 @@ describe('i18n', () => {
 
   it('costruisce i percorsi', () => {
     expect(pathFor('it')).toBe('/it/');
-    expect(pathFor('en', 'portfolio')).toBe('/en/portfolio');
-    expect(pathFor('de', '/privacy/')).toBe('/de/privacy');
+    // le pagine hanno la barra finale (Cloudflare Pages reindirizza 308 a quella forma), i file no
+    expect(pathFor('en', 'portfolio')).toBe('/en/portfolio/');
+    expect(pathFor('de', '/privacy/')).toBe('/de/privacy/');
+    expect(pathFor('it', 'index.md')).toBe('/it/index.md');
+    // un punto nel nome non basta a farne un file: solo le estensioni servite come file
+    expect(pathFor('it', 'portfolio/studio-v2.0')).toBe('/it/portfolio/studio-v2.0/');
   });
 
   it('costruisce URL assoluti', () => {
