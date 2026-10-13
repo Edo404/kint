@@ -20,6 +20,10 @@ const REQUIRED_STRINGS = [
   'contact.form.sent', 'contact.form.error',
   'contact.faq.title', 'footer.nav_label', 'footer.to_top', 'footer.copyright', 'footer.privacy', 'footer.hosting',
   'privacy.title', 'privacy.intro', 'portfolio.title', 'portfolio.intro',
+  'machine.title', 'machine.heading', 'machine.intro', 'machine.switch_label', 'machine.human', 'machine.machine',
+  'machine.about', 'machine.values', 'machine.files',
+  'machine.labels.name', 'machine.labels.description', 'machine.labels.location', 'machine.labels.founded',
+  'machine.labels.services', 'machine.labels.email', 'machine.labels.social',
 ];
 
 const REQUIRED_ARRAYS = [

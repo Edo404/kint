@@ -15,14 +15,16 @@ interface Props {
   title: string;
   description: string;
   ogImageAlt: string;
+  /** Pagina a cui punta il canonical, se diversa da `path` (la vista Machine punta alla home). */
+  canonicalPath?: string;
   ogLocale: string;
   ogLocaleAlternate?: string;
   jsonld?: object[];
 }
-const { lang, path, title, description, ogImageAlt, ogLocale, ogLocaleAlternate, jsonld = [] } = Astro.props;
+const { lang, path, title, description, ogImageAlt, canonicalPath, ogLocale, ogLocaleAlternate, jsonld = [] } = Astro.props;
 const { available } = loadAll();
 const alternates = alternatesFor(available, path);
-const canonical = absoluteUrl(pathFor(lang, path));
+const canonical = absoluteUrl(pathFor(lang, canonicalPath ?? path));
 const robots = noindex(buildEnv()) ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
 ---
 <!doctype html>

@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
+import ModeSwitch from '../../components/ModeSwitch.astro';
 import Opening from '../../components/Opening.astro';
 import Presentation from '../../components/Presentation.astro';
 import Sectors from '../../components/Sectors.astro';
@@ -41,6 +42,7 @@ const jsonld = buildJsonLd({ content: c, site, lang });
     <Closing />
   </main>
   <Footer c={c} lang={lang} site={site} showPortfolio={showPortfolio} />
+  <ModeSwitch c={c} lang={lang} mode="human" />
   <script>
     import { boot } from '../../gl/boot';
     import { initNavReveal } from '../../scripts/nav-reveal';

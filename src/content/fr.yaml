@@ -304,3 +304,21 @@ privacy:
 portfolio:
   title: "Projets"
   intro: "Des activités réelles, des problèmes réels. Voici ce que nous avons recomposé."
+machine:
+  title: "Vue machine — Kint"
+  heading: "Kint :: index lisible par les machines"
+  intro: "Copie en texte brut de kint.ch pour les agents IA, les robots d'indexation et ceux qui la préfèrent épurée."
+  switch_label: "Version du site"
+  human: "Human"
+  machine: "Machine"
+  about: "À propos"
+  values: "Valeurs"
+  files: "Fichiers pour les IA"
+  labels:
+    name: "Nom"
+    description: "Description"
+    location: "Siège"
+    founded: "Fondée"
+    services: "Services"
+    email: "E-mail"
+    social: "Réseaux"

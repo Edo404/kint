@@ -304,3 +304,21 @@ privacy:
 portfolio:
   title: "Projekte"
   intro: "Echte Betriebe, echte Probleme. Das haben wir wieder zusammengefügt."
+machine:
+  title: "Maschinenansicht — Kint"
+  heading: "Kint :: maschinenlesbarer Index"
+  intro: "Reine Textkopie von kint.ch für KI-Agenten, Crawler und alle, die es schlicht mögen."
+  switch_label: "Version der Website"
+  human: "Human"
+  machine: "Machine"
+  about: "Über uns"
+  values: "Werte"
+  files: "Dateien für KI"
+  labels:
+    name: "Name"
+    description: "Beschreibung"
+    location: "Sitz"
+    founded: "Gegründet"
+    services: "Leistungen"
+    email: "E-Mail"
+    social: "Social Media"

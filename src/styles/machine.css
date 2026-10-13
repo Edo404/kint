@@ -1,0 +1,53 @@
+/* Vista Machine: terminale oro su nero, tutto monospazio e maiuscolo. */
+.machine {
+  --m-text: #d9b45a;
+  --m-dim: #a98c4a;
+  max-width: 76ch; margin: 0 auto; padding: clamp(2.5rem, 6vw, 4.5rem) 1.25rem 8rem;
+  font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.75; letter-spacing: 0.02em;
+  text-transform: uppercase; color: var(--m-text);
+}
+.machine ::selection { background: var(--gold); color: var(--bg); }
+.machine a { color: inherit; text-decoration: underline; text-decoration-color: color-mix(in oklab, var(--m-text) 45%, transparent); text-underline-offset: 0.25em; }
+.machine a:hover, .machine a:focus-visible { color: var(--ink); text-decoration-color: currentColor; }
+.machine a:focus-visible { outline: 1px solid var(--gold-2); outline-offset: 3px; }
+
+/* JetBrains Mono caricato non ha i caratteri a blocchi: il logo usa il monospazio di sistema, che li ha tutti della stessa larghezza. */
+.m-logo { margin: 0 0 1.75rem; font: inherit; font-family: ui-monospace, 'Cascadia Mono', Consolas, Menlo, 'DejaVu Sans Mono', monospace; font-size: clamp(0.5rem, 1.9vw, 0.92rem); line-height: 1.12; letter-spacing: 0; color: var(--ink); overflow: hidden; }
+.m-gold { color: var(--gold-2); }
+
+.m-paths { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; margin: 0 0 0.6rem; }
+.m-langs { margin-bottom: 2.25rem; text-transform: lowercase; }
+.m-langs a[aria-current='page'] { color: var(--ink); text-decoration: none; }
+
+.machine h1 { margin: 0 0 0.5rem; font: inherit; font-weight: 700; color: var(--ink); }
+.m-note { margin: 0 0 2.5rem; color: var(--m-dim); }
+.machine h2 {
+  display: flex; align-items: center; gap: 0.9rem; margin: 3rem 0 1.25rem;
+  font: inherit; font-weight: 700; color: var(--ink);
+}
+.machine h2::before { content: '──'; color: var(--m-dim); }
+.machine h2::after { content: ''; flex: 1; height: 1px; background: color-mix(in oklab, var(--m-text) 35%, transparent); }
+.machine p { margin: 0 0 1rem; }
+.machine h3 { margin: 0 0 0.35rem; font: inherit; font-weight: 700; color: var(--ink); }
+
+.m-table { margin: 0 0 1.5rem; }
+.m-table > div { display: grid; grid-template-columns: auto 1fr; column-gap: 0.6rem; }
+.m-table dt { white-space: pre; color: var(--m-dim); }
+.m-table dd { margin: 0; color: var(--ink); }
+
+.m-item { margin: 0 0 1.6rem; }
+.m-item p { margin: 0 0 0.25rem; }
+.m-tag { color: var(--m-dim); }
+.m-tag.m-gold { color: var(--gold-2); }
+.m-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.m-list strong { color: var(--ink); }
+
+@media (max-width: 520px) {
+  .machine { font-size: 0.76rem; }
+  .m-table > div { grid-template-columns: 1fr; }
+  .m-table dt { white-space: normal; }
+}
+
+/* Le sezioni del sito sono flex con grandi spaziature: qui tornano blocchi di testo semplici. */
+.machine section { display: block; min-height: 0; padding: 0; }
+.machine p, .machine li, .machine dd { overflow-wrap: anywhere; }

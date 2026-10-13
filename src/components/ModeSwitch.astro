@@ -1,0 +1,17 @@
+---
+// Selettore Human / Machine (come basement.studio): pillola fissa in basso al centro.
+// Sono due link veri: funziona senza JavaScript e la voce attiva ha aria-current.
+import type { Content } from '../lib/content.types';
+import { pathFor, type Lang } from '../lib/i18n';
+interface Props { c: Content; lang: Lang; mode: 'human' | 'machine' }
+const { c, lang, mode } = Astro.props;
+const items = [
+  { id: 'human', label: c.machine.human, href: pathFor(lang) },
+  { id: 'machine', label: c.machine.machine, href: `${pathFor(lang, 'machine')}/` },
+];
+---
+<nav class="mode-switch" aria-label={c.machine.switch_label}>
+  {items.map((i) => (
+    <a class:list={['mode-opt', { on: i.id === mode }]} href={i.href} aria-current={i.id === mode ? 'page' : undefined}>{i.label}</a>
+  ))}
+</nav>

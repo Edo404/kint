@@ -303,3 +303,21 @@ privacy:
 portfolio:
   title: Progetti
   intro: Attività reali, problemi reali. Ecco cosa abbiamo ricomposto.
+machine:
+  title: "Machine view — Kint"
+  heading: "Kint :: indice leggibile dalle macchine"
+  intro: "Copia in solo testo di kint.ch per agenti AI, crawler e per chi la preferisce essenziale."
+  switch_label: "Versione del sito"
+  human: "Human"
+  machine: "Machine"
+  about: "Chi siamo"
+  values: "Valori"
+  files: "File per le AI"
+  labels:
+    name: "Nome"
+    description: "Descrizione"
+    location: "Sede"
+    founded: "Fondata"
+    services: "Servizi"
+    email: "Email"
+    social: "Social"

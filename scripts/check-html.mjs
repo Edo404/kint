@@ -74,6 +74,16 @@ for (const lang of langs) {
 
   if (!existsSync(`dist/${lang}/privacy/index.html`)) fail(tag('manca la pagina privacy'));
   if (!existsSync(`dist/${lang}/index.md`)) fail(tag('manca la versione markdown'));
+  // Vista Machine: esiste, punta alla home come canonical e il selettore la segna come attiva
+  const machine = `dist/${lang}/machine/index.html`;
+  if (!existsSync(machine)) fail(tag('manca la vista Machine'));
+  else {
+    const mh = read(machine);
+    if (!mh.includes(`<link rel="canonical" href="https://kint.ch/${lang}/">`)) fail(tag('vista Machine: canonical non punta alla home'));
+    if (!/class="mode-opt on"[^>]*aria-current="page"|aria-current="page"[^>]*class="mode-opt on"/.test(mh)) fail(tag('vista Machine: selettore senza voce attiva'));
+    for (const s of c.services.items) if (!textOf(mh).includes(s.title)) fail(tag(`vista Machine senza il servizio "${s.title}"`));
+  }
+  if (!html.includes(`href="/${lang}/machine/"`)) fail(tag('home senza link alla vista Machine'));
 
   const hasPortfolio = existsSync(`dist/${lang}/portfolio/index.html`);
   if (hasPortfolio !== portfolioOn) fail(tag(portfolioOn ? 'portfolio atteso ma assente' : 'portfolio presente con il flag spento'));

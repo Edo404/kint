@@ -93,6 +93,9 @@ describe('buildLlmsTxt', () => {
     expect(t.startsWith('# Kint')).toBe(true);
     expect(t).toContain('https://kint.ch/it/index.md');
   });
+  it('linka la vista Machine di ogni lingua', () => {
+    expect(buildLlmsTxt({ ...base, portfolio: false })).toContain('https://kint.ch/it/machine/');
+  });
   it('senza portfolio non lo nomina', () => {
     expect(buildLlmsTxt({ ...base, portfolio: false }).toLowerCase()).not.toContain('portfolio');
   });

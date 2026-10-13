@@ -1,0 +1,125 @@
+---
+// Vista Machine: lo stesso contenuto della home in solo testo, stile terminale. Il canonical punta alla home
+// (non è un doppione da indicizzare) e la pagina non è nella sitemap; llms.txt la collega.
+import Base from '../../layouts/Base.astro';
+import ModeSwitch from '../../components/ModeSwitch.astro';
+import { loadAll, loadSite } from '../../lib/content';
+import { KINT_ASCII, dotLabel, hostOf } from '../../lib/machine';
+import { pathFor, type Lang } from '../../lib/i18n';
+import '../../styles/machine.css';
+
+export function getStaticPaths() {
+  return loadAll().available.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const { content, available } = loadAll();
+const c = content[lang]!;
+const site = loadSite();
+const m = c.machine;
+const urlOf = new Map(site.landings.map((l) => [l.id, l.url]));
+const sections = [
+  { id: 'm-servizi', label: c.nav.services },
+  { id: 'm-settori', label: c.nav.sectors },
+  { id: 'm-valori', label: m.values },
+  { id: 'm-faq', label: c.contact.faq.title },
+  { id: 'm-contatti', label: c.nav.contact },
+  { id: 'm-file', label: m.files },
+];
+const about: Array<{ label: string; value: string; href?: string }[]> = [
+  [{ label: m.labels.name, value: site.name }],
+  [{ label: m.labels.description, value: c.meta.description }],
+  [{ label: m.labels.location, value: c.contact.details.address }],
+  [{ label: m.labels.founded, value: String(site.founding_year) }],
+  [{ label: m.labels.services, value: c.services.items.map((s) => s.title).join(', ') }],
+  [{ label: m.labels.email, value: site.email, href: `mailto:${site.email}` }],
+  site.same_as.map((u) => ({ label: m.labels.social, value: hostOf(u), href: u })),
+];
+const files = [
+  { label: `/${lang}/index.md`, href: pathFor(lang, 'index.md') },
+  { label: '/llms.txt', href: '/llms.txt' },
+  { label: '/llms-full.txt', href: '/llms-full.txt' },
+  { label: '/sitemap.xml', href: '/sitemap.xml' },
+];
+---
+<Base lang={lang} path="machine" canonicalPath="" title={m.title} description={m.intro} ogLocale={c.meta.og_locale} ogImageAlt={c.meta.og_image_alt} ogLocaleAlternate={c.meta.og_locale_alternate}>
+  <a class="skip-link" href="#machine">{c.ui.skip_to_content}</a>
+  <main id="machine" class="machine">
+    <pre class="m-logo" role="img" aria-label="kint.">{KINT_ASCII.map((l) => <><span class="m-gold">{l.k}</span>{l.int}<span class="m-gold">{l.dot}</span>{'\n'}</>)}</pre>
+
+    <nav class="m-paths" aria-label={c.ui.nav_label}>
+      {sections.map((s) => <a href={`#${s.id}`}>/{s.label}</a>)}
+      <a href={pathFor(lang)}>{m.human} ↗</a>
+    </nav>
+    <nav class="m-paths m-langs" aria-label={c.ui.lang_label}>
+      {available.map((l) => <a href={`${pathFor(l, 'machine')}/`} hreflang={l} lang={l} aria-current={l === lang ? 'page' : undefined}>[{l}]</a>)}
+    </nav>
+
+    <h1>{m.heading}</h1>
+    <p class="m-note"># {m.intro}</p>
+
+    <section aria-labelledby="m-about">
+      <h2 id="m-about">{m.about}</h2>
+      <dl class="m-table">
+        {about.flat().map((r) => (
+          <div><dt>{dotLabel(r.label)}</dt><dd>{r.href ? <a href={r.href}>{r.value}</a> : r.value}</dd></div>
+        ))}
+      </dl>
+      <p>{c.presentation.paragraph}</p>
+      <p>{c.presentation.kintsugi.text}</p>
+    </section>
+
+    <section aria-labelledby="m-servizi">
+      <h2 id="m-servizi">{c.nav.services}</h2>
+      <p>{c.services.intro}</p>
+      {c.services.items.map((s) => (
+        <article class="m-item">
+          <h3>* {s.title}</h3>
+          <p>{s.description}</p>
+          <p><span class="m-tag">[{c.ui.crack}]</span> {s.crack}</p>
+          <p><span class="m-tag m-gold">[{c.ui.gold}]</span> {s.gold}</p>
+        </article>
+      ))}
+    </section>
+
+    <section aria-labelledby="m-settori">
+      <h2 id="m-settori">{c.nav.sectors}</h2>
+      <p>{c.sectors.intro}</p>
+      <ul class="m-list">
+        {c.sectors.landings.map((l) => <li><a href={urlOf.get(l.id)}>{l.name} ↗</a> :: {l.line}</li>)}
+      </ul>
+    </section>
+
+    <section aria-labelledby="m-valori">
+      <h2 id="m-valori">{m.values}</h2>
+      <ul class="m-list">
+        {c.presentation.values.map((v) => <li><strong>{v.title}</strong> :: {v.text}</li>)}
+      </ul>
+    </section>
+
+    <section aria-labelledby="m-faq">
+      <h2 id="m-faq">{c.contact.faq.title}</h2>
+      {c.contact.faq.items.map((f) => (
+        <div class="m-item"><h3>&gt; {f.q}</h3><p>{f.a}</p></div>
+      ))}
+    </section>
+
+    <section aria-labelledby="m-contatti">
+      <h2 id="m-contatti">{c.nav.contact}</h2>
+      <dl class="m-table">
+        <div><dt>{dotLabel(m.labels.email)}</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
+        <div><dt>{dotLabel(m.labels.location)}</dt><dd>{c.contact.details.address}</dd></div>
+      </dl>
+      <p>{c.contact.call.title}. {c.contact.call.text}</p>
+      <p><a href={`${pathFor(lang)}#contatti`}>→ {c.nav.contact_cta}</a></p>
+    </section>
+
+    <section aria-labelledby="m-file">
+      <h2 id="m-file">{m.files}</h2>
+      <ul class="m-list">
+        {files.map((f) => <li><a href={f.href}>{f.label}</a></li>)}
+      </ul>
+    </section>
+  </main>
+  <ModeSwitch c={c} lang={lang} mode="machine" />
+</Base>

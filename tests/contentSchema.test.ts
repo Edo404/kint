@@ -39,6 +39,10 @@ function make(lang: string, over: (c: any) => void = () => {}) {
     footer: { nav_label: 'a', to_top: 'a', copyright: 'a', privacy: 'a', hosting: 'a' },
     privacy: { title: 'a', intro: 'a', body: ['a'] },
     portfolio: { title: 'a', intro: 'a' },
+    machine: {
+      title: 'a', heading: 'a', intro: 'a', switch_label: 'a', human: 'a', machine: 'a', about: 'a', values: 'a', files: 'a',
+      labels: { name: 'a', description: 'a', location: 'a', founded: 'a', services: 'a', email: 'a', social: 'a' },
+    },
   };
   over(c);
   return c;

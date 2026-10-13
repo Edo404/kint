@@ -87,6 +87,11 @@ export interface Content {
   footer: { nav_label: string; to_top: string; copyright: string; privacy: string; hosting: string };
   privacy: { title: string; intro: string; body: string[] };
   portfolio: { title: string; intro: string };
+  machine: {
+    title: string; heading: string; intro: string; switch_label: string; human: string; machine: string;
+    about: string; values: string; files: string;
+    labels: { name: string; description: string; location: string; founded: string; services: string; email: string; social: string };
+  };
 }
 
 export interface SiteData {
