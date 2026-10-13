@@ -17,6 +17,7 @@
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
 
   /* Forme: schede 1.25rem, pannelli 2rem, campi 0.75rem, pulsanti a pillola. */
   --radius-card: 1.25rem;

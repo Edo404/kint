@@ -11,6 +11,7 @@ const EDGE = 28;
 const top = jaggedEdge(21, EDGE);
 const bottom = jaggedEdge(34, EDGE);
 const coverStyle = `clip-path:${shardClip(top, bottom)};--flakes:${flakeTile(5)}`;
+// Ogni scheda è un doppio guscio (guscio esterno sottile + nucleo laccato, .service-core).
 // Ogni crepa ha un tracciato diverso, scelto dall'indice del servizio.
 const CRACKS = [
   'M2 12 L22 7 L34 15 L52 5 L66 13 L86 8 L98 14',
@@ -44,6 +45,7 @@ const CRACKS = [
               style={`--i:${i % 3}`}
               data-state="gold"
             >
+              <div class="service-core">
               <div class="card-glow" aria-hidden="true"></div>
               <div class="service-top">
                 <span class="icon-tile" aria-hidden="true" set:html={iconFor(item.id)} />
@@ -59,6 +61,7 @@ const CRACKS = [
                   <p class="crack"><span class="label">{c.ui.crack}</span>{item.crack}</p>
                   <p class="gold"><span class="label">{c.ui.gold}</span>{item.gold}</p>
                 </div>
+              </div>
               </div>
             </article>
           ))}

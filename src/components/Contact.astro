@@ -1,10 +1,10 @@
 ---
-// Contatti: un pannello con titolo e due strade, parlare (la call) e scrivere (il modulo), separate da una crepa d'oro
+// Contatti: un pannello (guscio) con titolo e due strade in due nuclei laccati (.contact-core), parlare (la call) e scrivere (il modulo), separate da una crepa d'oro
 // spezzata come quelle del resto del sito. I nomi dei campi sono quelli letti da functions/api/contact.ts.
 import Faq from './Faq.astro';
 import SectionTitle from './SectionTitle.astro';
 import { leadNumber, sentences } from '../lib/emphasis';
-import { ui } from '../lib/icons';
+import { ui, uiLight } from '../lib/icons';
 import { edgePath, jaggedEdge } from '../lib/shard';
 import type { Content, SiteData } from '../lib/content.types';
 import { pathFor, type Lang } from '../lib/i18n';
@@ -37,15 +37,15 @@ const details = [
       <div class="panel-glow" aria-hidden="true"></div>
       <SectionTitle id="contatti-title" text={c.contact.title} intro={c.contact.intro} />
 
-      <div class="contact-call">
+      <div class="contact-call contact-core">
         <div class="call-head">
           {minutes && <span class="call-time" aria-hidden="true">{minutes}<span>′</span></span>}
           <h3 id="call-title">{c.contact.call.title}</h3>
         </div>
         <ul class="call-points">
-          {points.map((p) => <li><span class="point-icon" aria-hidden="true" set:html={ui.check} />{p}</li>)}
+          {points.map((p) => <li><span class="point-icon" aria-hidden="true" set:html={uiLight.check} />{p}</li>)}
         </ul>
-        <a class="btn btn-gold" href={callHref}><span class="btn-icon" aria-hidden="true" set:html={ui.calendarCheck} />{c.contact.call.cta_label}</a>
+        <a class="btn btn-gold btn-island" href={callHref}>{c.contact.call.cta_label}<span class="btn-orb" aria-hidden="true" set:html={uiLight.calendarCheck} /></a>
         <address class="contact-details">
           <ul>
             {details.map((x) => (
@@ -63,7 +63,7 @@ const details = [
         <svg class="seam-v" viewBox={`0 0 ${SEAM} 600`} preserveAspectRatio="none"><path d={seamV} pathLength="1" /></svg>
       </div>
 
-      <form id="contatti-form" class="contact-form" method="post" action="/api/contact" aria-labelledby="form-title" data-contact-form>
+      <form id="contatti-form" class="contact-form contact-core" method="post" action="/api/contact" aria-labelledby="form-title" data-contact-form>
         <div class="form-body">
           <h3 id="form-title">{f.title}</h3>
           <input type="hidden" name="lang" value={lang} />
@@ -92,10 +92,10 @@ const details = [
           <label class="field"><span class="field-label">{f.message}</span><textarea name="message" rows="4" required></textarea></label>
           <label class="check"><input type="checkbox" name="privacy" required /><a href={pathFor(lang, 'privacy')}>{f.privacy_label}</a></label>
           <p class="form-error" role="alert" data-form-error hidden>{f.error}</p>
-          <button class="btn btn-gold" type="submit">{f.submit}<span class="btn-icon" aria-hidden="true" set:html={ui.arrowRight} /></button>
+          <button class="btn btn-gold btn-island" type="submit">{f.submit}<span class="btn-orb" aria-hidden="true" set:html={uiLight.arrowRight} /></button>
         </div>
         <div class="form-done" role="status" tabindex="-1" data-form-sent>
-          <span class="done-icon" aria-hidden="true" set:html={ui.checkCircle} />
+          <span class="done-icon" aria-hidden="true" set:html={uiLight.checkCircle} />
           <p>{f.sent}</p>
         </div>
       </form>
